@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="ScrumFactory.Team.MemberDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+              xmlns:props="clr-namespace:ScrumFactory.Team.Properties"
+               
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition" 
+             
+             xmlns:SF_Converters="clr-namespace:ScrumFactory.Windows.Helpers.Converters;assembly=ScrumFactory.Windows.Helpers"
+             
+             x:Name="thisView"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/TeamStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <TabControl Style="{StaticResource WindowTabControl}">
+        <TabControl.Items>
+            <TabItem Header="{Binding MemberProfile.FullName}">
+                <SF_Helpers:PanelLayout 
+                    ShowCurrentProjectName="False"
+                    Title="{Binding MemberProfile.FullName}" Style="{StaticResource DetailPanelLayout}">
+
+                    <!-- TOOLBAR -->
+                    <SF_Helpers:PanelLayout.Toolbar>
+                        <ToolBar>
+                            <MenuItem Style="{StaticResource GoBackMenuItem}"/>
+                            <MenuItem Command="{Binding DisableMemberCommand}"
+                                      Header="{x:Static props:Resources.Disabled}"
+                                      IsCheckable="True"
+                                      IsChecked="{Binding IsDisabled}"
+                                      IsEnabled="{Binding CanActiveInative}"
+                                      Style="{StaticResource Toolbar_MenuItemStyleHideWhenDisabled}">
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/Toolbar/remove.png" Width="32" Height="32"/>
+                                </MenuItem.Icon>                                
+                            </MenuItem>
+
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0" DataContext="{Binding MemberTotalEngagement}">
+                                <Viewbox Width="32" Height="32" Stretch="Fill" VerticalAlignment="Center">
+                                    <Path                                           
+                                        x:Name="totalEngagement"                                                                                                                        
+                                        Style="{StaticResource DayAllocationPath}"/>
+                                </Viewbox>
+                                <TextBlock Style="{StaticResource AllocationToolTipTextBlock}"
+                                           VerticalAlignment="Center" Margin="10,0,0,0"
+                                           Foreground="{StaticResource LabelBrush}"
+                                           FontFamily="{StaticResource WideFont}"
+                                           FontSize="{StaticResource ReallyBigFontSize}"/>
+                            </StackPanel>
+                            
+                            
+
+                        </ToolBar>
+                    </SF_Helpers:PanelLayout.Toolbar>
+                    
+                    <SF_Helpers:PanelLayout.Content>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                            <Grid>                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="4">
+                                        
+                                    <TextBlock Text="{Binding MemberProfile.MemberUId}" Style="{StaticResource ValueTextBlock}"/>
+
+                                    <TextBlock Text="{Binding MemberProfile.FullName, StringFormat={x:Static props:Resources.M_engagement}}" Style="{StaticResource TitleTextBlock}" Margin="0,15,0,5"/>
+                                    <ItemsControl
+                                        x:Name="engagementList"  
+                                        Style="{StaticResource MemberEngagementListBox}"
+                                        ItemsSource="{Binding MemberEngagedProjects}"/>
+                                    <TextBlock Style="{StaticResource NoItemsTextBlock}" DataContext="{Binding ElementName=engagementList, Path=Items.Count}"/>
+
+
+                                    <TextBlock Margin="0,10,0,5" Style="{StaticResource TitleTextBlock}">
+                                <TextBlock Text="{Binding MemberProfile.FullName, StringFormat={x:Static props:Resources.M_tasks}}" Style="{StaticResource TitleTextBlock}"/>    
+                                <TextBlock Text="{Binding MemberPlannedEffort, StringFormat={x:Static props:Resources.N_hours}}" Style="{StaticResource TitleTextBlock}" Foreground="Gray" HorizontalAlignment="Right"/>    
+                            </TextBlock>
+                                    <ItemsControl
+                                    x:Name="myTasksList"
+                                    Style="{StaticResource MemberTasksListBox}"                                
+                                    ItemsSource="{Binding MemberTasks}"/>
+                                    <TextBlock Style="{StaticResource NoItemsTextBlock}" DataContext="{Binding ElementName=myTasksList, Path=Items.Count}"/>
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Vertical" Grid.Column="1">
+                                    <ItemsControl                                 
+                                        HorizontalAlignment="Right" Margin="0,0,0,10" MinHeight="50"
+                                        ItemsSource="{Binding MemberProfile.Performance.Trophies}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Style="{StaticResource TrophyImage}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <ProgressBar  
+                                        Style="{StaticResource WorkedHoursProgressBar}"
+                                        DataContext="{Binding MemberProfile.Performance}"/>
+
+                                    <ContentControl Style="{StaticResource PerformanceBoard}"/>
+
+                                    <TextBlock Text="{x:Static props:Resources.Working_with}" Style="{StaticResource TitleTextBlock}" Margin="0,0,0,5"/>
+                                    <ItemsControl    
+                                        x:Name="workingWithList"
+                                        Style="{StaticResource MemberWorkingWithListBox}"
+                                        ItemsSource="{Binding MemberWorkingWithMembers}" 
+                                       />
+                                    <TextBlock Style="{StaticResource NoItemsTextBlock}" DataContext="{Binding ElementName=workingWithList, Path=Items.Count}"/>
+                                </StackPanel>
+                                
+                            </Grid>
+                           
+                        </ScrollViewer>
+                        
+                      
+
+                    </SF_Helpers:PanelLayout.Content>
+
+       
+                </SF_Helpers:PanelLayout>
+            </TabItem>
+        </TabControl.Items>
+    </TabControl>
+</UserControl>

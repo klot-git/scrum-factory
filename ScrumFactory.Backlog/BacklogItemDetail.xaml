@@ -1,0 +1,678 @@
+﻿<UserControl x:Class="ScrumFactory.Backlog.BacklogItemDetail"
+             x:Name="thisView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             
+             xmlns:props="clr-namespace:ScrumFactory.Backlog.Properties"
+             
+             xmlns:KExt="clr-namespace:System.Windows.KExtensions;assembly=System.Windows.KExtensions"
+         
+             
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.InputBindings>        
+        <KeyBinding Key="PageDown" Command="{Binding NavigateToNextItemCommand}" />
+        <KeyBinding Key="PageUp" Command="{Binding NavigateToNextItemCommand}" />
+    </UserControl.InputBindings>
+    
+    <UserControl.Resources>                
+        <DataTemplate x:Key="SizeDropDownDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>                
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="{Binding ItemSize.Name}" TextWrapping="Wrap"/>
+                    <TextBlock
+                            Width="200" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="60"
+                            HorizontalAlignment="Left"
+                            FontSize="{StaticResource SmallFontSize}" Foreground="{StaticResource SubTextBrush}"
+                            Text="{Binding ItemSize.Description}"/>
+                </StackPanel>
+                <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"   Margin="5,0,0,0"
+                            FontSize="{StaticResource ReallyBigFontSize}" Foreground="{StaticResource LabelBrush}" FontWeight="Bold"
+                            Text="{Binding ItemSize.Size}"/>
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="IssueDataTemplate">
+            <Grid>
+                <Image DataContext="{Binding}" Style="{StaticResource IssueImage}" Width="20" Height="20" Stretch="Uniform" HorizontalAlignment="Left"/>
+                <TextBlock Margin="25,0,0,0" Text="{Binding ., Converter={StaticResource LocalizeConverter}}"/>
+            </Grid>
+        </DataTemplate>
+        
+        <Style x:Key="SuggestedHoursItemsControl" TargetType="ItemsControl">            
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>            
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Grid Width="24" Height="24" Margin="0,0,36,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <Ellipse Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
+                                <TextBlock                                                                                   
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Foreground="Yellow"
+                                    FontSize="{StaticResource SmallFontSize}"
+                                    Text="{Binding Hours, StringFormat='{}0.#'}"/>
+                            </Viewbox>
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <TabControl Style="{StaticResource WindowTabControl}">
+        <TabControl.Items>
+            <TabItem Header="{Binding PanelName}" IsSelected="{Binding IsFirstTabSelected}">
+                <SF_Helpers:PanelLayout Title="{Binding PanelName}" Style="{StaticResource DetailPanelLayout}" >
+
+                        <!-- TOOLBAR -->
+                        <SF_Helpers:PanelLayout.Toolbar>
+                     
+                                
+                                <ToolBar >
+                                    <MenuItem Style="{StaticResource GoBackMenuItem}"/>
+
+                            <MenuItem Header="{x:Static props:Resources.Change_it}" IsCheckable="True" x:Name="editMenuItem" IsChecked="{Binding IsInEditMode}">
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/ToolBar/edit.png" Width="32" Height="32" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+                                
+                                <MenuItem.Style>
+                                    <Style TargetType="MenuItem" BasedOn="{StaticResource Toolbar_MenuItemStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding UserCannotEdit}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </MenuItem.Style>
+
+                            </MenuItem>
+
+                                <Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <MenuItem Header="{x:Static props:Resources.Previous_item}"
+                                              ToolTip="{x:Static props:Resources.Previous_item_tooltip}"
+                                              Command="{Binding NavigateToPreviousItemCommand}">
+                                                <MenuItem.Icon>
+                                                    <Image Source="/Images/ToolBar/upArrow.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem
+                                            Header="{x:Static props:Resources.Next_item}"
+                                            ToolTip="{x:Static props:Resources.Next_item_tooltip}"
+                                            Command="{Binding NavigateToNextItemCommand}">
+                                                <MenuItem.Icon>
+                                                    <Image Source="/Images/ToolBar/downArrow.png" Width="32" Height="32" Stretch="Uniform"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </StackPanel>
+                                    </Border>
+
+                                    
+
+           
+                                <MenuItem Header="{x:Static props:Resources.Change_log}" Command="{Binding ShowRepositoryLogCommand}">
+                                    <MenuItem.Icon>
+                                    <Image Source="/Images/ToolBar/repfolder.png" Width="32" Height="32" Stretch="Uniform"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                            </ToolBar>
+
+
+                     
+                        </SF_Helpers:PanelLayout.Toolbar>
+                    
+                        <!-- SUB-CONTENT -->
+                        <SF_Helpers:PanelLayout.SubContent>
+                        <Border Background="{Binding Group.GroupColor}" Margin="0,0,0,0"  Padding="0"  Height="45">
+                            <Grid Height="45">
+                                <TextBlock 
+                                       Margin="29,-4,0,0" Padding="0" 
+                                       HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Background="{Binding Group.GroupColor}"                                       
+                                       Style="{StaticResource BacklogItemGroupTextBlock}">
+                                        <Run Text="{Binding Group.GroupName}" />
+                                        <Run Text=" > " />
+                                        <Run Text="{Binding Item.Name}"/>
+                                        <Image DataContext="{Binding Item.IssueType}" Style="{StaticResource IssueImage}" Width="20" Height="20" Stretch="Uniform" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            </TextBlock>
+                                <ComboBox                                                              
+                                    
+                                IsReadOnly="{Binding UserCannotEdit}" Background="White" 
+                                
+                                SelectedValue="{Binding ItemStatus, Converter={StaticResource EnumToShortConverter}, ConverterParameter={x:Type SF:BacklogItemStatus}, UpdateSourceTrigger=PropertyChanged}"                        
+                                HorizontalAlignment="Right" VerticalAlignment="Center"  MinWidth="220"
+                                ItemsSource="{Binding Source={StaticResource BacklogItemStatusList}}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Image DataContext="{Binding}" Style="{StaticResource BacklogItemStatusImage}" Width="24" Height="24" Stretch="Uniform" HorizontalAlignment="Left" Margin="0" />
+                                                <TextBlock Margin="28,0,0,0" Text="{Binding ., Converter={StaticResource LocalizeConverter}}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                            
+
+                            
+                                
+                            
+
+                        </Border>
+
+                    </SF_Helpers:PanelLayout.SubContent>
+
+                        <!-- CONTENT -->
+                        <SF_Helpers:PanelLayout.Content>
+
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width=".3*" MinWidth="240" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="0" VerticalAlignment="Stretch" Margin="0,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                        
+                                
+
+                                <!-- READ ONLY MODE -->
+                                <Grid Grid.Row="1" VerticalAlignment="Stretch" Margin="0,0,20,0">
+                                    
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+
+                                    <Expander Grid.Column="0" Grid.Row="0" Header="{x:Static props:Resources.Story}" IsExpanded="True" HorizontalAlignment="Stretch">
+                                        <TextBox  IsReadOnly="True" TextWrapping="Wrap" Margin="10,0,10,0" FontStyle="Italic" HorizontalAlignment="Stretch" >
+                                            <TextBox.Style>
+                                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                                    <Setter Property="Text" Value="{Binding Item.Description}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Item.Description}" Value="{x:Null}">
+                                                            <Setter Property="Text" Value="{x:Static props:Resources.no_story}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Item.Description}" Value="">
+                                                            <Setter Property="Text" Value="{x:Static props:Resources.no_story}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBox.Style>
+                                        </TextBox>
+
+                                    </Expander>
+                     
+                                    
+                                        <ContentPresenter
+                                        Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" 
+                                        Content="{Binding TaskListViewModel.View}" />
+                                    
+
+                                    <Grid.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsInEditMode}" Value="True">
+                                                    <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                </Grid>
+                               
+                                
+                                <!-- EDIT MODE -->
+                                <Grid Grid.Row="1" VerticalAlignment="Stretch" Margin="0,0,20,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200" />
+                                        <ColumnDefinition Width="*" />                                        
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock                                       
+                                        Grid.Column="0" Grid.Row="1"
+                                        Text="{x:Static props:Resources.Item}"
+                                        Style="{StaticResource LabelTextBlock}"/>
+                                    <Grid Grid.Column="1"  Grid.Row="1" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox    
+                                    KExt:SpellCheck.IsEnabled="True"
+                                    Grid.Column="0"
+                                    x:Name="itemName"
+                                        IsReadOnly="{Binding UserCannotEditName}"
+                                    HorizontalAlignment="Stretch" MaxLength="150"                       
+                                    Text="{Binding Item.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                        <ComboBox         
+                                    Grid.Column="1"
+                                
+                                IsReadOnly="{Binding UserCannotEdit}"
+                                ItemTemplate="{StaticResource IssueDataTemplate}"
+                                SelectedValue="{Binding Item.IssueType, Converter={StaticResource EnumToShortConverter}, ConverterParameter={x:Type SF:IssueTypes}, UpdateSourceTrigger=PropertyChanged}"                                                        
+                                ItemsSource="{Binding Source={StaticResource BacklogItemIssueList}}"/>
+
+                                    </Grid>
+
+
+                                    <TextBlock
+                                    Grid.Column="0" Grid.Row="2"                            
+                                    Text="{x:Static props:Resources.Size}"
+                                    Style="{StaticResource LabelTextBlock}"/>
+
+                                    <Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox Grid.Column="0"
+                                    SF_Ext:TextBoxExtension.AutoSelectOnFocus="True"
+                                    SF_Ext:TextBoxExtension.NumericJumper="1"                                    
+                                    FontSize="{StaticResource ReallyBigFontSize}" FontWeight="Bold"
+                                    Text="{Binding SizeFactor, UpdateSourceTrigger=LostFocus}" Width="55" TextAlignment="Right"/>
+
+                                        <SF_Helpers:FilteredComboBox                                    
+                                    Grid.Column="1" IsTabStop="False"
+                                    HorizontalAlignment="Stretch" 
+                                    ContainsFilter="True" MaxItemsResults="8" MaxDropDownHeight="600"  
+                                    AlternationCount="2"                        
+                                    SelectedItem="{Binding ItemSize, UpdateSourceTrigger=PropertyChanged}" 
+                                    IsEditable="True" IsReadOnly="{Binding UserCannotEdit}"
+                                    ItemTemplate="{StaticResource SizeDropDownDataTemplate}"
+                                    ItemsSource="{Binding Sizes}">
+                                            <ComboBox.Style>
+                                                <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UsePoints}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.Style>
+                                        </SF_Helpers:FilteredComboBox>
+
+                                        <TextBlock Text="{Binding ItemSize.ItemSize.Name, StringFormat='{} x {0}'}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding UsePoints}" Value="False">
+                                                    <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                        </TextBlock>
+
+
+
+
+                                    </Grid>
+
+                                    <Border Grid.Column="1" Grid.Row="3" Margin="8">
+                                        <Grid>
+
+                                            <TextBlock Text="{x:Static props:Resources.This_is_a_plan_item_can_not_be_replaned}" TextWrapping="Wrap">
+                                            <TextBlock.Style>
+                                                <Style>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Item.OccurrenceConstraint}" Value="1">
+                                                            <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+
+                                            <StackPanel>
+                                                <TextBlock 
+                                                    Text="{Binding Item.SprintNumber, StringFormat={x:Static props:Resources.Can_not_change_item_hours}}" TextWrapping="Wrap" FontWeight="Normal" />
+                                            <Button 
+                                             
+                                                Command="{Binding MoveItemToCurrentSprintCommand}"
+                                                Content="{x:Static props:Resources.Replan_to_current_sprint}" Style="{StaticResource AlertButton}" Margin="0,10,0,0" HorizontalAlignment="Center" />
+
+                                                <StackPanel.Style>
+                                                <Style>
+                                               
+                                                    <Setter Property="DockPanel.Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Item.OccurrenceConstraint}" Value="1">
+                                                            <Setter Property="DockPanel.Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                               </StackPanel.Style>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Border.Style>
+                                            <Style TargetType="Border" BasedOn="{StaticResource AlertBorder}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsPlanningLate}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>                                               
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+
+                                    <TextBlock                                              
+                                        Grid.Column="0" Grid.Row="4"                        
+                                        VerticalAlignment="Top"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource LabelTextBlock}">
+                                        <TextBlock                                                  
+                                            Text="{Binding Item.SprintNumber, StringFormat={x:Static props:Resources.Hours_to_finish}}"
+                                            VerticalAlignment="Top" TextWrapping="Wrap"/>
+                                        <LineBreak/>
+                                        <TextBlock              
+                                            Foreground="{StaticResource SubTextBrush}"                            
+                                            FontSize="{StaticResource TinyFontSize}"
+                                            TextWrapping="Wrap" Margin="0"
+                                            Text="{Binding Item.PlanningNumber, StringFormat={x:Static props:Resources.last_planned_at}}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" >
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Item.PlanningNumber}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Item.PlanningNumber}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                    </TextBlock>
+                      
+                                    <LineBreak/>
+                                <Hyperlink Focusable="False" Command="{Binding ShowSuggestedHoursCommand}" FontSize="{StaticResource SmallFontSize}">
+                                    <Run Text="{x:Static props:Resources.click_here_to_see_suggested_hours}" />
+                                </Hyperlink>
+                            
+                    </TextBlock>
+
+                                    
+
+                                    <Grid Grid.Column="1" Grid.Row="4" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <ItemsControl
+                                        Grid.Column="0"
+                                        IsTabStop="False"
+                                        ItemsSource="{Binding PlannedHours}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical" MaxWidth="60">
+                                                        <TextBox
+                                                    SF_Ext:TextBoxExtension.AutoSelectOnFocus="True" Width="55"
+                                                    IsReadOnly="{Binding ElementName=thisView, Path=Model.UserCannotEditHours}"                                        
+                                                    FontSize="{StaticResource ReallyBigFontSize}"
+                                                    HorizontalContentAlignment="Right"                                                 
+                                                    Text="{Binding Hours, StringFormat='{}0.#', UpdateSourceTrigger=PropertyChanged}"
+                                                    FontWeight="Bold">
+                                                            <TextBox.Style>
+                                                                <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Role.PermissionSet}" Value="2">
+                                                                            <Setter Property="TextBox.Background" Value="Azure"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Role.PermissionSet}" Value="3">
+                                                                            <Setter Property="TextBox.Background" Value="Azure"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                        <TextBlock
+                                                         FontSize="{StaticResource TinyFontSize}"
+                                                        Text="{Binding Role.RoleName}"
+                                                        TextWrapping="Wrap"
+                                                        HorizontalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+                                        <ItemsControl  
+                                        Style="{StaticResource SuggestedHoursItemsControl}"
+                                        Foreground="{StaticResource AlertBrush}"
+                                        Grid.Column="0" Margin="0,-5,0,0"
+                                        ItemsSource="{Binding SuggestedHours}"/>
+
+                                        <ItemsControl  
+                                        Style="{StaticResource SuggestedHoursItemsControl}"                                        
+                                        Grid.Column="0" Margin="0,40,0,0"
+                                        Foreground="{StaticResource IdealHoursBrush}"
+                                        ItemsSource="{Binding IdealHours}"/>
+
+                                        
+
+
+                                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10,0,0,0" VerticalAlignment="Center">
+                                            <Button
+                                        Content="{x:Static props:Resources.use_hitorical_hours}"
+                                        Background="{StaticResource AlertBrush}" FontSize="{StaticResource SmallFontSize}"
+                                        Command="{Binding ApplySuggestedHoursCommand}" CommandParameter="A"/>
+                                            <Button 
+                                        Content="{x:Static props:Resources.use_ideal_hours}"
+                                        Background="{StaticResource IdealHoursBrush}" FontSize="{StaticResource SmallFontSize}"
+                                        Command="{Binding ApplySuggestedHoursCommand}" CommandParameter="I"/>
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding SuggestedHours}" Value="{x:Null}">
+                                                            <Setter Property="StackPanel.Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                        </StackPanel>
+
+                                    </Grid>
+
+
+                                    <TextBlock
+                                    Grid.Column="0" Grid.Row="5"                            
+                                    Text="{x:Static props:Resources.Delivery}"
+                                    Style="{StaticResource LabelTextBlock}"/>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+
+                                      
+
+                                        <ComboBox                                                                                    
+                                            IsReadOnly="{Binding UserCannotEdit}" Background="White"                                             
+                                            SelectedValue="{Binding ItemOccurrence, Converter={StaticResource EnumToShortConverter}, ConverterParameter={x:Type SF:ItemOccurrenceContraints}, UpdateSourceTrigger=PropertyChanged}"                        
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                            ItemsSource="{Binding Source={StaticResource BacklogItemOccurrenceList}}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ., Converter={StaticResource LocalizeConverter}}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox Content="{x:Static props:Resources.at_this_date}" IsChecked="{Binding UseDeliveryDate}"/>
+                                            
+
+                                            <DatePicker 
+                                                SelectedDate="{Binding DeliveryDateForEdit, Mode=TwoWay, ValidatesOnDataErrors=False}"
+                                                DisplayDateStart="{Binding Sprint.StartDate, Mode=OneTime}" DisplayDateEnd="{Binding Sprint.EndDate, Mode=OneTime}" />                                            
+                                        </StackPanel>
+                                        
+
+
+
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        Grid.Column="0" Grid.Row="6"
+                                        Text="{x:Static props:Resources.started_at}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Item.Status}" Value="0">
+                                                            <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">                                            
+                                            <DatePicker SelectedDate="{Binding Item.StartedAt, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBlock Text="{x:Static props:Resources.finished_at}" Style="{StaticResource LabelTextBlock}"/>
+                                            <DatePicker SelectedDate="{Binding Item.FinishedAt, UpdateSourceTrigger=PropertyChanged}" />
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Item.Status}" Value="0">
+                                                            <Setter Property="StackPanel.Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                        
+
+                              
+                                    
+                                    <TextBlock 
+                                    Grid.Column="0"  Grid.Row="7"                                    
+                                    Text="{x:Static props:Resources.Story}"                              
+                                    Style="{StaticResource LabelTextBlock}" VerticalAlignment="Top"/>
+                                    <TextBox 
+                                    KExt:SpellCheck.IsEnabled="True"  
+                                    Grid.Column="1"  Grid.Row="7" MaxLength="500"
+                             Text="{Binding Item.Description, UpdateSourceTrigger=PropertyChanged}"                             
+                                         ToolTip="{x:Static props:Resources.Description_tooltip}"
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             IsReadOnly="{Binding UserCannotEditName}" VerticalScrollBarVisibility="Auto"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    
+                                    <Grid.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsInEditMode}" Value="False">
+                                                    <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
+                                </Grid>
+
+                            </Grid>
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical" >
+
+                                <TextBlock
+                                    Text="{x:Static props:Resources.Delivery}"
+                                    Style="{StaticResource ItemGroupTextBlock}"/>
+
+
+                                <TextBlock 
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding DeliveryDate, Converter={StaticResource ContextDateConverter}}" 
+                                        FontFamily="{StaticResource WideFont}" FontSize="40" 
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource SubTextBrush}"/>
+
+                                <ContentControl                                         
+                                        Style="{StaticResource BacklogItemProgressBarBorder}"                                                    
+                                        HorizontalAlignment="Stretch" Margin="10,0,10,20"/>
+                                
+                                <TextBlock
+                                    Text="{x:Static props:Resources.Size}" 
+                                    Style="{StaticResource ItemGroupTextBlock}"/>
+
+                                <TextBlock 
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding ItemSizeString}" 
+                                    FontFamily="{StaticResource WideFont}" FontSize="40" 
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource SubTextBrush}"/>
+                                
+                                    
+
+                                <ContentPresenter                                                             
+                                    VerticalAlignment="Top" Margin="0,20,0,0"
+                                    Content="{Binding ArtifactListViewModel.View}"/>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                        
+
+                        </SF_Helpers:PanelLayout.Content>
+
+                    </SF_Helpers:PanelLayout>
+            </TabItem>
+          
+        </TabControl.Items>
+
+    </TabControl>
+
+        
+        
+    
+
+    
+
+
+</UserControl>

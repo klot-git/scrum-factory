@@ -1,0 +1,302 @@
+﻿html
+{
+    height: 100%;
+ 
+}
+
+
+a {	
+	color: #06C;		
+	text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+body
+{
+    background-color: white;
+    font-family: Segoe UI;
+    font-weight: lighter;
+    margin: 0px;
+    height: 100%;
+}
+
+em
+{
+    background-color: #FFFFCC;
+    font-style: italic;
+}
+
+#content
+{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    width: 980px;
+    position: relative;
+    left: 50%;
+    margin-left: -490px;
+}
+
+#mainBanner {
+    width: 100%; height: 200px;
+    overflow: hidden;
+    background-image:url(../images/sf_banner.jpg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+#mainBanner h1
+{
+    color: White;
+    margin-top: 110px;
+    font-size: 90px;
+    width: 980px;
+    position: relative;
+    left: 50%;
+    margin-left: -490px;
+    line-height: normal;
+}
+
+#loginPanel label {
+    display: inline;    
+}
+
+#loginPanel input {
+    margin-bottom: 30px;
+}
+
+#loginPanel input[type=submit] {
+    margin-left: 8px; margin-right: 8px;
+}
+
+h2
+{
+    color: rgb(119, 149, 60);
+    font-weight: normal;
+    font-size: 40px;
+    clear: both;    
+}
+
+h3 
+{
+    font-weight: normal;
+    font-size: 18px;
+    clear: both;
+}
+
+footer
+{
+    /*background-color: #3E9219;*/
+    background-color: rgb(150,165,110);
+    width: 100%;
+    height: 142px;
+    color: #C1ECC9;
+    line-height: normal;
+}
+
+footer h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+footer ul {
+    list-style: none;
+    padding-left: 0px;
+    margin-top: 4px;
+}
+
+footer a {
+
+    font-size: 12px;
+    color: white;
+}
+
+
+
+header
+{
+    background-color: rgb(150,165,110);
+    min-height: 20px;
+}
+
+#topMenu
+{
+    margin: 0px 0px 0px 0px;    
+    padding-left: 0px;
+    list-style: none;
+    z-index: 1000;
+}
+
+
+#topMenu li a
+{
+    float: left;
+    color: rgb(119, 149, 60);
+    margin-top: 8px; margin-bottom: 10px;
+    margin-right: 30px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+
+#topMenu li a:hover
+{
+    text-decoration: underline;
+}
+
+input[type=button]
+{
+    border: none;
+}
+
+
+
+
+hr 
+{
+    border: 0;    
+    color: #DEDEDE;
+    background-color: #DEDEDE;
+    height: 1px;
+}
+
+ul 
+{
+    list-style-type: none;
+    padding: 0px;
+}
+
+
+input 
+{
+    border: solid 1px black;
+    font-family: Segoe UI;
+	font-size: 14px;
+	line-height: 1.5;
+	padding: 8px;
+	height: 20px;
+    float: left;
+}
+
+
+input[type=submit], input[type=button]
+{
+    background-color: rgb(119, 149, 60);
+    color: White;    
+    height: 36px;
+    padding: 6px 8px 8px 8px;
+    border: 2px solid white;
+    cursor: pointer; cursor: hand;
+    line-height: normal;
+}
+
+button
+{
+    background-color: rgb(119, 149, 60);
+    color: White;    
+    height: 36px;
+    padding: 8px;
+    border: 2px solid white;
+    cursor: pointer; cursor: hand;
+    line-height: normal;
+}
+
+input[type=submit]:hover, input[type=button]:hover, button:hover
+{    
+    border: 2px solid #DDDDDD;
+}
+
+
+label 
+{           
+    
+    color: Gray;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    font-size: 12px;   
+    display: block; 
+
+}
+
+/*------------------------------*/
+
+.projectList li 
+{
+    margin-bottom: 14px;    
+    position: relative;    
+    /*cursor: hand; cursor: pointer;*/
+    
+}
+
+.projectList li:hover
+{
+    background-color: #FDFDFD;
+    background-repeat: no-repeat;    
+    /*background-image: url('/images/factoryLogo_medium.png');    
+    background-position: right;    */
+}
+
+.prjImage0
+{
+    background-repeat: no-repeat;    
+    width: 32px; height: 32px;        
+    position: absolute;
+    top: 8px; left: 0px;
+    background-image: url('../images/ProjectStatus/prjOportunity.png');
+}
+.prjImage3
+{
+    background-repeat: no-repeat;    
+    width: 32px; height: 32px;        
+    position: absolute;
+    top: 8px; left: 0px;
+    background-image: url('../images/ProjectStatus/prjRunning.png');
+}
+.prjImage5
+{
+    background-repeat: no-repeat;    
+    width: 32px; height: 32px;        
+    position: absolute;
+    top: 8px; left: 0px;
+    background-image: url('../images/ProjectStatus/prjSupport.png');
+}
+.prjData 
+{
+    margin-left: 40px;
+    max-width: 980px;
+    min-height: 70px;
+    overflow: hidden;
+    position: relative;
+}
+
+.prjData .memberImage 
+{
+    width: 48px; height: 48px;
+}
+
+
+.prjData .repoLink 
+{
+    border: none; display: inline-block; height: 100%; vertical-align: middle;
+    width: 16px; height: 16px; margin-left: 5px;
+}
+
+a.openFactoryLink 
+{
+    color: #3F5E00;
+    /*width: 60px;        */
+    display: inline-block;
+    padding-right: 20px;
+    font-weight: normal;
+}
+a.openFactoryLink:hover 
+{
+    background-repeat: no-repeat;    
+    background-image: url('/images/factoryLogo_small.png');    
+    background-position: right;
+} 
+

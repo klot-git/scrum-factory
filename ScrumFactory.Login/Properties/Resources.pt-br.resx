@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="authenticate_at_P" xml:space="preserve">
+    <value>autenticar com {0}</value>
+  </data>
+  <data name="Factory_could_not_validate_credentials" xml:space="preserve">
+    <value>O servidor não conseguiu validar as credenciais junto ao provedor de autenticação.</value>
+  </data>
+  <data name="Invalid_credentials" xml:space="preserve">
+    <value>Usuário ou senha inválidos</value>
+  </data>
+  <data name="Sign_in" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="Signing" xml:space="preserve">
+    <value>Entrando...</value>
+  </data>
+  <data name="Error_on_provider" xml:space="preserve">
+    <value>Erro na conexão com o provedor de autenticação. Verifique o arquivo de log para mais informações.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ForbittenException_errorMessage" xml:space="preserve">
+    <value>Desculpe, você não está autorizado a realizar essa operação.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ForbittenException_errorMessageTitle" xml:space="preserve">
+    <value>Não autorizado</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NetworkException_errorMessage" xml:space="preserve">
+    <value>Não foi possível conectar-se ao servidor na chamada de alguma operação do Factory.
+Verifique sua conexão de rede e se o caminho do servidor está correto.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NetworkException_errorMessageTitle" xml:space="preserve">
+    <value>Erro conectando-se ao servidor</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ServerErrorException_errorMessage" xml:space="preserve">
+    <value>Um erro não esperado ocorreu no servidor.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ServerErrorException_errorMessageTitle" xml:space="preserve">
+    <value>Erro no servidor</value>
+  </data>
+  <data name="old_client_version_message" xml:space="preserve">
+    <value>A versão do seu cliente não está atualizada e não pode trabalhar com esse servidor.
+Feche a aplicação e inicie novamente para automaticamente atualizá-la.</value>
+  </data>
+  <data name="old_server_version_message" xml:space="preserve">
+    <value>A versão do servidor Scrum Factory Server é muito antiga para trabalhar com seu cliente.
+Por favor, solicite ao adminsitrador para baixar e instalar a nova versão do servidor em www.scrum-factory.com.</value>
+  </data>
+  <data name="user_blocked_message" xml:space="preserve">
+    <value>Seu usuário foi bloqueado pela administrador da fábrica.</value>
+  </data>
+  <data name="Factory_signin_error" xml:space="preserve">
+    <value>Verifique se o endereço do servidor está correto, se o banco de dados está em funcionamento ou se existe algum proxy que impessa a comunicação do servidor com o provedor de autenticação.</value>
+  </data>
+  <data name="login_help" xml:space="preserve">
+    <value>Está difícil logar?</value>
+  </data>
+  <data name="Authorization_provider_not_supported" xml:space="preserve">
+    <value>Autenticação '{0}' não é suportado pelo servidor '{1}'.</value>
+  </data>
+  <data name="Authenticate_with" xml:space="preserve">
+    <value>Autenticar com</value>
+  </data>
+  <data name="Connect_at_server" xml:space="preserve">
+    <value>Conectar no servidor</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Autorização</value>
+  </data>
+  <data name="Sign_in_using" xml:space="preserve">
+    <value>Selecione como você deseja entrar no Scrum Factory</value>
+  </data>
+  <data name="at" xml:space="preserve">
+    <value>Servidor</value>
+  </data>
+  <data name="Click_here_to_use_the_demo_server" xml:space="preserve">
+    <value>Clique aqui para conectar no nosso servidor público.</value>
+  </data>
+  <data name="Click_here_for_help" xml:space="preserve">
+    <value>Clique aqui para ajuda.</value>
+  </data>
+  <data name="Login_method_not_found" xml:space="preserve">
+    <value>A url do serviço REST de login não foi encontrada no servidor.
+Se você está usando um cliente com versão 2.50.*.* ou superior, tenha certeza que as DLLs do servidor estão atualizadas.
+Você pode baixar a última versão das dlls do servidor em  http://thescrumfactory2012.codeplex.com/releases.</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>senha</value>
+  </data>
+  <data name="secure_tooltip" xml:space="preserve">
+    <value>Não armazenamos sua senha.
+Ela é enviada usando canais seguros diretamente para o provedor de autenticação.</value>
+  </data>
+  <data name="bad_login" xml:space="preserve">
+    <value>Usuário ou senha inválidos, ou não foi possível obter resposta de {0}.</value>
+  </data>
+  <data name="Click_here_to_use_a_corporate_server" xml:space="preserve">
+    <value>Se você deseja logar em um servidor corporativo, clique aqui.</value>
+  </data>
+  <data name="server_address" xml:space="preserve">
+    <value>endereço do servidor</value>
+  </data>
+  <data name="You_are_connecting_at_a_corporate_server_N" xml:space="preserve">
+    <value>Você está conectando-se em um servidor corporativo: {0}</value>
+  </data>
+  <data name="Public_hub_server" xml:space="preserve">
+    <value>Public hub</value>
+  </data>
+  <data name="Public_hub_server_tooltip" xml:space="preserve">
+    <value>Nosso servidor publico, qualquer pessoa pode acessá-lo. Requer apenas uma conexão com a internet.</value>
+  </data>
+  <data name="Select_a_server_to_login" xml:space="preserve">
+    <value>Selecione um servidor para entrar</value>
+  </data>
+  <data name="Stand_alone_server" xml:space="preserve">
+    <value>Stand alone (beta)</value>
+  </data>
+  <data name="Stand_alone_server_tooltip" xml:space="preserve">
+    <value>Roda no seu próprio computador, somente você pode usá-lo. Não requer um servidor de internet, nem um serviço de banco de dados.</value>
+  </data>
+  <data name="Your_company_server" xml:space="preserve">
+    <value>Servidor da sua empresa</value>
+  </data>
+  <data name="Your_company_server_tooltip" xml:space="preserve">
+    <value>Um servidor do Scrum Factory instalado e configurado dentro da sua empresa, onde apenas os seus desenvolvedores possuem acesso.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Alterar servidor</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Conectar</value>
+  </data>
+  <data name="Connect_at_N_using" xml:space="preserve">
+    <value>Conectar em {0} usando</value>
+  </data>
+  <data name="Select_authenticaton_to_connect_at" xml:space="preserve">
+    <value>Selecione como autenticar em</value>
+  </data>
+</root>

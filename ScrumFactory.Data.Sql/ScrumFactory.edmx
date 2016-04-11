@@ -1,0 +1,1851 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ScrumFactoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artifact">
+          <Key>
+            <PropertyRef Name="ArtifactUId" />
+          </Key>
+          <Property Name="ArtifactUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ContextUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ArtifactName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ArtifactPath" Type="nvarchar" MaxLength="500" />
+          <Property Name="ArtifactContext" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthorizationInfo">
+          <Key>
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Name="MemberUId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ProviderName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BacklogItem">
+          <Key>
+            <PropertyRef Name="BacklogItemUId" />
+          </Key>
+          <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="BacklogItemNumber" Type="int" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="StartedAt" Type="datetime" />
+          <Property Name="FinishedAt" Type="datetime" />
+          <Property Name="BusinessPriority" Type="int" Nullable="false" />
+          <Property Name="Size" Type="int" />
+          <Property Name="SizeFactor" Type="int" Nullable="false" />
+          <Property Name="ItemSizeUId" Type="char" MaxLength="36" />
+          <Property Name="OccurrenceConstraint" Type="int" Nullable="false" />
+          <Property Name="GroupUId" Type="char" MaxLength="36" />
+          <Property Name="IssueType" Type="smallint" Nullable="false" />
+          <Property Name="CancelReason" Type="smallint" />
+          <Property Name="ArtifactCount" Type="int" />
+        </EntityType>
+        <EntityType Name="BacklogItemGroup">
+          <Key>
+            <PropertyRef Name="GroupUId" />
+          </Key>
+          <Property Name="GroupUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupColor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DefaultGroup" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarDay">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="Month" />
+            <PropertyRef Name="Year" />
+          </Key>
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="HolidayDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemSize">
+          <Key>
+            <PropertyRef Name="ItemSizeUId" />
+          </Key>
+          <Property Name="ItemSizeUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Size" Type="int" Nullable="false" />
+          <Property Name="OccurrenceConstraint" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberAvatar">
+          <Key>
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Name="MemberUId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AvatarImage" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberProfile">
+          <Key>
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Name="MemberUId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailAccount" Type="varchar" MaxLength="150" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsFactoryOwner" Type="bit" Nullable="false" />
+          <Property Name="CanSeeProposalValues" Type="bit" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Skills" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContactData" Type="nvarchar" MaxLength="255" />
+          <Property Name="AuthorizationProvider" Type="varchar" MaxLength="50" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="TeamCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PlannedHours">
+          <Key>
+            <PropertyRef Name="BacklogItemUId" />
+            <PropertyRef Name="RoleUId" />
+            <PropertyRef Name="PlanningNumber" />
+          </Key>
+          <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="RoleUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="PlanningNumber" Type="int" Nullable="false" />
+          <Property Name="SprintNumber" Type="int" />
+          <Property Name="Hours" Type="decimal" Precision="6" Scale="1" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectUId" />
+          </Key>
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateBy" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Platform" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="CodeRepositoryPath" Type="varchar" MaxLength="300" />
+          <Property Name="DocRepositoryPath" Type="varchar" MaxLength="300" />
+          <Property Name="IsSuspended" Type="bit" Nullable="false" />
+          <Property Name="AnyoneCanJoin" Type="bit" Nullable="false" />
+          <Property Name="ProjectType" Type="smallint" Nullable="false" />
+          <Property Name="Baseline" Type="int" Nullable="true" />
+          <Property Name="ProjectParentUId" Type="char" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="ProjectConstraint">
+          <Key>
+            <PropertyRef Name="ConstraintUId" />
+          </Key>
+          <Property Name="ConstraintUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ConstraintId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Constraint" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ConstraintGroup" Type="smallint" Nullable="false" />
+          <Property Name="AdjustPointFactor" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectMembership">
+          <Key>
+            <PropertyRef Name="ProjectUId" />
+            <PropertyRef Name="MemberUId" />
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="MemberUId" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="RoleUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="DayAllocation" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="InactiveSince" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Proposal">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+          </Key>
+          <Property Name="ProposalUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProposalName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProposalStatus" Type="smallint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="EstimatedStartDate" Type="datetime" Nullable="false" />
+          <Property Name="EstimatedEndDate" Type="datetime" Nullable="false" />
+          <Property Name="CurrencySymbol" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CurrencyRate" Type="decimal" Precision="16" Scale="2" Nullable="true" />
+          <Property Name="TotalValue" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="UseCalcPrice" Type="bit" Nullable="false" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="ApprovalDate" Type="datetime" />
+          <Property Name="ApprovedBy" Type="varchar" MaxLength="80" />
+          <Property Name="RejectReason" Type="smallint" />
+        </EntityType>
+        <EntityType Name="ProposalClause">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+            <PropertyRef Name="ClauseOrder" />
+          </Key>
+          <Property Name="ProposalUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ClauseOrder" Type="int" Nullable="false" />
+          <Property Name="ClauseName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ClauseText" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ProposalDocument">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+          </Key>
+          <Property Name="ProposalUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProposalXAML" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProposalFixedCost">
+          <Key>
+            <PropertyRef Name="ProposalFixedCostUId" />
+          </Key>
+          <Property Name="ProposalFixedCostUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProposalUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="CostDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="RepassToClient" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProposalItem">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+            <PropertyRef Name="BacklogItemUId" />
+          </Key>
+          <Property Name="ProposalUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Risk">
+          <Key>
+            <PropertyRef Name="RiskUId" />
+          </Key>
+          <Property Name="RiskUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="RiskDescription" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Impact" Type="smallint" Nullable="false" />
+          <Property Name="Probability" Type="smallint" Nullable="false" />
+          <Property Name="IsPrivate" Type="bit" Nullable="false" />
+          <Property Name="RiskAction" Type="nvarchar" MaxLength="500" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Name="RoleUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="RoleShortName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="PermissionSet" Type="smallint" Nullable="false" />
+          <Property Name="IsPlanned" Type="bit" Nullable="false" />
+          <Property Name="IsDefaultRole" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleHourCost">
+          <Key>
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Name="RoleUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="SizeIdealHour">
+          <Key>
+            <PropertyRef Name="IdealHourUId" />
+          </Key>
+          <Property Name="IdealHourUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ItemSizeUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="RoleShortName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Hours" Type="decimal" Precision="6" Scale="1" />
+        </EntityType>
+        <EntityType Name="Sprint">
+          <Key>
+            <PropertyRef Name="SprintUId" />
+          </Key>
+          <Property Name="SprintUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="SprintNumber" Type="int" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskUId" />
+          </Key>
+          <Property Name="TaskUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="TaskNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="TaskOwnerUId" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Priority" Type="smallint" Nullable="false" />
+          <Property Name="TaskType" Type="smallint" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="PlannedHours" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="EffectiveHours" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="TaskAssigneeUId" Type="varchar" MaxLength="80" />
+          <Property Name="RoleUId" Type="char" MaxLength="36" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="IsAccounting" Type="bit" Nullable="false" />
+          <Property Name="ArtifactCount" Type="int" />
+          <Property Name="TagUId" Type="char" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="TaskDetail">
+          <Key>
+            <PropertyRef Name="TaskUId" />
+          </Key>
+          <Property Name="TaskUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="TaskTag">
+          <Key>
+            <PropertyRef Name="TagUId" />
+          </Key>
+          <Property Name="TagUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ScrumFactory.factory.BacklogItemEffectiveHours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BacklogItemEffectiveHours">
+          <Key>
+            <PropertyRef Name="ProjectUId" />
+            <PropertyRef Name="BacklogItemUId" />
+            <PropertyRef Name="SprintNumber" />
+          </Key>
+          <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="SprintNumber" Type="int" Nullable="false" />
+          <Property Name="EffectiveHours" Type="decimal" Precision="38" Scale="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TaskInfo">
+          <Key>
+            <PropertyRef Name="TaskUId" />
+            
+            
+            
+            
+          </Key>
+          <Property Name="TaskUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="ProjectNumber" Type="int" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="BacklogItemNumber" Type="int" Nullable="false" />
+          <Property Name="BacklogItemName" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BacklogItem_BacklogItemGroup">
+          <End Role="BacklogItemGroup" Type="Self.BacklogItemGroup" Multiplicity="0..1" />
+          <End Role="BacklogItem" Type="Self.BacklogItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BacklogItemGroup">
+              <PropertyRef Name="GroupUId" />
+            </Principal>
+            <Dependent Role="BacklogItem">
+              <PropertyRef Name="GroupUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BacklogItem_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="BacklogItem" Type="Self.BacklogItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="BacklogItem">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BacklogItemGroup_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="BacklogItemGroup" Type="Self.BacklogItemGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="BacklogItemGroup">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdealHour_ItemSize">
+          <End Role="ItemSize" Type="Self.ItemSize" Multiplicity="1" />
+          <End Role="SizeIdealHour" Type="Self.SizeIdealHour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSize">
+              <PropertyRef Name="ItemSizeUId" />
+            </Principal>
+            <Dependent Role="SizeIdealHour">
+              <PropertyRef Name="ItemSizeUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberAvatar_MemberProfile">
+          <End Role="MemberProfile" Type="Self.MemberProfile" Multiplicity="1" />
+          <End Role="MemberAvatar" Type="Self.MemberAvatar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MemberProfile">
+              <PropertyRef Name="MemberUId" />
+            </Principal>
+            <Dependent Role="MemberAvatar">
+              <PropertyRef Name="MemberUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedHours_BacklogItem">
+          <End Role="BacklogItem" Type="Self.BacklogItem" Multiplicity="1" />
+          <End Role="PlannedHours" Type="Self.PlannedHours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BacklogItem">
+              <PropertyRef Name="BacklogItemUId" />
+            </Principal>
+            <Dependent Role="PlannedHours">
+              <PropertyRef Name="BacklogItemUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedHours_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="PlannedHours" Type="Self.PlannedHours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleUId" />
+            </Principal>
+            <Dependent Role="PlannedHours">
+              <PropertyRef Name="RoleUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMembership_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="ProjectMembership" Type="Self.ProjectMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleUId" />
+            </Principal>
+            <Dependent Role="ProjectMembership">
+              <PropertyRef Name="RoleUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProposalClause_Proposal">
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="1" />
+          <End Role="ProposalClause" Type="Self.ProposalClause" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalClause">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProposalDocument_Proposal">
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="1" />
+          <End Role="ProposalDocument" Type="Self.ProposalDocument" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalDocument">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProposalFixedCost_Proposal">
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="1" />
+          <End Role="ProposalFixedCost" Type="Self.ProposalFixedCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalFixedCost">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProposalItem_Proposal">
+          <End Role="Proposal" Type="Self.Proposal" Multiplicity="1" />
+          <End Role="ProposalItem" Type="Self.ProposalItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalItem">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Risk_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Risk" Type="Self.Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sprint_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="Sprint">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskDetail_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="TaskDetail" Type="Self.TaskDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskUId" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ScrumFactoryModelStoreContainer">
+          <EntitySet Name="Artifact" EntityType="Self.Artifact" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AuthorizationInfo" EntityType="Self.AuthorizationInfo" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="BacklogItem" EntityType="Self.BacklogItem" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="BacklogItemGroup" EntityType="Self.BacklogItemGroup" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CalendarDay" EntityType="Self.CalendarDay" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ItemSize" EntityType="Self.ItemSize" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MemberAvatar" EntityType="Self.MemberAvatar" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MemberProfile" EntityType="Self.MemberProfile" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="PlannedHours" EntityType="Self.PlannedHours" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProjectConstraint" EntityType="Self.ProjectConstraint" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProjectMembership" EntityType="Self.ProjectMembership" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProposalClause" EntityType="Self.ProposalClause" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProposalDocument" EntityType="Self.ProposalDocument" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProposalFixedCost" EntityType="Self.ProposalFixedCost" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ProposalItem" EntityType="Self.ProposalItem" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Risk" EntityType="Self.Risk" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="RoleHourCost" EntityType="Self.RoleHourCost" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SizeIdealHour" EntityType="Self.SizeIdealHour" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TaskDetail" EntityType="Self.TaskDetail" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TaskTag" EntityType="Self.TaskTag" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="BacklogItemEffectiveHours" EntityType="Self.BacklogItemEffectiveHours" store:Type="Views" store:Schema="factory" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+[BacklogItemEffectiveHours].[ProjectUId] AS [ProjectUId], 
+[BacklogItemEffectiveHours].[BacklogItemUId] AS [BacklogItemUId], 
+[BacklogItemEffectiveHours].[SprintNumber] AS [SprintNumber], 
+[BacklogItemEffectiveHours].[EffectiveHours] AS [EffectiveHours]
+FROM [factory].[BacklogItemEffectiveHours] AS [BacklogItemEffectiveHours]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TaskInfo" EntityType="Self.TaskInfo" store:Type="Views" store:Schema="factory" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+[TaskInfo].[TaskUId] AS [TaskUId], 
+[TaskInfo].[ProjectNumber] AS [ProjectNumber], 
+[TaskInfo].[ProjectName] AS [ProjectName], 
+[TaskInfo].[BacklogItemNumber] AS [BacklogItemNumber], 
+[TaskInfo].[BacklogItemName] AS [BacklogItemName]
+FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BacklogItem_BacklogItemGroup" Association="Self.FK_BacklogItem_BacklogItemGroup">
+            <End Role="BacklogItemGroup" EntitySet="BacklogItemGroup" />
+            <End Role="BacklogItem" EntitySet="BacklogItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BacklogItem_Project" Association="Self.FK_BacklogItem_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="BacklogItem" EntitySet="BacklogItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BacklogItemGroup_Project" Association="Self.FK_BacklogItemGroup_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="BacklogItemGroup" EntitySet="BacklogItemGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdealHour_ItemSize" Association="Self.FK_IdealHour_ItemSize">
+            <End Role="ItemSize" EntitySet="ItemSize" />
+            <End Role="SizeIdealHour" EntitySet="SizeIdealHour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberAvatar_MemberProfile" Association="Self.FK_MemberAvatar_MemberProfile">
+            <End Role="MemberProfile" EntitySet="MemberProfile" />
+            <End Role="MemberAvatar" EntitySet="MemberAvatar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedHours_BacklogItem" Association="Self.FK_PlannedHours_BacklogItem">
+            <End Role="BacklogItem" EntitySet="BacklogItem" />
+            <End Role="PlannedHours" EntitySet="PlannedHours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedHours_Role" Association="Self.FK_PlannedHours_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="PlannedHours" EntitySet="PlannedHours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMembership_Role" Association="Self.FK_ProjectMembership_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="ProjectMembership" EntitySet="ProjectMembership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProposalClause_Proposal" Association="Self.FK_ProposalClause_Proposal">
+            <End Role="Proposal" EntitySet="Proposal" />
+            <End Role="ProposalClause" EntitySet="ProposalClause" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProposalDocument_Proposal" Association="Self.FK_ProposalDocument_Proposal">
+            <End Role="Proposal" EntitySet="Proposal" />
+            <End Role="ProposalDocument" EntitySet="ProposalDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProposalFixedCost_Proposal" Association="Self.FK_ProposalFixedCost_Proposal">
+            <End Role="Proposal" EntitySet="Proposal" />
+            <End Role="ProposalFixedCost" EntitySet="ProposalFixedCost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProposalItem_Proposal" Association="Self.FK_ProposalItem_Proposal">
+            <End Role="Proposal" EntitySet="Proposal" />
+            <End Role="ProposalItem" EntitySet="ProposalItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Risk_Project" Association="Self.FK_Risk_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Risk" EntitySet="Risk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Project" Association="Self.FK_Role_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sprint_Project" Association="Self.FK_Sprint_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Sprint" EntitySet="Sprint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskDetail_Task" Association="Self.FK_TaskDetail_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="TaskDetail" EntitySet="TaskDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ScrumFactoryModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="ScrumFactoryEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="BacklogItems" EntityType="ScrumFactoryModel.BacklogItem" />
+          <EntitySet Name="Projects" EntityType="ScrumFactoryModel.Project" />
+          <AssociationSet Name="FK_BacklogItem_Project" Association="ScrumFactoryModel.FK_BacklogItem_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="BacklogItem" EntitySet="BacklogItems" />
+          </AssociationSet>
+          <EntitySet Name="PlannedHours" EntityType="ScrumFactoryModel.PlannedHour" />
+          <AssociationSet Name="FK_PlannedHours_BacklogItem" Association="ScrumFactoryModel.FK_PlannedHours_BacklogItem">
+            <End Role="BacklogItem" EntitySet="BacklogItems" />
+            <End Role="PlannedHour" EntitySet="PlannedHours" />
+          </AssociationSet>
+          <EntitySet Name="Sprints" EntityType="ScrumFactoryModel.Sprint" />
+          <AssociationSet Name="FK_ProjectSprint" Association="ScrumFactoryModel.FK_ProjectSprint">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Sprint" EntitySet="Sprints" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="ScrumFactoryModel.Role" />
+          <AssociationSet Name="FK_Role_Project" Association="ScrumFactoryModel.FK_Role_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="MemberProfiles" EntityType="ScrumFactoryModel.MemberProfile" />
+          <EntitySet Name="ProjectMemberships" EntityType="ScrumFactoryModel.ProjectMembership" />
+          <AssociationSet Name="FK_ProjectMembership_MemberProfile" Association="ScrumFactoryModel.FK_ProjectMembership_MemberProfile">
+            <End EntitySet="MemberProfiles" Role="MemberProfile" />
+            <End EntitySet="ProjectMemberships" Role="ProjectMembership" />
+          </AssociationSet>
+          <EntitySet Name="ItemSizes" EntityType="ScrumFactoryModel.ItemSize" />
+          <AssociationSet Name="FK_BacklogItem_ItemSize" Association="ScrumFactoryModel.FK_BacklogItem_ItemSize">
+            <End Role="ItemSize" EntitySet="ItemSizes" />
+            <End Role="BacklogItem" EntitySet="BacklogItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlannedHours_Role" Association="ScrumFactoryModel.FK_PlannedHours_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="PlannedHour" EntitySet="PlannedHours" />
+          </AssociationSet>
+          <EntitySet Name="MembersAvatar" EntityType="ScrumFactoryModel.MemberAvatar" />
+          <AssociationSet Name="FK_MemberAvatar_MemberProfile" Association="ScrumFactoryModel.FK_MemberAvatar_MemberProfile">
+            <End Role="MemberProfile" EntitySet="MemberProfiles" />
+            <End Role="MemberAvatar" EntitySet="MembersAvatar" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectProjectMembership" Association="ScrumFactoryModel.ProjectProjectMembership">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="ProjectMembership" EntitySet="ProjectMemberships" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectMembershipRole" Association="ScrumFactoryModel.ProjectMembershipRole">
+            <End Role="ProjectMembership" EntitySet="ProjectMemberships" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="BacklogItemEffectiveHours1" EntityType="ScrumFactoryModel.BacklogItemEffectiveHours" />
+          <EntitySet Name="Tasks" EntityType="ScrumFactoryModel.Task" />
+          <EntitySet Name="BacklogItemGroups" EntityType="ScrumFactoryModel.BacklogItemGroup" />
+          <AssociationSet Name="FK_BacklogItem_BacklogItemGroup" Association="ScrumFactoryModel.FK_BacklogItem_BacklogItemGroup">
+            <End Role="BacklogItemGroup" EntitySet="BacklogItemGroups" />
+            <End Role="BacklogItem" EntitySet="BacklogItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BacklogItemGroup_Project" Association="ScrumFactoryModel.FK_BacklogItemGroup_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="BacklogItemGroup" EntitySet="BacklogItemGroups" />
+          </AssociationSet>
+          <EntitySet Name="TaskInfoes" EntityType="ScrumFactoryModel.TaskInfo" />
+          <AssociationSet Name="TaskInfoTask" Association="ScrumFactoryModel.TaskInfoTask">
+            <End Role="TaskInfo" EntitySet="TaskInfoes" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <EntitySet Name="Proposals" EntityType="ScrumFactoryModel.Proposal" />
+          <EntitySet Name="ProposalItems" EntityType="ScrumFactoryModel.ProposalItem" />
+          <AssociationSet Name="FK_ProposalItem_Proposal" Association="ScrumFactoryModel.FK_ProposalItem_Proposal">
+            <End Role="Proposal" EntitySet="Proposals" />
+            <End Role="ProposalItem" EntitySet="ProposalItems" />
+          </AssociationSet>
+          <EntitySet Name="RoleHourCosts" EntityType="ScrumFactoryModel.RoleHourCost" />
+          <EntitySet Name="ProposalDocuments" EntityType="ScrumFactoryModel.ProposalDocument" />
+          <AssociationSet Name="FK_ProposalDocument_Proposal" Association="ScrumFactoryModel.FK_ProposalDocument_Proposal">
+            <End Role="Proposal" EntitySet="Proposals" />
+            <End Role="ProposalDocument" EntitySet="ProposalDocuments" />
+          </AssociationSet>
+          <EntitySet Name="ProposalClauses" EntityType="ScrumFactoryModel.ProposalClause" />
+          <AssociationSet Name="FK_ProposalClause_Proposal" Association="ScrumFactoryModel.FK_ProposalClause_Proposal">
+            <End Role="Proposal" EntitySet="Proposals" />
+            <End Role="ProposalClause" EntitySet="ProposalClauses" />
+          </AssociationSet>
+          <EntitySet Name="ProposalFixedCosts" EntityType="ScrumFactoryModel.ProposalFixedCost" />
+          <AssociationSet Name="FK_ProposalFixedCost_Proposal" Association="ScrumFactoryModel.FK_ProposalFixedCost_Proposal">
+            <End Role="Proposal" EntitySet="Proposals" />
+            <End Role="ProposalFixedCost" EntitySet="ProposalFixedCosts" />
+          </AssociationSet>
+          <EntitySet Name="Risks" EntityType="ScrumFactoryModel.Risk" />
+          <AssociationSet Name="FK_Risk_Project" Association="ScrumFactoryModel.FK_Risk_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Risk" EntitySet="Risks" />
+          </AssociationSet>
+          <EntitySet Name="TaskDetails" EntityType="ScrumFactoryModel.TaskDetail" />
+          <AssociationSet Name="FK_TaskDetail_Task" Association="ScrumFactoryModel.FK_TaskDetail_Task">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="TaskDetail" EntitySet="TaskDetails" />
+          </AssociationSet>
+          <EntitySet Name="Artifacts" EntityType="ScrumFactoryModel.Artifact" />
+          <EntitySet Name="AuthorizationInfos" EntityType="ScrumFactoryModel.AuthorizationInfo" />
+          <EntitySet Name="SizeIdealHours" EntityType="ScrumFactoryModel.SizeIdealHour" />
+          <AssociationSet Name="FK_IdealHour_ItemSize" Association="ScrumFactoryModel.FK_IdealHour_ItemSize">
+            <End Role="ItemSize" EntitySet="ItemSizes" />
+            <End Role="SizeIdealHour" EntitySet="SizeIdealHours" />
+          </AssociationSet>
+          <EntitySet Name="CalendarDay" EntityType="ScrumFactoryModel.CalendarDay" />
+          <EntitySet Name="TaskTags" EntityType="ScrumFactoryModel.TaskTag" />
+          <EntitySet Name="ProjectConstraints" EntityType="ScrumFactoryModel.ProjectConstraint" />
+          </EntityContainer>
+        <EntityType Name="BacklogItem">
+          <Key>
+            <PropertyRef Name="BacklogItemUId" />
+          </Key>
+          <Property Type="String" Name="BacklogItemUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="BacklogItemNumber" Nullable="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="Status" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PlannedHours" Relationship="ScrumFactoryModel.FK_PlannedHours_BacklogItem" FromRole="BacklogItem" ToRole="PlannedHour" />
+          <Property Type="DateTime" Name="StartedAt" Precision="3" />
+          <Property Type="DateTime" Name="FinishedAt" Precision="3" />
+          <Property Type="Int32" Name="BusinessPriority" Nullable="false" />
+          <Property Type="Int32" Name="Size" />
+          <Property Type="String" Name="ItemSizeUId" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int16" Name="OccurrenceConstraint" Nullable="false" />
+          <Property Type="String" Name="GroupUId" MaxLength="36" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Group" Relationship="ScrumFactoryModel.FK_BacklogItem_BacklogItemGroup" FromRole="BacklogItem" ToRole="BacklogItemGroup" />
+          <Property Type="DateTime" Name="DeliveryDate" Precision="3" />
+          <Property Type="Int16" Name="IssueType" Nullable="false" />
+          <Property Type="Int16" Name="CancelReason" />
+          <Property Type="Int32" Name="SizeFactor" Nullable="false" />
+          <Property Type="Int32" Name="ArtifactCount" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectUId" />
+          </Key>
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="ProjectNumber" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ClientName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="Status" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sprints" Relationship="ScrumFactoryModel.FK_ProjectSprint" FromRole="Project" ToRole="Sprint" />
+          <NavigationProperty Name="Roles" Relationship="ScrumFactoryModel.FK_Role_Project" FromRole="Project" ToRole="Role" />
+          <Property Type="DateTime" Name="StartDate" Precision="3" />
+          <Property Type="DateTime" Name="EndDate" Precision="3" />
+          <NavigationProperty Name="Memberships" Relationship="ScrumFactoryModel.ProjectProjectMembership" FromRole="Project" ToRole="ProjectMembership" />
+          <Property Type="String" Name="CreateBy" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CodeRepositoryPath" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DocRepositoryPath" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Platform" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsSuspended" Nullable="false" />
+          <Property Type="Boolean" Name="AnyoneCanJoin" Nullable="false" />
+          <Property Type="Int16" Name="ProjectType" Nullable="false" />
+          <Property Type="Int32" Name="Baseline" Nullable="true" />
+        </EntityType>
+        <Association Name="FK_BacklogItem_Project">
+          <End Type="ScrumFactoryModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.BacklogItem" Role="BacklogItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="BacklogItem">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PlannedHour">
+          <Key>
+            <PropertyRef Name="BacklogItemUId" />
+            <PropertyRef Name="PlanningNumber" />
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Type="String" Name="BacklogItemUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="PlanningNumber" Nullable="false" />
+          <Property Type="Int32" Name="SprintNumber" />
+          <Property Type="Decimal" Name="Hours" Precision="6" Scale="1" />
+          <Property Type="String" Name="RoleUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_PlannedHours_BacklogItem">
+          <End Type="ScrumFactoryModel.BacklogItem" Role="BacklogItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ScrumFactoryModel.PlannedHour" Role="PlannedHour" Multiplicity="*">
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="BacklogItem">
+              <PropertyRef Name="BacklogItemUId" />
+            </Principal>
+            <Dependent Role="PlannedHour">
+              <PropertyRef Name="BacklogItemUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sprint">
+          <Key>
+            <PropertyRef Name="SprintUId" />
+          </Key>
+          <Property Type="String" Name="SprintUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="SprintNumber" Nullable="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="ScrumFactoryModel.FK_ProjectSprint" FromRole="Sprint" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_ProjectSprint">
+          <End Type="ScrumFactoryModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.Sprint" Role="Sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="Sprint">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Type="String" Name="RoleUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="RoleDescription" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="PermissionSet" Nullable="false" />
+          <Property Type="Boolean" Name="IsPlanned" Nullable="false" />
+          <NavigationProperty Name="PlannedHours" Relationship="ScrumFactoryModel.FK_PlannedHours_Role" FromRole="Role" ToRole="PlannedHour" />
+          <Property Type="String" Name="RoleShortName" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsDefaultRole" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Role_Project">
+          <End Type="ScrumFactoryModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.Role" Role="Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MemberProfile">
+          <Key>
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Type="String" Name="MemberUId" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmailAccount" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CompanyName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Skills" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ContactData" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Memberships" Relationship="ScrumFactoryModel.FK_ProjectMembership_MemberProfile" FromRole="MemberProfile" ToRole="ProjectMembership" />
+          <Property Type="String" Name="AuthorizationProvider" MaxLength="50" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Type="Boolean" Name="IsFactoryOwner" Nullable="false" />
+          <Property Type="Boolean" Name="CanSeeProposalValues" Nullable="false" />
+          <Property Type="String" Name="CreateBy" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="TeamCode" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ProjectMembership">
+          <Key>
+            <PropertyRef Name="ProjectUId" />
+            <PropertyRef Name="MemberUId" />
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="MemberUId" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RoleUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="DayAllocation" />
+          <NavigationProperty Name="Role" Relationship="ScrumFactoryModel.ProjectMembershipRole" FromRole="ProjectMembership" ToRole="Role" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="InactiveSince" Precision="3" />
+        </EntityType>
+        <Association Name="FK_ProjectMembership_MemberProfile">
+          <End Type="ScrumFactoryModel.MemberProfile" Multiplicity="1" Role="MemberProfile" />
+          <End Type="ScrumFactoryModel.ProjectMembership" Multiplicity="*" Role="ProjectMembership" />
+          <ReferentialConstraint>
+            <Principal Role="MemberProfile">
+              <PropertyRef Name="MemberUId" />
+            </Principal>
+            <Dependent Role="ProjectMembership">
+              <PropertyRef Name="MemberUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ItemSize">
+          <Key>
+            <PropertyRef Name="ItemSizeUId" />
+          </Key>
+          <Property Type="String" Name="ItemSizeUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="Size" Nullable="false" />
+          <Property Type="Int32" Name="OccurrenceConstraint" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="SizeIdealHours" Relationship="ScrumFactoryModel.FK_IdealHour_ItemSize" FromRole="ItemSize" ToRole="SizeIdealHour" />
+        </EntityType>
+        <Association Name="FK_BacklogItem_ItemSize">
+          <End Type="ScrumFactoryModel.ItemSize" Role="ItemSize" Multiplicity="0..1" />
+          <End Type="ScrumFactoryModel.BacklogItem" Role="BacklogItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSize">
+              <PropertyRef Name="ItemSizeUId" />
+            </Principal>
+            <Dependent Role="BacklogItem">
+              <PropertyRef Name="ItemSizeUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlannedHours_Role">
+          <End Type="ScrumFactoryModel.Role" Role="Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ScrumFactoryModel.PlannedHour" Role="PlannedHour" Multiplicity="*">
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleUId" />
+            </Principal>
+            <Dependent Role="PlannedHour">
+              <PropertyRef Name="RoleUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MemberAvatar">
+          <Key>
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Type="String" Name="MemberUId" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="AvatarImage" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_MemberAvatar_MemberProfile">
+          <End Type="ScrumFactoryModel.MemberProfile" Role="MemberProfile" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.MemberAvatar" Role="MemberAvatar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MemberProfile">
+              <PropertyRef Name="MemberUId" />
+            </Principal>
+            <Dependent Role="MemberAvatar">
+              <PropertyRef Name="MemberUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProjectProjectMembership">
+          <End Type="ScrumFactoryModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.ProjectMembership" Role="ProjectMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="ProjectMembership">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProjectMembershipRole">
+          <End Type="ScrumFactoryModel.ProjectMembership" Role="ProjectMembership" Multiplicity="*" />
+          <End Type="ScrumFactoryModel.Role" Role="Role" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleUId" />
+            </Principal>
+            <Dependent Role="ProjectMembership">
+              <PropertyRef Name="RoleUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BacklogItemEffectiveHours">
+          <Key>
+            <PropertyRef Name="ProjectUId" />
+            <PropertyRef Name="BacklogItemUId" />
+            <PropertyRef Name="SprintNumber" />
+          </Key>
+          <Property Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" Type="String" />
+          <Property Name="BacklogItemUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" Type="String" />
+          <Property Name="SprintNumber" Nullable="false" Type="Int32" />
+          <Property Name="EffectiveHours" Precision="38" Scale="1" Type="Decimal" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskUId" />
+          </Key>
+          <Property Type="String" Name="TaskUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="TaskNumber" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="TaskName" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TaskOwnerUId" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="BacklogItemUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int16" Name="TaskType" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="3" />
+          <Property Type="Int16" Name="Status" Nullable="false" />
+          <Property Type="Decimal" Name="PlannedHours" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="EffectiveHours" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="String" Name="TaskAssigneeUId" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RoleUId" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="EndDate" Precision="3" />
+          <Property Type="DateTime" Name="StartDate" Precision="3" />
+          <Property Type="Int16" Name="Priority" Nullable="false" />
+          <NavigationProperty Name="TaskInfo" Relationship="ScrumFactoryModel.TaskInfoTask" FromRole="Task" ToRole="TaskInfo" />
+          <NavigationProperty Name="TaskDetail" Relationship="ScrumFactoryModel.FK_TaskDetail_Task" FromRole="Task" ToRole="TaskDetail" />
+          <Property Type="Boolean" Name="IsAccounting" Nullable="false" />
+          <Property Type="Int32" Name="ArtifactCount" Nullable="true" />
+          <Property Type="String" Name="TagUId" Unicode="false" FixedLength="true" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="BacklogItemGroup">
+          <Key>
+            <PropertyRef Name="GroupUId" />
+          </Key>
+          <Property Type="String" Name="GroupUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="GroupColor" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="DefaultGroup" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BacklogItem_BacklogItemGroup">
+          <End Type="ScrumFactoryModel.BacklogItemGroup" Role="BacklogItemGroup" Multiplicity="0..1" />
+          <End Type="ScrumFactoryModel.BacklogItem" Role="BacklogItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BacklogItemGroup">
+              <PropertyRef Name="GroupUId" />
+            </Principal>
+            <Dependent Role="BacklogItem">
+              <PropertyRef Name="GroupUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BacklogItemGroup_Project">
+          <End Type="ScrumFactoryModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.BacklogItemGroup" Role="BacklogItemGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="BacklogItemGroup">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TaskInfo">
+          <Key>
+            <PropertyRef Name="TaskUId" />
+          </Key>
+          <Property Type="String" Name="TaskUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="ProjectNumber" Nullable="false" />
+          <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="BacklogItemNumber" Nullable="false" />
+          <Property Type="String" Name="BacklogItemName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="TaskInfoTask">
+          <End Type="ScrumFactoryModel.TaskInfo" Role="TaskInfo" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.Task" Role="Task" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskUId" />
+            </Principal>
+            <Dependent Role="TaskInfo">
+              <PropertyRef Name="TaskUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Proposal">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+          </Key>
+          <Property Type="String" Name="ProposalUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProposalName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="ProposalStatus" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Description" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ApprovalDate" Precision="3" />
+          <Property Type="Boolean" Name="UseCalcPrice" Nullable="false" />
+          <Property Type="Decimal" Name="Discount" Precision="9" Scale="2" Nullable="false" />
+          <Property Type="Decimal" Name="TotalValue" Precision="16" Scale="2" Nullable="false" />
+          <Property Type="Decimal" Name="CurrencyRate" Precision="16" Scale="2" Nullable="true" />
+          
+          <NavigationProperty Name="Items" Relationship="ScrumFactoryModel.FK_ProposalItem_Proposal" FromRole="Proposal" ToRole="ProposalItem" />
+          <Property Type="String" Name="ApprovedBy" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="RejectReason" />
+          <Property Type="DateTime" Name="EstimatedStartDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="EstimatedEndDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="CurrencySymbol" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProposalDocument" Relationship="ScrumFactoryModel.FK_ProposalDocument_Proposal" FromRole="Proposal" ToRole="ProposalDocument" />
+          <NavigationProperty Name="Clauses" Relationship="ScrumFactoryModel.FK_ProposalClause_Proposal" FromRole="Proposal" ToRole="ProposalClause" />
+          <NavigationProperty Name="FixedCosts" Relationship="ScrumFactoryModel.FK_ProposalFixedCost_Proposal" FromRole="Proposal" ToRole="ProposalFixedCost" />
+          <Property Type="String" Name="TemplateName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProposalItem">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+            <PropertyRef Name="BacklogItemUId" />
+          </Key>
+          <Property Type="String" Name="ProposalUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="BacklogItemUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_ProposalItem_Proposal">
+          <End Type="ScrumFactoryModel.Proposal" Role="Proposal" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.ProposalItem" Role="ProposalItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalItem">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RoleHourCost">
+          <Key>
+            <PropertyRef Name="RoleUId" />
+          </Key>
+          <Property Type="String" Name="RoleUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Decimal" Name="Cost" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="Price" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="ProposalDocument">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+          </Key>
+          <Property Type="String" Name="ProposalUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProposalXAML" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_ProposalDocument_Proposal">
+          <End Type="ScrumFactoryModel.Proposal" Role="Proposal" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.ProposalDocument" Role="ProposalDocument" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalDocument">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProposalClause">
+          <Key>
+            <PropertyRef Name="ProposalUId" />
+            <PropertyRef Name="ClauseOrder" />
+          </Key>
+          <Property Type="String" Name="ProposalUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="ClauseOrder" Nullable="false" />
+          <Property Type="String" Name="ClauseName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ClauseText" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_ProposalClause_Proposal">
+          <End Type="ScrumFactoryModel.Proposal" Role="Proposal" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.ProposalClause" Role="ProposalClause" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalClause">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProposalFixedCost">
+          <Key>
+            <PropertyRef Name="ProposalFixedCostUId" />
+          </Key>
+          <Property Type="String" Name="ProposalFixedCostUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProposalUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="CostDescription" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Cost" Precision="10" Scale="3" Nullable="false" />
+          <Property Type="Boolean" Name="RepassToClient" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProposalFixedCost_Proposal">
+          <End Type="ScrumFactoryModel.Proposal" Role="Proposal" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.ProposalFixedCost" Role="ProposalFixedCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proposal">
+              <PropertyRef Name="ProposalUId" />
+            </Principal>
+            <Dependent Role="ProposalFixedCost">
+              <PropertyRef Name="ProposalUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Risk">
+          <Key>
+            <PropertyRef Name="RiskUId" />
+          </Key>
+          <Property Type="String" Name="RiskUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="RiskDescription" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="Int16" Name="Impact" Nullable="false" />
+          <Property Type="Int16" Name="Probability" Nullable="false" />          
+          <Property Type="String" Name="RiskAction" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsPrivate" Nullable="false" />
+          <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Risk_Project">
+          <End Type="ScrumFactoryModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.Risk" Role="Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectUId" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="ProjectUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TaskDetail">
+          <Key>
+            <PropertyRef Name="TaskUId" />
+          </Key>
+          <Property Type="String" Name="TaskUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Detail" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_TaskDetail_Task">
+          <End Type="ScrumFactoryModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="ScrumFactoryModel.TaskDetail" Role="TaskDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskUId" />
+            </Principal>
+            <Dependent Role="TaskDetail">
+              <PropertyRef Name="TaskUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Artifact">
+          <Key>
+            <PropertyRef Name="ArtifactUId" />
+          </Key>
+          <Property Type="String" Name="ArtifactUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ContextUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ArtifactName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ArtifactPath" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="ArtifactContext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthorizationInfo">
+          <Key>
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Type="String" Name="MemberUId" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Token" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProviderName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="IssueDate" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SizeIdealHour">
+          <Key>
+            <PropertyRef Name="IdealHourUId" />
+          </Key>
+          <Property Type="String" Name="IdealHourUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ItemSizeUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="RoleShortName" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Hours" Precision="6" Scale="1" />
+        </EntityType>
+        <Association Name="FK_IdealHour_ItemSize">
+          <End Type="ScrumFactoryModel.ItemSize" Role="ItemSize" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ScrumFactoryModel.SizeIdealHour" Role="SizeIdealHour" Multiplicity="*">
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="ItemSize">
+              <PropertyRef Name="ItemSizeUId" />
+            </Principal>
+            <Dependent Role="SizeIdealHour">
+              <PropertyRef Name="ItemSizeUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CalendarDay">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="Month" />
+            <PropertyRef Name="Year" />
+          </Key>
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="String" Name="HolidayDescription" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TaskTag">
+          <Key>
+            <PropertyRef Name="TagUId" />
+          </Key>
+          <Property Type="String" Name="TagUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ProjectConstraint">
+          <Key>
+            <PropertyRef Name="ConstraintUId" />
+          </Key>
+          <Property Name="ConstraintUId" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Name="ProjectUId" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Name="ConstraintId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Constraint" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ConstraintGroup" Type="Int16" Nullable="false" />
+          <Property Name="AdjustPointFactor" Type="Double" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ScrumFactoryModelStoreContainer" CdmEntityContainer="ScrumFactoryEntities">
+          <EntitySetMapping Name="BacklogItems">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.BacklogItem">
+              <MappingFragment StoreEntitySet="BacklogItem">
+                <ScalarProperty Name="SizeFactor" ColumnName="SizeFactor" />
+                <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
+                <ScalarProperty Name="IssueType" ColumnName="IssueType" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="GroupUId" ColumnName="GroupUId" />
+                <ScalarProperty Name="OccurrenceConstraint" ColumnName="OccurrenceConstraint" />
+                <ScalarProperty Name="ItemSizeUId" ColumnName="ItemSizeUId" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="BusinessPriority" ColumnName="BusinessPriority" />
+                <ScalarProperty Name="FinishedAt" ColumnName="FinishedAt" />
+                <ScalarProperty Name="StartedAt" ColumnName="StartedAt" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="BacklogItemNumber" ColumnName="BacklogItemNumber" />
+                <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
+                <ScalarProperty Name="ArtifactCount" ColumnName="ArtifactCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Baseline" ColumnName="Baseline" />
+                <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+                <ScalarProperty Name="AnyoneCanJoin" ColumnName="AnyoneCanJoin" />
+                <ScalarProperty Name="IsSuspended" ColumnName="IsSuspended" />
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
+                <ScalarProperty Name="DocRepositoryPath" ColumnName="DocRepositoryPath" />
+                <ScalarProperty Name="CodeRepositoryPath" ColumnName="CodeRepositoryPath" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlannedHours">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.PlannedHour">
+              <MappingFragment StoreEntitySet="PlannedHours">
+                <ScalarProperty Name="RoleUId" ColumnName="RoleUId" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="SprintNumber" ColumnName="SprintNumber" />
+                <ScalarProperty Name="PlanningNumber" ColumnName="PlanningNumber" />
+                <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sprints">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Sprint">
+              <MappingFragment StoreEntitySet="Sprint">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="SprintNumber" ColumnName="SprintNumber" />
+                <ScalarProperty Name="SprintUId" ColumnName="SprintUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IsDefaultRole" ColumnName="IsDefaultRole" />
+                <ScalarProperty Name="RoleShortName" ColumnName="RoleShortName" />
+                <ScalarProperty Name="IsPlanned" ColumnName="IsPlanned" />
+                <ScalarProperty Name="PermissionSet" ColumnName="PermissionSet" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleUId" ColumnName="RoleUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberProfiles">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.MemberProfile">
+              <MappingFragment StoreEntitySet="MemberProfile">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CanSeeProposalValues" ColumnName="CanSeeProposalValues" />
+                <ScalarProperty Name="IsFactoryOwner" ColumnName="IsFactoryOwner" />
+                <ScalarProperty Name="AuthorizationProvider" ColumnName="AuthorizationProvider" />
+                <ScalarProperty Name="ContactData" ColumnName="ContactData" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="EmailAccount" ColumnName="EmailAccount" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MemberUId" ColumnName="MemberUId" />
+                <ScalarProperty Name="TeamCode" ColumnName="TeamCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMemberships">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ProjectMembership">
+              <MappingFragment StoreEntitySet="ProjectMembership">
+                <ScalarProperty Name="InactiveSince" ColumnName="InactiveSince" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DayAllocation" ColumnName="DayAllocation" />
+                <ScalarProperty Name="RoleUId" ColumnName="RoleUId" />
+                <ScalarProperty Name="MemberUId" ColumnName="MemberUId" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemSizes">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ItemSize">
+              <MappingFragment StoreEntitySet="ItemSize">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OccurrenceConstraint" ColumnName="OccurrenceConstraint" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ItemSizeUId" ColumnName="ItemSizeUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MembersAvatar">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.MemberAvatar">
+              <MappingFragment StoreEntitySet="MemberAvatar">
+                <ScalarProperty Name="AvatarImage" ColumnName="AvatarImage" />
+                <ScalarProperty Name="MemberUId" ColumnName="MemberUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BacklogItemEffectiveHours1">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.BacklogItemEffectiveHours">
+              <MappingFragment StoreEntitySet="BacklogItemEffectiveHours">
+                <ScalarProperty Name="EffectiveHours" ColumnName="EffectiveHours" />
+                <ScalarProperty Name="SprintNumber" ColumnName="SprintNumber" />
+                <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="IsAccounting" ColumnName="IsAccounting" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="RoleUId" ColumnName="RoleUId" />
+                <ScalarProperty Name="TaskAssigneeUId" ColumnName="TaskAssigneeUId" />
+                <ScalarProperty Name="EffectiveHours" ColumnName="EffectiveHours" />
+                <ScalarProperty Name="PlannedHours" ColumnName="PlannedHours" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="TaskType" ColumnName="TaskType" />
+                <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="TaskOwnerUId" ColumnName="TaskOwnerUId" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskNumber" ColumnName="TaskNumber" />
+                <ScalarProperty Name="TaskUId" ColumnName="TaskUId" />
+                <ScalarProperty Name="ArtifactCount" ColumnName="ArtifactCount" />
+                <ScalarProperty Name="TagUId" ColumnName="TagUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BacklogItemGroups">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.BacklogItemGroup">
+              <MappingFragment StoreEntitySet="BacklogItemGroup">
+                <ScalarProperty Name="DefaultGroup" ColumnName="DefaultGroup" />
+                <ScalarProperty Name="GroupColor" ColumnName="GroupColor" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="GroupUId" ColumnName="GroupUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskInfoes">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.TaskInfo">
+              <MappingFragment StoreEntitySet="TaskInfo">
+                <ScalarProperty Name="BacklogItemName" ColumnName="BacklogItemName" />
+                <ScalarProperty Name="BacklogItemNumber" ColumnName="BacklogItemNumber" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+                <ScalarProperty Name="TaskUId" ColumnName="TaskUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proposals">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Proposal">
+              <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="CurrencySymbol" ColumnName="CurrencySymbol" />
+                <ScalarProperty Name="EstimatedEndDate" ColumnName="EstimatedEndDate" />
+                <ScalarProperty Name="EstimatedStartDate" ColumnName="EstimatedStartDate" />
+                <ScalarProperty Name="RejectReason" ColumnName="RejectReason" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="CurrencyRate" ColumnName="CurrencyRate" />
+                
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="UseCalcPrice" ColumnName="UseCalcPrice" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ProposalStatus" ColumnName="ProposalStatus" />
+                <ScalarProperty Name="ProposalName" ColumnName="ProposalName" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="ProposalUId" ColumnName="ProposalUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProposalItems">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ProposalItem">
+              <MappingFragment StoreEntitySet="ProposalItem">
+                <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
+                <ScalarProperty Name="ProposalUId" ColumnName="ProposalUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleHourCosts">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.RoleHourCost">
+              <MappingFragment StoreEntitySet="RoleHourCost">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="RoleUId" ColumnName="RoleUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProposalDocuments">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ProposalDocument">
+              <MappingFragment StoreEntitySet="ProposalDocument">
+                <ScalarProperty Name="ProposalXAML" ColumnName="ProposalXAML" />
+                <ScalarProperty Name="ProposalUId" ColumnName="ProposalUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProposalClauses">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ProposalClause">
+              <MappingFragment StoreEntitySet="ProposalClause">
+                <ScalarProperty Name="ClauseText" ColumnName="ClauseText" />
+                <ScalarProperty Name="ClauseName" ColumnName="ClauseName" />
+                <ScalarProperty Name="ClauseOrder" ColumnName="ClauseOrder" />
+                <ScalarProperty Name="ProposalUId" ColumnName="ProposalUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProposalFixedCosts">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ProposalFixedCost">
+              <MappingFragment StoreEntitySet="ProposalFixedCost">
+                <ScalarProperty Name="RepassToClient" ColumnName="RepassToClient" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="CostDescription" ColumnName="CostDescription" />
+                <ScalarProperty Name="ProposalUId" ColumnName="ProposalUId" />
+                <ScalarProperty Name="ProposalFixedCostUId" ColumnName="ProposalFixedCostUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Risks">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Risk">
+              <MappingFragment StoreEntitySet="Risk">
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="IsPrivate" ColumnName="IsPrivate" />
+                <ScalarProperty Name="RiskAction" ColumnName="RiskAction" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="Impact" ColumnName="Impact" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="RiskDescription" ColumnName="RiskDescription" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="RiskUId" ColumnName="RiskUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskDetails">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.TaskDetail">
+              <MappingFragment StoreEntitySet="TaskDetail">
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="TaskUId" ColumnName="TaskUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Artifacts">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.Artifact">
+              <MappingFragment StoreEntitySet="Artifact">
+                <ScalarProperty Name="ArtifactContext" ColumnName="ArtifactContext" />
+                <ScalarProperty Name="ArtifactPath" ColumnName="ArtifactPath" />
+                <ScalarProperty Name="ArtifactName" ColumnName="ArtifactName" />
+                <ScalarProperty Name="ContextUId" ColumnName="ContextUId" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="ArtifactUId" ColumnName="ArtifactUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthorizationInfos">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.AuthorizationInfo">
+              <MappingFragment StoreEntitySet="AuthorizationInfo">
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="MemberUId" ColumnName="MemberUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SizeIdealHours">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.SizeIdealHour">
+              <MappingFragment StoreEntitySet="SizeIdealHour">
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="RoleShortName" ColumnName="RoleShortName" />
+                <ScalarProperty Name="ItemSizeUId" ColumnName="ItemSizeUId" />
+                <ScalarProperty Name="IdealHourUId" ColumnName="IdealHourUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarDay">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.CalendarDay">
+              <MappingFragment StoreEntitySet="CalendarDay">
+                <ScalarProperty Name="HolidayDescription" ColumnName="HolidayDescription" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskTags">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.TaskTag">
+              <MappingFragment StoreEntitySet="TaskTag">
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="TagUId" ColumnName="TagUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectConstraints">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.ProjectConstraint">
+              <MappingFragment StoreEntitySet="ProjectConstraint">
+                <ScalarProperty Name="AdjustPointFactor" ColumnName="AdjustPointFactor" />
+                <ScalarProperty Name="ConstraintGroup" ColumnName="ConstraintGroup" />
+                <ScalarProperty Name="Constraint" ColumnName="Constraint" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
+                <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
+                <ScalarProperty Name="ConstraintUId" ColumnName="ConstraintUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="DefaultDatabaseSchema" Value="factory" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ScrumFactory" ZoomLevel="82">
+        <EntityTypeShape EntityType="ScrumFactoryModel.BacklogItem" Width="1.5" PointX="0.5" PointY="0.5" Height="5.0571093749999987" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.Project" Width="1.5" PointX="9.625" PointY="2.5" Height="4.8648079427083317" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_BacklogItem_Project">
+          <ConnectorPoint PointX="9.625" PointY="5.2999479166666656" />
+          <ConnectorPoint PointX="2" PointY="5.2999479166666656" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.PlannedHour" Width="1.5" PointX="2.75" PointY="0.5" Height="1.9802864583333331" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_PlannedHours_BacklogItem">
+          <ConnectorPoint PointX="2" PointY="1.4901432291666668" />
+          <ConnectorPoint PointX="2.75" PointY="1.4901432291666668" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.Sprint" Width="1.5" PointX="9.5" PointY="8.25" Height="2.1725878906249996" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_ProjectSprint">
+          <ConnectorPoint PointX="10.3125" PointY="7.3648079427083317" />
+          <ConnectorPoint PointX="10.3125" PointY="8.25" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.Role" Width="1.5" PointX="5.75" PointY="0.5" Height="2.364889322916667" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_Role_Project">
+          <ConnectorPoint PointX="9.625" PointY="2.87474609375" />
+          <ConnectorPoint PointX="7.25" PointY="2.87474609375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.MemberProfile" Width="1.5" PointX="12.25" PointY="5.875" Height="3.5186979166666656" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.ProjectMembership" Width="2" PointX="11.75" PointY="0.625" Height="2.364889322916667" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_ProjectMembership_MemberProfile">
+          <ConnectorPoint PointX="13" PointY="5.875" />
+          <ConnectorPoint PointX="13" PointY="2.989889322916667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.ItemSize" Width="1.5" PointX="0.5" PointY="6.25" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_BacklogItem_ItemSize">
+          <ConnectorPoint PointX="1.25" PointY="6.25" />
+          <ConnectorPoint PointX="1.25" PointY="5.5571093749999987" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScrumFactoryModel.FK_PlannedHours_Role">
+          <ConnectorPoint PointX="5.75" PointY="1.4901432291666668" />
+          <ConnectorPoint PointX="4.25" PointY="1.4901432291666668" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.MemberAvatar" Width="1.5" PointX="14.375" PointY="6.375" Height="1.4033821614583335" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_MemberAvatar_MemberProfile">
+          <ConnectorPoint PointX="13.75" PointY="7.0766910807291667" />
+          <ConnectorPoint PointX="14.375" PointY="7.0766910807291667" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScrumFactoryModel.ProjectProjectMembership">
+          <ConnectorPoint PointX="11.125" PointY="2.7449446614583337" />
+          <ConnectorPoint PointX="11.75" PointY="2.7449446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScrumFactoryModel.ProjectMembershipRole">
+          <ConnectorPoint PointX="11.75" PointY="1.53125" />
+          <ConnectorPoint PointX="7.25" PointY="1.53125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.BacklogItemEffectiveHours" PointX="5.375" PointY="6.75" Width="2.625" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.Task" Width="1.5" PointX="3" PointY="6.125" Height="5.0571093749999978" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.BacklogItemGroup" Width="1.5" PointX="3" PointY="3" Height="1.9802864583333326" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_BacklogItem_BacklogItemGroup">
+          <ConnectorPoint PointX="3" PointY="3.9901432291666659" />
+          <ConnectorPoint PointX="2" PointY="3.9901432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScrumFactoryModel.FK_BacklogItemGroup_Project">
+          <ConnectorPoint PointX="9.625" PointY="4.1461393229166656" />
+          <ConnectorPoint PointX="4.5" PointY="4.1461393229166656" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.TaskInfo" Width="1.5" PointX="1.5" PointY="11.625" Height="1.9802864583333388" />
+        <AssociationConnector Association="ScrumFactoryModel.TaskInfoTask">
+          <ConnectorPoint PointX="2.2499995" PointY="11.625" />
+          <ConnectorPoint PointX="2.2499995" PointY="8.653554687499998" />
+          <ConnectorPoint PointX="3" PointY="8.653554687499998" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.Proposal" Width="1.5" PointX="14.375" PointY="9.125" Height="4.0956022135416656" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.ProposalItem" Width="1.5" PointX="16.625" PointY="8.875" Height="1.4033821614583335" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_ProposalItem_Proposal">
+          <ConnectorPoint PointX="15.875" PointY="9.7016910807291659" />
+          <ConnectorPoint PointX="16.625" PointY="9.7016910807291659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.RoleHourCost" Width="1.5" PointX="16.625" PointY="10.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.ProposalDocument" Width="1.5" PointX="16.625" PointY="13.5" Height="1.4033821614583335" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_ProposalDocument_Proposal">
+          <ConnectorPoint PointX="15.875" PointY="13.648753255208334" />
+          <ConnectorPoint PointX="16.625" PointY="13.648753255208334" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.ProposalClause" Width="1.5" PointX="11.875" PointY="12.625" Height="1.7879850260416657" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_ProposalClause_Proposal">
+          <ConnectorPoint PointX="14.375" PointY="13.211253255208334" />
+          <ConnectorPoint PointX="13.375" PointY="13.211253255208334" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.ProposalFixedCost" Width="1.5" PointX="12" PointY="9.625" Height="1.9802864583333335" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_ProposalFixedCost_Proposal">
+          <ConnectorPoint PointX="14.375" PointY="10.615143229166666" />
+          <ConnectorPoint PointX="13.5" PointY="10.615143229166666" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.Risk" Width="1.5" PointX="4.5" PointY="12.375" Height="2.5571907552083353" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_Risk_Project">
+          <ConnectorPoint PointX="9.625" PointY="6.0249764583333336" />
+          <ConnectorPoint PointX="4.875" PointY="6.0249764583333336" />
+          <ConnectorPoint PointX="4.875" PointY="12.375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.TaskDetail" Width="1.5" PointX="5.25" PointY="9.625" Height="1.4033821614583335" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_TaskDetail_Task">
+          <ConnectorPoint PointX="4.5" PointY="10.326691080729166" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="10.326691080729166" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="10.326691080729166" />
+          <ConnectorPoint PointX="5.25" PointY="10.326691080729166" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.Artifact" Width="1.5" PointX="7.375" PointY="13.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.AuthorizationInfo" Width="2.375" PointX="14.375" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.SizeIdealHour" Width="1.5" PointX="2.75" PointY="16.5" Height="1.7879850260416674" />
+        <AssociationConnector Association="ScrumFactoryModel.FK_IdealHour_ItemSize">
+          <ConnectorPoint PointX="0.96875" PointY="8.6148893229166656" />
+          <ConnectorPoint PointX="0.96875" PointY="17.393992513020834" />
+          <ConnectorPoint PointX="2.75" PointY="17.393992513020834" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScrumFactoryModel.CalendarDay" Width="1.5" PointX="14.375" PointY="3.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.TaskTag" Width="1.5" PointX="10" PointY="14.5" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.ProjectConstraint" Width="1.5" PointX="12.375" PointY="15.75" />
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Papeis</value>
+  </data>
+  <data name="Role_name" xml:space="preserve">
+    <value>Nome do papel</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Equipe</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="New_role_name" xml:space="preserve">
+    <value>Novo papel</value>
+  </data>
+  <data name="Add_new_role" xml:space="preserve">
+    <value>Novo papel</value>
+  </data>
+  <data name="BRE_ROLE_ALREADY_PLANNED_errorMessage" xml:space="preserve">
+    <value>Papeis do projeto não podem ser excluídos se horas já foram planejadas.
+Se possível, limpe as horas de planejamento do papel antes de excluí-lo.</value>
+  </data>
+  <data name="BRE_ROLE_ALREADY_PLANNED_errorMessageTitle" xml:space="preserve">
+    <value>Papel não pode ser removido</value>
+  </data>
+  <data name="Add_member" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="Adding_new_ROLE" xml:space="preserve">
+    <value>Adicionando novo {0}</value>
+  </data>
+  <data name="Search_tooltip" xml:space="preserve">
+    <value>Pesquise por nome ou qualificação</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="Resource" xml:space="preserve">
+    <value>Recurso</value>
+  </data>
+  <data name="Workload" xml:space="preserve">
+    <value>Carga</value>
+  </data>
+  <data name="Contact_data" xml:space="preserve">
+    <value>Dados p/ Contato</value>
+  </data>
+  <data name="Member_added" xml:space="preserve">
+    <value>Recurso adicionado</value>
+  </data>
+  <data name="A_3QUARTER_BUSY" xml:space="preserve">
+    <value>Ao menos 1/4 do dia livre</value>
+  </data>
+  <data name="A_QUARTER_BUSY" xml:space="preserve">
+    <value>Ao menos 3/4 do dia livre</value>
+  </data>
+  <data name="FULL_DAY_BUSY" xml:space="preserve">
+    <value>Mesmo ocupado</value>
+  </data>
+  <data name="HALF_DAY_BUSY" xml:space="preserve">
+    <value>Ao menos 1/2 dia livre</value>
+  </data>
+  <data name="FULL_DAY_FREE" xml:space="preserve">
+    <value>Dia inteiro livre</value>
+  </data>
+  <data name="Add_to_project" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="Occupation" xml:space="preserve">
+    <value>Ocupação</value>
+  </data>
+  <data name="No_items_were_found" xml:space="preserve">
+    <value>Nenhum colaborador encontrado.</value>
+  </data>
+  <data name="No_items_were_found_tip" xml:space="preserve">
+    <value>Tente alterar o filtro de carga de trabalho.</value>
+  </data>
+  <data name="BRE_INVALID_MEMBER_WORKLOAD_errorMessage" xml:space="preserve">
+    <value>Não é possível alocar este recurso com essa quantidade de horas.
+Tente diminuir a alocação dele.</value>
+  </data>
+  <data name="BRE_INVALID_MEMBER_WORKLOAD_errorMessageTitle" xml:space="preserve">
+    <value>Alocação de recurso não permitida</value>
+  </data>
+  <data name="My_profile" xml:space="preserve">
+    <value>Meu perfil</value>
+  </data>
+  <data name="Contact_information" xml:space="preserve">
+    <value>Informações de contato</value>
+  </data>
+  <data name="My_company" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="My_email" xml:space="preserve">
+    <value>Minha conta de e-mail</value>
+  </data>
+  <data name="My_name" xml:space="preserve">
+    <value>Meu nome</value>
+  </data>
+  <data name="My_skills" xml:space="preserve">
+    <value>Meus conhecimentos</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permissão</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_LAST_SCRUM_MASTER_errorMessage" xml:space="preserve">
+    <value>Ao menos um Scrum Master deve estar no projeto.</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_LAST_SCRUM_MASTER_errorMessageTitle" xml:space="preserve">
+    <value>Membro não pode ser removido</value>
+  </data>
+  <data name="BRE_ROLE_ALREADY_USED_errorMessage" xml:space="preserve">
+    <value>Existe(m) membro(s) do projeto que utilizam esse papel.</value>
+  </data>
+  <data name="BRE_ROLE_ALREADY_USED_errorMessageTitle" xml:space="preserve">
+    <value>Papel não pode ser removido</value>
+  </data>
+  <data name="BRE_SCRUM_MASTER_ROLE_IS_NECESSARY_errorMessage" xml:space="preserve">
+    <value>Ao menos um papel de Scrum Master é necessário no projeto.</value>
+  </data>
+  <data name="BRE_SCRUM_MASTER_ROLE_IS_NECESSARY_errorMessageTitle" xml:space="preserve">
+    <value>Papel não pode ser removido ou alterado</value>
+  </data>
+  <data name="Role_short_name" xml:space="preserve">
+    <value>Abreviatura</value>
+  </data>
+  <data name="New_role_short_name" xml:space="preserve">
+    <value>EQP.</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>Participar</value>
+  </data>
+  <data name="Join_this_project" xml:space="preserve">
+    <value>Quero participar desse projeto</value>
+  </data>
+  <data name="Allocation" xml:space="preserve">
+    <value>Alocação</value>
+  </data>
+  <data name="As" xml:space="preserve">
+    <value>Como</value>
+  </data>
+  <data name="Allocation_LABELHELP" xml:space="preserve">
+    <value>Quanto do seu dia será dedicado para este projeto</value>
+  </data>
+  <data name="As_LABELHELP" xml:space="preserve">
+    <value>Seu papel nesse projeto</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_MEMBER_WITH_TASKS_errorMessage" xml:space="preserve">
+    <value>Esse membro já trabalhou em tarefas nesse projeto.
+Se ele não pertence mais ao projeto, você pode inativâ-lo.</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_MEMBER_WITH_TASKS_errorMessageTitle" xml:space="preserve">
+    <value>Membro não pode ser removido</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contatos</value>
+  </data>
+  <data name="Contacts_from_N" xml:space="preserve">
+    <value>Contados do cliente {0}</value>
+  </data>
+  <data name="Email_address" xml:space="preserve">
+    <value>Endereço de e-mail</value>
+  </data>
+  <data name="Full_name" xml:space="preserve">
+    <value>Nome completo</value>
+  </data>
+  <data name="Add_new_contact" xml:space="preserve">
+    <value>Novo contato</value>
+  </data>
+  <data name="New_contact" xml:space="preserve">
+    <value>Novo contato</value>
+  </data>
+  <data name="created_by_N" xml:space="preserve">
+    <value>criado por {0}</value>
+  </data>
+  <data name="Change_image" xml:space="preserve">
+    <value>Mudar imagem</value>
+  </data>
+  <data name="Change_image_tooltip" xml:space="preserve">
+    <value>Você pode usar uma imagem local, ou clicar aqui para criar um Gravatar.</value>
+  </data>
+  <data name="Factory_owners" xml:space="preserve">
+    <value>Donos da fábrica</value>
+  </data>
+  <data name="can_see_proposals" xml:space="preserve">
+    <value>pode ver propostas</value>
+  </data>
+  <data name="is_owner" xml:space="preserve">
+    <value>é dono</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_LAST_FACTORY_OWNER_errorMessage" xml:space="preserve">
+    <value>A fábrica deve possuir ao menos um dono.</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_LAST_FACTORY_OWNER_errorMessageTitle" xml:space="preserve">
+    <value>Não foi possível mudar o dono da fábrica</value>
+  </data>
+  <data name="not_engaged" xml:space="preserve">
+    <value>aguardando comprometimento...</value>
+  </data>
+  <data name="Pending_memberships" xml:space="preserve">
+    <value>Comprometimentos pendentes</value>
+  </data>
+  <data name="engaged_at_project" xml:space="preserve">
+    <value> no projeto </value>
+  </data>
+  <data name="engaged_tooltip" xml:space="preserve">
+    <value>Informe quantas horas do seu dia você pode comprometer-se em cada um dos projetos.</value>
+  </data>
+  <data name="engaged_as" xml:space="preserve">
+    <value>como</value>
+  </data>
+  <data name="Engage" xml:space="preserve">
+    <value>Comprometer-me</value>
+  </data>
+  <data name="Refuse" xml:space="preserve">
+    <value>Recusar</value>
+  </data>
+  <data name="Default_role" xml:space="preserve">
+    <value>Papel padrão</value>
+  </data>
+  <data name="Default_role_tooltip" xml:space="preserve">
+    <value>Marque como padrão se desejar que este papel seja utilizado para tarefas que ainda não possuam recursos associados.</value>
+  </data>
+  <data name="Add_member_as" xml:space="preserve">
+    <value>Novo {0}</value>
+  </data>
+  <data name="Profile_not_completed" xml:space="preserve">
+    <value>Sua conta de e-mail ainda não foi informada.
+Por favor, disponibilize algumas informações sobre você. Isso vai ajudar outros a te localizarem e incluírem-no em projetos.</value>
+  </data>
+  <data name="Member_work_load" xml:space="preserve">
+    <value>disponibilidade</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Pessoas</value>
+  </data>
+  <data name="Name_or_qualification" xml:space="preserve">
+    <value>Nome ou qualificação</value>
+  </data>
+  <data name="No_members_were_found" xml:space="preserve">
+    <value>Nenhuma pessoa encontrada.</value>
+  </data>
+  <data name="No_members_were_found_tooltip" xml:space="preserve">
+    <value>Tente digitar o nome de uma pessoa, seu e-mail ou qualificação.</value>
+  </data>
+  <data name="only_active" xml:space="preserve">
+    <value>somente ativos</value>
+  </data>
+  <data name="n_people_were_found" xml:space="preserve">
+    <value>{0} resultados encontrados</value>
+  </data>
+  <data name="My_day" xml:space="preserve">
+    <value>Meu dia</value>
+  </data>
+  <data name="assigned_to" xml:space="preserve">
+    <value>, ({0})</value>
+  </data>
+  <data name="Important_dates" xml:space="preserve">
+    <value>Datas importantes</value>
+  </data>
+  <data name="My_observer_tasks" xml:space="preserve">
+    <value>Tarefas da minha equipe</value>
+  </data>
+  <data name="My_tasks" xml:space="preserve">
+    <value>Minhas tarefas</value>
+  </data>
+  <data name="no_items" xml:space="preserve">
+    <value>nenhum item</value>
+  </data>
+  <data name="N_days" xml:space="preserve">
+    <value>{0} dias(s)</value>
+  </data>
+  <data name="PProject_end" xml:space="preserve">
+    <value>Fim de projeto</value>
+  </data>
+  <data name="Project_start" xml:space="preserve">
+    <value>Início de projeto</value>
+  </data>
+  <data name="Sprint_N_start" xml:space="preserve">
+    <value>Início do sprint {0}</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Ativo</value>
+  </data>
+  <data name="M_tasks" xml:space="preserve">
+    <value>Tarefas de {0}</value>
+  </data>
+  <data name="N_hours" xml:space="preserve">
+    <value>({0} hrs)</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Bloqueado</value>
+  </data>
+  <data name="My_Engagement" xml:space="preserve">
+    <value>Meu comprometimento</value>
+  </data>
+  <data name="M_engagement" xml:space="preserve">
+    <value>Comprometimento de {0}</value>
+  </data>
+  <data name="Working_with" xml:space="preserve">
+    <value>Trabalhando com</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Membro</value>
+  </data>
+  <data name="Skills" xml:space="preserve">
+    <value>Conhecimentos</value>
+  </data>
+  <data name="not_assigned_yet" xml:space="preserve">
+    <value>não atribuídas</value>
+  </data>
+  <data name="_for_X" xml:space="preserve">
+    <value> para "{0}"</value>
+  </data>
+  <data name="Team_code" xml:space="preserve">
+    <value>Código da Equipe</value>
+  </data>
+  <data name="view_my_team_tasks" xml:space="preserve">
+    <value>mostrar também as tarefas da minha equipe</value>
+  </data>
+  <data name="Change_your_team_tooltip" xml:space="preserve">
+    <value>Você pode alterar a configuração da sua equipe na opção Código da Equipe no item Meu Perfil do menu.</value>
+  </data>
+  <data name="No_team_tooltip" xml:space="preserve">
+    <value>Você não faz parte de nenhuma equipe no momento.</value>
+  </data>
+  <data name="Your_team_tooltip" xml:space="preserve">
+    <value>Você faz parte da equipe '{0}'.</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+  <data name="to_end_project_N" xml:space="preserve">
+    <value>final do projeto '{0}'</value>
+  </data>
+  <data name="to_start_project_N" xml:space="preserve">
+    <value>início do projeto '{0}'</value>
+  </data>
+  <data name="to_start_sprint_N" xml:space="preserve">
+    <value>final do sprint do projeto '{0}'</value>
+  </data>
+  <data name="N_hours_left" xml:space="preserve">
+    <value>{0} hrs restantes</value>
+  </data>
+  <data name="N_hours_of_work" xml:space="preserve">
+    <value>{0:0.#} hrs à fazer</value>
+  </data>
+  <data name="and_more" xml:space="preserve">
+    <value>e mais...</value>
+  </data>
+  <data name="showing_up_to_25_members" xml:space="preserve">
+    <value>(exibindo até 25 membros da equipe)</value>
+  </data>
+  <data name="Recent_projects" xml:space="preserve">
+    <value>Projetos recentes</value>
+  </data>
+  <data name="N_worked_hours" xml:space="preserve">
+    <value>{0:0.#} horas trabalhadas</value>
+  </data>
+  <data name="Today_tasks" xml:space="preserve">
+    <value>Tarefas do dia</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projetos</value>
+  </data>
+  <data name="no_tasks" xml:space="preserve">
+    <value>sem tarefas</value>
+  </data>
+  <data name="Bugs_Resolved" xml:space="preserve">
+    <value>{0} bugs resolvidos (mês)</value>
+  </data>
+  <data name="Improvements_Done" xml:space="preserve">
+    <value>{0} melhorias feitas (mês)</value>
+  </data>
+  <data name="Remove_Image" xml:space="preserve">
+    <value>Usar Gravatar</value>
+  </data>
+  <data name="NormalTasks_Done" xml:space="preserve">
+    <value>{0} tarefas feitas</value>
+  </data>
+  <data name="Bug_killer_description" xml:space="preserve">
+    <value>Você resolveu o seu primeiro bug</value>
+  </data>
+  <data name="Bug_killer_name" xml:space="preserve">
+    <value>Eu tenho a solução!</value>
+  </data>
+  <data name="Worked_hours" xml:space="preserve">
+    <value>{0} total de horas trabalhadas</value>
+  </data>
+  <data name="no_trophies_for_you" xml:space="preserve">
+    <value>Você não ganhou nenhum troféu</value>
+  </data>
+  <data name="first_improviments_done_description" xml:space="preserve">
+    <value>Você fez uma melhoria</value>
+  </data>
+  <data name="first_improviments_done_name" xml:space="preserve">
+    <value>Primeira melhoria feita</value>
+  </data>
+  <data name="work_hard_description" xml:space="preserve">
+    <value>Você trabalhou por mais de mil horas</value>
+  </data>
+  <data name="work_hard_name" xml:space="preserve">
+    <value>Dedicado</value>
+  </data>
+  <data name="Done_before_plannedHours_description" xml:space="preserve">
+    <value>Mais de 10 tarefas feitas antes do tempo planejado</value>
+  </data>
+  <data name="Done_before_plannedHours_name" xml:space="preserve">
+    <value>Já terminei</value>
+  </data>
+  <data name="more_than_1000_tasks_description" xml:space="preserve">
+    <value>Você tem mais de 1000 tarefas feitas, parabéns</value>
+  </data>
+  <data name="more_than_1000_tasks_name" xml:space="preserve">
+    <value>Experiente</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Nível {0}</value>
+  </data>
+  <data name="start_a_new_project" xml:space="preserve">
+    <value>iniciar um novo projeto</value>
+  </data>
+</root>

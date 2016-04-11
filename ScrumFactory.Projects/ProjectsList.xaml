@@ -1,0 +1,373 @@
+﻿<UserControl x:Class="ScrumFactory.Projects.ProjectsList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"                          
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"                             
+             
+             xmlns:SF_VM="clr-namespace:ScrumFactory.Projects.ViewModel"
+             
+             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Helpers_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             
+             xmlns:props="clr-namespace:ScrumFactory.Projects.Properties"
+             
+             mc:Ignorable="d" 
+             x:Name="thisView"
+
+             HorizontalAlignment="Stretch" 
+             
+             SF_Comp:CommandBehavior.RoutedEventName="Loaded"
+             SF_Comp:CommandBehavior.TheCommandToRun="{Binding OnLoadCommand}"
+                         
+             Foreground="{StaticResource LabelBrush}"
+             Background="Transparent"             
+            
+             
+                          
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding RefreshProjectListCommand}" />        
+    </UserControl.InputBindings>
+    
+    <UserControl.Resources>
+
+  
+
+        <ObjectDataProvider  x:Key="projectFilterList" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="SF_VM:ProjectStatusFilter"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider  x:Key="createDateFilterList" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="SF_VM:ProjectCreateDateFilter"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+
+        <DataTemplate x:Key="projectDataTemplate">
+
+         
+                <Grid Margin="0,10,0,10" HorizontalAlignment="Stretch" Width="{Binding ElementName=thisView, Path=Model.TemplateSizeInPixels}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{Binding ElementName=thisView, Path=Model.TemplateLineHeightInPixels}"/>
+                        <RowDefinition Height="20"/>                        
+                    </Grid.RowDefinitions>
+
+                    <Image
+                    Grid.Column="0" Grid.RowSpan="2"
+                    DataContext="{Binding Status,Converter={StaticResource EnumToShortConverter}, ConverterParameter={x:Type SF:ProjectStatus}}"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource ProjectStatusImage}"/>
+                    <Image                    
+                    Grid.Column="0"  Grid.RowSpan="2"
+                    Source="/Images/Toolbar/pause.png" Width="24" Height="24"
+                    VerticalAlignment="Center">
+                        <Image.Style>
+                            <Style>
+                                <Setter Property="Image.Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSuspended}" Value="True">
+                                        <Setter Property="Image.Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+
+                    <TextBlock Grid.Column="1" Grid.Row="0"                                
+                               TextWrapping="Wrap" HorizontalAlignment="Stretch" TextAlignment="Left" TextTrimming="CharacterEllipsis" >                     
+                    <Hyperlink 
+                        FontSize="{StaticResource BigFontSize}" Foreground="{StaticResource LinkItemCover}"
+                        FontWeight="Normal" FontFamily="Segoe UI"
+                        Command="{Binding Model.ShowDetailWindowCommand, ElementName=thisView}"
+                        CommandParameter="{Binding .}">
+                        <Run Text="{Binding ProjectName}"  />                        
+                    </Hyperlink>
+                    
+                    <!--<Viewbox MaxHeight="18" MaxWidth="18" StretchDirection="DownOnly" DataContext="{Binding ., Converter={StaticResource ProjectAllocationConverter}}">
+                    <Path                                                     
+                        Style="{StaticResource DayAllocationPath}"/>                  
+                        <Viewbox.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding .}" Value="0">
+                                        <Setter Property="Viewbox.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Viewbox.Style>
+                    </Viewbox>-->
+                    </TextBlock>
+
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,0,5,0"
+                           Foreground="{StaticResource CoverText}" FontSize="{StaticResource SmallFontSize}" Padding="0"
+                           HorizontalAlignment="Right" VerticalAlignment="Top"  Text="{Binding ProjectNumber}">
+                    </TextBlock>
+
+                    
+                        
+                    <TextBlock 
+                        Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"
+                        Foreground="{StaticResource CoverText}" Text="{Binding ClientName}" FontSize="{StaticResource SmallFontSize}" HorizontalAlignment="Left"/>
+
+
+                        <TextBlock  
+                            Grid.ColumnSpan="3" Grid.Row="1" VerticalAlignment="Center"
+                            HorizontalAlignment="Right" Margin="5,0,5,0"
+                    Text="{Binding CreateDate, Converter={StaticResource ContextDateConverter}, StringFormat={x:Static props:Resources.since_N}}"
+                     FontSize="{StaticResource SmallFontSize}" Foreground="{StaticResource CoverText}">
+                            <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="0">
+                                            <Setter Property="TextBlock.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+
+            
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <SF_Helpers:DockWindowContainer>
+
+        <SF_Helpers:PanelLayout
+            Style="{StaticResource CoverPanelLayout}"      
+          SF_Helpers_Ext:SearchBoxExtension.SearchBox="{Binding ElementName=searchTextBox}"            
+        Title="{Binding PanelName}">
+            <SF_Helpers:PanelLayout.Toolbar>
+                <ToolBar>
+                    <Menu>
+                        <MenuItem Header="{x:Static props:Resources.New_project}" Command="{Binding CreateProjectCommand}" Style="{StaticResource Toolbar_MenuItemStyle}">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/ToolBar/Add.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{x:Static props:Resources.Copy_to_clipboard}" Command="{Binding CopyToClipboardCommand}" Style="{StaticResource Toolbar_MenuItemStyle}">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/ToolBar/Copy.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+                </ToolBar>
+            </SF_Helpers:PanelLayout.Toolbar>
+            <SF_Helpers:PanelLayout.Content>
+
+                <Grid VerticalAlignment="Stretch">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox                            
+                        HorizontalAlignment="Left"
+                        BorderBrush="{StaticResource TextBoxBackgroundBrush}"
+                        SelectedItem="{Binding StatusFilter}"                    
+                        ItemsSource="{Binding Source={StaticResource projectFilterList}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ., Converter={StaticResource LocalizeConverter},ConverterParameter='ScrumFactory.Projects.ProjectsList,ScrumFactory.Projects'}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock               
+                            Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
+                            Text="{x:Static props:Resources.From}"/>
+                                <ComboBox         
+                            HorizontalAlignment="Left"
+                            BorderBrush="{StaticResource TextBoxBackgroundBrush}"
+                            SelectedItem="{Binding CreateDateFilter}"                        
+                            ItemsSource="{Binding Source={StaticResource createDateFilterList}}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ., Converter={StaticResource LocalizeConverter},ConverterParameter='ScrumFactory.Projects.ProjectsList,ScrumFactory.Projects'}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding StatusFilter}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                            </StackPanel>
+                            <CheckBox IsChecked="{Binding OnlyMemberProjects}" Content="{x:Static props:Resources.im_envolved}" Foreground="White"/>
+                        </StackPanel>
+
+                        <TextBlock Margin="8,0,0,0">                     
+                        <Hyperlink 
+                            Command="{Binding ShowDetailWindowCommand}" Foreground="White"
+                            CommandParameter="{Binding SelectedProject}">
+                            <Run Text="{Binding SelectedProject.ProjectName, StringFormat={x:Static props:Resources.back_to_project_N}}"  />        
+                        </Hyperlink>
+                        </TextBlock>
+
+                        <TextBlock                         
+                        Text="{Binding SearchFilterText, StringFormat={x:Static props:Resources.Results_for_X_projects}}" Margin="0,10,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CoverTextTitle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SearchFilterText}" Value="">
+                                        <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SearchFilterText}" Value="{x:Null}">
+                                        <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                        </TextBlock>
+
+                    </StackPanel>
+
+
+                    <ListBox
+                         
+                    x:Name="projectListBox"
+                    Grid.Row="1"
+                
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+            
+                    ItemContainerStyle="{StaticResource HorizontalLineDividedNoSelectionListBoxItem}"
+                    SF_Helpers:ItemActivation.ActivationMode="Both"            
+                    SF_Helpers:ItemActivation.TheCommandToRun="{Binding ShowDetailWindowCommand}"                                    
+                    
+                    ItemsSource="{Binding FilteredProjects}" SelectionMode="Single"
+            
+                    Background="Transparent"
+                    BorderThickness="0"
+                
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"                                        
+                                    
+                    ItemTemplate="{StaticResource projectDataTemplate}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"  />                              
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.Panel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                        <!--<UniformGrid                                             
+                                            Columns="2"
+                                            HorizontalAlignment="Stretch"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled">                                            
+                                        </UniformGrid>-->
+                                    </ItemsPanelTemplate>
+                                </GroupStyle.Panel>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="GroupItem">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <StackPanel Width="{Binding ElementName=thisView, Path=Model.GroupSizeInPixels}" Margin="0,0,20,20">
+                                                        <TextBlock Margin="0,0,0,5" >
+                                                                <TextBlock 
+                                                                    Style="{StaticResource CoverTextTitle}"
+                                                                    DataContext="{Binding Name, Converter={StaticResource ShortToEnumConverter},  ConverterParameter={x:Type SF:ProjectStatus}}" 
+                                                                    Text="{Binding ., Converter={StaticResource LocalizeConverter}}"/>
+                                                                <TextBlock Foreground="{StaticResource CoverAreaBrush}" Text="{Binding ItemCount, StringFormat='{} ({0})'}" FontWeight="Bold"/>
+                                                            </TextBlock>
+                                                        <Border CornerRadius="4" Padding="0,4,0,4" 
+                                                                Background="{StaticResource CoverAreaBrush}">
+                                                        
+                                                           
+
+                                                              
+                                                                <ItemsPresenter />
+                                                        
+                                                        </Border>
+                                                    </StackPanel>
+                                                    
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>                               
+                            </GroupStyle>
+                        </ListBox.GroupStyle>
+
+                    </ListBox>
+
+                    <Button Style="{StaticResource LoadMoreButton}" Grid.Row="1"/>
+
+
+                    <TextBox                
+                        x:Name="searchTextBox"       
+                        Grid.RowSpan="2"                
+                        Text="{Binding SearchFilterText, UpdateSourceTrigger=PropertyChanged}"                                        
+                        Style="{StaticResource SearchTextBox}"/>
+
+
+                    <ContentControl Grid.Row="1"                                                
+                            Style="{StaticResource LoadingAnimationContent}"/>
+
+                    <Grid
+                Grid.Row="1" 
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="/Images/information.png"  Width="32" Height="32" Stretch="Uniform" Margin="0,0,10,0" VerticalAlignment="Top" />
+                        <TextBlock Grid.Column="1" TextWrapping="Wrap" >
+                    <TextBlock TextWrapping="Wrap" Foreground="White"  Text="{x:Static props:Resources.No_projects_were_found}"/><LineBreak/>
+                    <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" Foreground="White" Text="{x:Static props:Resources.No_projects_were_found_tip}"/>
+                </TextBlock>
+                        <Grid.Style>
+                            <Style>
+                                <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=projectListBox, Path=HasItems}" Value="False"/>
+                                            <Condition Binding="{Binding IsLoadingData}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Grid.Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+                </Grid>
+
+            </SF_Helpers:PanelLayout.Content>
+        </SF_Helpers:PanelLayout>
+
+
+    </SF_Helpers:DockWindowContainer>
+
+
+
+</UserControl>

@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="ScrumFactory.Projects.CreateRepository"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:props="clr-namespace:ScrumFactory.Projects.Properties"    
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"
+             
+             SF_Comp:CommandBehavior.RoutedEventName="Loaded" SF_Comp:CommandBehavior.TheCommandToRun="{Binding OnLoadCommand}"
+             
+             mc:Ignorable="d" 
+             x:Name="thisView"
+             Height="400"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding ReturnMessage}" TextWrapping="Wrap" Margin="10,10,10,0" Foreground="Red" FontSize="{StaticResource SmallFontSize}" >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ReturnMessage}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock Grid.Row="1" Text="{x:Static props:Resources.Create_rep_text_help}" TextWrapping="Wrap" Margin="10,10,10,20" />
+
+        
+
+        <StackPanel HorizontalAlignment="Stretch"  Grid.Row="2" Margin="10,0,0,0" >
+
+
+            <RadioButton GroupName="RepAction"
+                         IsTabStop="False" Margin="8,0,0,10" 
+                         IsChecked="{Binding IsCreateRepChecked}"                                                                          
+                         Command="{Binding SetCodeRepCommand}">
+                <TextBlock>
+                    <TextBlock FontSize="{StaticResource NormalFontSize}"  Margin="8,0,0,0">
+                        <Run Text="{x:Static props:Resources.create_a_new_one}"/>
+                        <Run Text="{Binding Rep_root}" FontWeight="Bold"/>
+                    </TextBlock>
+                    <LineBreak/>                        
+                    <TextBox Text="{Binding NewRepName}" Width="550" />        
+                    
+                </TextBlock>
+                
+            </RadioButton>
+
+            <ItemsControl                                    
+                        IsTabStop="False"
+                        ItemsSource="{Binding CodeReps}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton 
+                            GroupName="RepAction" IsTabStop="False" Margin="8,0,0,10" FontSize="{StaticResource NormalFontSize}"                                                                                           
+                            Command="{Binding Model.SetCodeRepCommand, ElementName=thisView}" CommandParameter="{Binding .}" >
+                            <TextBlock  Margin="8,0,0,0">
+                                <TextBlock Text="{x:Static props:Resources.use_old_one}"/>
+                                <LineBreak/>                                
+                                <Hyperlink Focusable="False" 
+                                    Command="{Binding Model.OpenCodeRepCommand, ElementName=thisView}" CommandParameter="{Binding .}">
+                                    <TextBlock Text="{Binding .}"/>
+                                </Hyperlink>
+                                
+                            </TextBlock>
+                                
+                        </RadioButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <Border
+            Grid.Row="3" 
+            HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+            Background="{StaticResource WindowButtonBar}">
+
+            <Button                                        
+                    Command="{Binding SaveCommand}" 
+                    MaxWidth="130"
+                    Content="{Binding ActionText}"/>
+
+
+        </Border>
+    </Grid>
+</UserControl>

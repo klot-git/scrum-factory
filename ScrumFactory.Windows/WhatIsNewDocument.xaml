@@ -1,0 +1,169 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:properties="clr-namespace:ScrumFactory.Windows.Properties"
+              LineHeight="20"
+              FontFamily="Segoe UI"
+              FontSize="14" PageWidth="850">
+    <FlowDocument.Resources>
+        <Style TargetType="ListItem">
+            <Setter Property="Padding" Value="2,2,0,4"/>
+        </Style>
+    </FlowDocument.Resources>
+
+    
+    <Paragraph FontSize="32" FontWeight="SemiBold">
+        new at the 3.2.0.19 SF version
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                Stand-alone server avaiable
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                New UI - again.
+            </Paragraph>
+        </ListItem>
+        <ListItem>            
+            <Paragraph>
+                Recomplied to .Net 4.5.1
+            </Paragraph>
+        </ListItem>        
+    </List>
+    
+    <Paragraph FontSize="32" FontWeight="SemiBold">history</Paragraph>
+        <List>
+        <ListItem>
+            <Paragraph>
+                The proposal's features are now avaiable at public hub
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Save reports and proposals as PDF
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Login improvements
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Added project constraints
+            </Paragraph>
+        </ListItem>        
+        <ListItem>
+            <Paragraph>
+                Gravatar integration
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                You can group tasks using Review Tags
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                You can now realease a task
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Fixed minimize bug (Windows+M shortcut)
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Lists tasks at backlog item detail
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Can close backlog item at tasks dashboard
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                New Sprint Stack reports (* requires server update)
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                New My Tasks interface
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Added "Add Bug Task" button
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Fixed remove proposal clause bug
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Fixed the finished/not finished task bug
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Added pagination at project search
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                New results layout at project search
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Added "Use Points" option
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Added recent projects to 'My Day' tab
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                New 'My Day' look and feel
+            </Paragraph>
+        </ListItem>        
+        <ListItem>
+            <Paragraph>
+                Spell checker for all languages using Open-Office dictionaries
+            </Paragraph>            
+        </ListItem>        
+        <ListItem>
+            <Paragraph>
+                Added role view level at project hours graph               
+            </Paragraph>            
+        </ListItem>        
+        <ListItem>
+            <Paragraph>
+                Added your worked hours at project summary
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Product owners can now add backlog items
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Tickets Project (beta)
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Several bug fixes
+            </Paragraph>
+        </ListItem>
+    </List>    
+    
+   
+</FlowDocument>

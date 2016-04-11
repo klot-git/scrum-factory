@@ -1,0 +1,235 @@
+﻿<UserControl x:Class="ScrumFactory.Backlog.SizeList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:props="clr-namespace:ScrumFactory.Backlog.Properties"
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"                             
+             
+             x:Name="thisView"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <TabControl Style="{StaticResource WindowTabControl}">
+        <TabControl.Items>
+            <TabItem Header="{Binding PanelName}">
+                <SF_Helpers:PanelLayout Title="{Binding PanelName}" Style="{StaticResource DetailPanelLayout}" ShowCurrentProjectName="False">
+
+                    <!-- TOOLBAR -->
+                    <SF_Helpers:PanelLayout.Toolbar>
+
+                        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ToolBar                                        
+                    Grid.Row="0" Grid.Column="0">
+                                <MenuItem Style="{StaticResource GoBackMenuItem}"/>
+                                <MenuItem       
+                        x:Name="newSizeMenuItem"
+                        Header="{x:Static props:Resources.New_size}" Command="{Binding AddNewSizeCommand}">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/ToolBar/Add.png" Width="32" Height="32" Stretch="Uniform"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ToolBar>
+                            <ToolBar                                        
+                        Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+                                <TextBox                             
+                             ToolTip="{x:Static props:Resources.Search}"                                                                 
+                            Width="200"
+                            Text="{Binding SearchFilterText, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource SearchTextBox}"
+                             HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            </ToolBar>
+                        </Grid>
+                    </SF_Helpers:PanelLayout.Toolbar>
+
+                    <!-- CONTENT -->
+                    <SF_Helpers:PanelLayout.Content>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <ListBox
+                                    x:Name="list"
+                                    Grid.Column="0"  Grid.Row="1"              
+                                    HorizontalAlignment="Stretch"      
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsSynchronizedWithCurrentItem="True"
+                                    SelectedItem="{Binding SelectedSize}"                    
+                                    ItemsSource="{Binding FilteredSizes}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="200"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Orientation="Vertical">
+                                                <TextBlock                                            
+                                            Margin="5" VerticalAlignment="Top"   HorizontalAlignment="Center"
+                                            FontSize="{StaticResource ReallyBigFontSize}" Foreground="{StaticResource LabelBrush}" FontWeight="Bold"
+                                            Text="{Binding ItemSize.Size}"/>
+                                                <Image
+                                            HorizontalAlignment="Center"
+                                            DataContext="{Binding OccurrenceConstraint}" Style="{StaticResource BacklogItemOccurrenceImage}"/>
+                                            </StackPanel>
+
+
+                                            <StackPanel
+                                    Grid.Column="1" Margin="5"
+                                    Orientation="Vertical">
+                                                <TextBlock
+                                        Text="{Binding ItemSize.Name}"
+                                        Style="{StaticResource ItemTitleTextBlock}"/>
+                                                <TextBlock
+                                        TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="60"
+                                        HorizontalAlignment="Left"                                        
+                                        Text="{Binding ItemSize.Description}"/>
+                                            </StackPanel>
+
+                                            <DockPanel Style="{StaticResource ItemActionMenu}"  Grid.ColumnSpan="2" >
+                                                <Button                                    
+                                            x:Name="removeButton"
+                                            Style="{StaticResource RemoveActionButton}"                                            
+                                            Command="{Binding ElementName=thisView, Path=Model.DeleteSizeCommand}"
+                                            CommandParameter="{Binding}"/>
+                                            </DockPanel>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>                            
+                            </ListBox>
+                            <Grid Grid.Column="1"  Grid.Row="1"
+                                    DataContext="{Binding ElementName=list, Path=SelectedItem}" Margin="10,0,0,0" >
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MaxWidth="200" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>                                    
+                                </Grid.RowDefinitions>
+                                <TextBlock 
+                            Grid.Column="0" Grid.Row="0"
+                            VerticalAlignment="Top"
+                            Style="{StaticResource LabelTextBlock}"                        
+                            Text="{x:Static props:Resources.Size}"/>
+                                <TextBox
+                            Grid.Column="1" Grid.Row="0"                        
+                            MaxLength="4" Width="70" FontSize="{StaticResource ReallyBigFontSize}" FontWeight="Bold"
+                            HorizontalContentAlignment="Right"
+                            Text="{Binding ItemSize.Size, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock 
+                            Grid.Column="0" Grid.Row="1"
+                            VerticalAlignment="Top"
+                            Style="{StaticResource LabelTextBlock}"
+                            Text="{x:Static props:Resources.Name}"/>
+                                <TextBox
+                            Grid.Column="1" Grid.Row="1"                        
+                            HorizontalAlignment="Stretch" MaxLength="50"
+                            Text="{Binding ItemSize.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock 
+                            Grid.Column="0" Grid.Row="2"
+                            VerticalAlignment="Top"
+                            Style="{StaticResource LabelTextBlock}"
+                            Text="{x:Static props:Resources.Description}"/>
+                                <TextBox
+                            Grid.Column="1" Grid.Row="2"                        
+                            HorizontalAlignment="Stretch" Height="100" MaxLength="255"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            TextWrapping="Wrap"                            
+                            Text="{Binding ItemSize.Description, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <TextBlock Grid.Column="0" Grid.Row="3" 
+                                           TextWrapping="Wrap" Width="190"
+                                           Text="{x:Static props:Resources.Ideal_hours_tooltip}"/>
+                                <ItemsControl 
+                                    Grid.Column="1" Grid.Row="3"
+                                    ItemsSource="{Binding ItemSize.SizeIdealHours}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBox Text="{Binding Hours}" Width="60" HorizontalContentAlignment="Right"/>
+                                                <TextBox Text="{Binding RoleShortName}" Width="60" FontSize="{StaticResource SmallFontSize}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+
+                                <CheckBox
+                                    Grid.Column="1" Grid.Row="4"       
+                                    Content="{x:Static props:Resources.Is_active}"                            
+                                    IsChecked="{Binding ItemSize.IsActive, UpdateSourceTrigger=PropertyChanged}"/>
+
+               
+
+                                <TextBlock Grid.Column="1" Grid.Row="5">
+                            <Image  VerticalAlignment="Center"                              
+                                    DataContext="0" Style="{StaticResource BacklogItemOccurrenceImage}"/>    
+                            <TextBlock                        
+                                VerticalAlignment="Center"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="{x:Static props:Resources.Planning_item_tooltip}"/>
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding OccurrenceConstraint}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="5">
+                                    <Image                
+                                            VerticalAlignment="Center"
+                                            DataContext="2" Style="{StaticResource BacklogItemOccurrenceImage}"/>    
+                                    <TextBlock                             
+                                        Style="{StaticResource LabelTextBlock}" VerticalAlignment="Center"
+                                        Text="{x:Static props:Resources.Delivery_item_tooltip}"/>
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding OccurrenceConstraint}" Value="2">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+              
+
+                            </Grid>
+                        </Grid>
+                    </SF_Helpers:PanelLayout.Content>
+                </SF_Helpers:PanelLayout>
+            </TabItem>
+        </TabControl.Items>
+               
+    </TabControl>
+
+</UserControl>

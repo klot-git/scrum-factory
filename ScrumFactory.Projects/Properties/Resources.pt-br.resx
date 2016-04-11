@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ALL_PROJECTS" xml:space="preserve">
+    <value>todos projetos</value>
+  </data>
+  <data name="ANYTIME" xml:space="preserve">
+    <value>qualquer data</value>
+  </data>
+  <data name="At" xml:space="preserve">
+    <value>Em</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="Create_new_project" xml:space="preserve">
+    <value>Criar novo projeto</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="FIVE_YEARS_AGO" xml:space="preserve">
+    <value>cinco anos atrás</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>desde</value>
+  </data>
+  <data name="My_projects" xml:space="preserve">
+    <value>Meus projetos</value>
+  </data>
+  <data name="No_projects_were_found" xml:space="preserve">
+    <value>Nenhum projeto foi encontrado.</value>
+  </data>
+  <data name="No_projects_were_found_tip" xml:space="preserve">
+    <value>Tente digitar um nome de projeto, número ou nome do cliente na caixa de pesquisa.</value>
+  </data>
+  <data name="ONE_YEAR_AGO" xml:space="preserve">
+    <value>um ano atrás</value>
+  </data>
+  <data name="Planned_start_date" xml:space="preserve">
+    <value>Início previsto</value>
+  </data>
+  <data name="Project_abstract" xml:space="preserve">
+    <value>Resumo</value>
+  </data>
+  <data name="Project_name" xml:space="preserve">
+    <value>Nome do projeto</value>
+  </data>
+  <data name="OPEN_PROJECTS" xml:space="preserve">
+    <value>projetos em aberto</value>
+  </data>
+  <data name="Scrum_Master_Role" xml:space="preserve">
+    <value>Scrum Master</value>
+  </data>
+  <data name="Scrum_Master_Role_description" xml:space="preserve">
+    <value>Gerencia a equipe do projeto e remove impedimentos.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="Team_Role" xml:space="preserve">
+    <value>Equipe</value>
+  </data>
+  <data name="Team_Role_description" xml:space="preserve">
+    <value>Desenvolvedor multidiciplionar.</value>
+  </data>
+  <data name="TWO_YEARS_AGO" xml:space="preserve">
+    <value>dois anos atrás</value>
+  </data>
+  <data name="CLOSED_PROJECTS" xml:space="preserve">
+    <value>projetos arquivados</value>
+  </data>
+  <data name="OPPORTUNITIES_PROJECTS" xml:space="preserve">
+    <value>oportunidades</value>
+  </data>
+  <data name="im_envolved" xml:space="preserve">
+    <value>que estou comprometido</value>
+  </data>
+  <data name="New_project" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="Project_details" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="Project_number" xml:space="preserve">
+    <value>Projeto</value>
+  </data>
+  <data name="Scrum_Master_Role_SN" xml:space="preserve">
+    <value>S.M.</value>
+  </data>
+  <data name="Team_Role_SN" xml:space="preserve">
+    <value>EQP</value>
+  </data>
+  <data name="Platform" xml:space="preserve">
+    <value>Plataforma</value>
+  </data>
+  <data name="Code_repository_path" xml:space="preserve">
+    <value>Repositório de código</value>
+  </data>
+  <data name="Doc_repository_path" xml:space="preserve">
+    <value>Pasta</value>
+  </data>
+  <data name="Product_Owner_description" xml:space="preserve">
+    <value>Define e prioriza o backlog.</value>
+  </data>
+  <data name="Product_Owner_Role" xml:space="preserve">
+    <value>Dono do Produto</value>
+  </data>
+  <data name="use_last_project_as_model" xml:space="preserve">
+    <value>usar último projeto como modelo</value>
+  </data>
+  <data name="Anyone_can_join" xml:space="preserve">
+    <value>Qualquer um pode participar do projeto</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Orçamento</value>
+  </data>
+  <data name="budgetIndicator_tooltip" xml:space="preserve">
+    <value>Quanto do orçamento já foi comprometido baseado na quantidade de horas que essa equipe de projeto já trabalhou até o momento.</value>
+  </data>
+  <data name="C" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Close_project" xml:space="preserve">
+    <value>Arquivar</value>
+  </data>
+  <data name="Close_project_message" xml:space="preserve">
+    <value>Você está prestes a arquivar este projeto e desalocar toda equipe.
+Tem certeza que deseja continuar?</value>
+  </data>
+  <data name="Close_project_message_close_items" xml:space="preserve">
+    <value>Você está prestes a arquivar este projeto e desalocar toda equipe.
+Existem items que ainda não estão terminados, deseja marcá-los como terminados?</value>
+  </data>
+  <data name="Code_rep" xml:space="preserve">
+    <value>Code repo</value>
+  </data>
+  <data name="CreateProjectSuccessMessage" xml:space="preserve">
+    <value>O projeto '{0}' foi criado com sucesso.</value>
+  </data>
+  <data name="C_tooltip" xml:space="preserve">
+    <value>Comparar com o planejamento corrente</value>
+  </data>
+  <data name="dd_MMM" xml:space="preserve">
+    <value>dd/MMM</value>
+  </data>
+  <data name="Doc_rep" xml:space="preserve">
+    <value>Pasta</value>
+  </data>
+  <data name="F" xml:space="preserve">
+    <value>1o</value>
+  </data>
+  <data name="F_tooltip" xml:space="preserve">
+    <value>Comparar com o primeiro planejamento</value>
+  </data>
+  <data name="hrs_ahead" xml:space="preserve">
+    <value>hrs adiantado</value>
+  </data>
+  <data name="hrs_behind" xml:space="preserve">
+    <value>hrs atrasado</value>
+  </data>
+  <data name="Important_dates" xml:space="preserve">
+    <value>Datas importantes</value>
+  </data>
+  <data name="My_day" xml:space="preserve">
+    <value>Meu dia</value>
+  </data>
+  <data name="My_observer_tasks" xml:space="preserve">
+    <value>Tarefas que devo observar</value>
+  </data>
+  <data name="My_tasks" xml:space="preserve">
+    <value>Minhas tarefas</value>
+  </data>
+  <data name="no_items" xml:space="preserve">
+    <value>nenhum item</value>
+  </data>
+  <data name="N_days" xml:space="preserve">
+    <value>{0} dia(s)</value>
+  </data>
+  <data name="N_days_to_end_sprint_N_of_N" xml:space="preserve">
+    <value>{0} dia(s) para o fim do sprint {1}, de {2} sprints</value>
+  </data>
+  <data name="N_hrs" xml:space="preserve">
+    <value>{0:0.#} hrs</value>
+  </data>
+  <data name="P" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="PProject_end" xml:space="preserve">
+    <value>Fim do projeto</value>
+  </data>
+  <data name="Project_Burndown" xml:space="preserve">
+    <value>Burndown</value>
+  </data>
+  <data name="Project_details1" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="project_end" xml:space="preserve">
+    <value>fim do projeto</value>
+  </data>
+  <data name="Project_expired" xml:space="preserve">
+    <value>Projeto expirado</value>
+  </data>
+  <data name="Project_finished" xml:space="preserve">
+    <value>Projeto concluído</value>
+  </data>
+  <data name="Project_not_started" xml:space="preserve">
+    <value>Projeto não iniciado</value>
+  </data>
+  <data name="Project_start" xml:space="preserve">
+    <value>Início do projeto</value>
+  </data>
+  <data name="Proprierties" xml:space="preserve">
+    <value>Propriedades</value>
+  </data>
+  <data name="pts_hrs" xml:space="preserve">
+    <value>pts/hrs</value>
+  </data>
+  <data name="P_tooltip" xml:space="preserve">
+    <value>Comparar com o plano da proposta</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Qualidade</value>
+  </data>
+  <data name="qualityIndicator_tooltip" xml:space="preserve">
+    <value>A quantidade de horas que essa equipe de projeto gastou corrigindo bugs.</value>
+  </data>
+  <data name="Review_report" xml:space="preserve">
+    <value>Relatório de Revisão</value>
+  </data>
+  <data name="re_work" xml:space="preserve">
+    <value>% re-trabalho</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Velocidade</value>
+  </data>
+  <data name="Sprint_1_not_started_yet" xml:space="preserve">
+    <value>Sprint 1 não iniciou ainda</value>
+  </data>
+  <data name="sprint_N" xml:space="preserve">
+    <value>sprint {0}</value>
+  </data>
+  <data name="Sprint_N_start" xml:space="preserve">
+    <value>Início do sprint {0}</value>
+  </data>
+  <data name="Start_project" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="Start_project_message" xml:space="preserve">
+    <value>Você está prestes a iniciar este projeto.
+Tem certeza que deseja continuar?</value>
+  </data>
+  <data name="Start_project_message_move_date" xml:space="preserve">
+    <value>Você está prestes a iniciar este projeto.
+
+O primeiro sprint do projeto está planejado para {0:d}.
+Deseja começar o projeto alterando a data da sprint para hoje?</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Sumário</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspenso</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoje</value>
+  </data>
+  <data name="used_budget" xml:space="preserve">
+    <value>% orçamento usado</value>
+  </data>
+  <data name="velocityIndicator_tooltip" xml:space="preserve">
+    <value>A quantidade de horas que essa equipe de projeto demora para fazer 1 ponto de item de backlog.
+A média da fábrica é {0:0.0} pontos por hora.</value>
+  </data>
+  <data name="View_other_members" xml:space="preserve">
+    <value>Ver toda equipe</value>
+  </data>
+  <data name="walked" xml:space="preserve">
+    <value>% caminhado</value>
+  </data>
+  <data name="External_command" xml:space="preserve">
+    <value>Comando</value>
+  </data>
+  <data name="Repository_log_settings" xml:space="preserve">
+    <value>Configuração do log do repositório</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="External_command_tooltip" xml:space="preserve">
+    <value>Informe o caminho do programa externo que deve ser utilizado para abrir os log de repositório.
+Ex: C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"{0}" /findstring:"{1}" /findtype:1</value>
+  </data>
+  <data name="External_command_error" xml:space="preserve">
+    <value>Um erro ocorreu na execução do comando externo.
+Verifique a definição do comando externo.</value>
+  </data>
+  <data name="My_engagement" xml:space="preserve">
+    <value>Meu Comprometimento</value>
+  </data>
+  <data name="_hrs_as_" xml:space="preserve">
+    <value> como </value>
+  </data>
+  <data name="BRE_INVALID_MEMBER_WORKLOAD_errorMessage" xml:space="preserve">
+    <value>Não é possível alocar este recurso com essa quantidade de horas.
+Tente diminuir a alocação dele.</value>
+  </data>
+  <data name="BRE_INVALID_MEMBER_WORKLOAD_errorMessageTitle" xml:space="preserve">
+    <value>Alocação de recurso não permitida</value>
+  </data>
+  <data name="Click_here_to_join_the_project" xml:space="preserve">
+    <value>Clique aqui para entrar no projeto</value>
+  </data>
+  <data name="You_are_not_in_this_project_team" xml:space="preserve">
+    <value>Você não participa desse projeto.</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_LAST_SCRUM_MASTER_errorMessage" xml:space="preserve">
+    <value>Ao menos um Scrum Master deve estar no projeto.</value>
+  </data>
+  <data name="BRE_CAN_NOT_REMOVE_LAST_SCRUM_MASTER_errorMessageTitle" xml:space="preserve">
+    <value>Membro não pode ser removido</value>
+  </data>
+  <data name="Copy_to_clipboard" xml:space="preserve">
+    <value>Copiar lista</value>
+  </data>
+  <data name="Results_for_X_projects" xml:space="preserve">
+    <value>Resultados para "{0}"</value>
+  </data>
+  <data name="_for_X" xml:space="preserve">
+    <value> para "{0}"</value>
+  </data>
+  <data name="actual_hours" xml:space="preserve">
+    <value>real</value>
+  </data>
+  <data name="planned_hours_to_finish_the_project" xml:space="preserve">
+    <value>horas planejadas para conclusão do projeto</value>
+  </data>
+  <data name="Product_Owner_Role_SN" xml:space="preserve">
+    <value>D.P.</value>
+  </data>
+  <data name="Project_guide_report" xml:space="preserve">
+    <value>Guia do projeto</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Relatórios</value>
+  </data>
+  <data name="Sprint_review" xml:space="preserve">
+    <value>Revisão do sprint</value>
+  </data>
+  <data name="Project_scope_report" xml:space="preserve">
+    <value>Escopo</value>
+  </data>
+  <data name="Project_Hours_graph" xml:space="preserve">
+    <value>Horas trabalhadas</value>
+  </data>
+  <data name="Planned_hours" xml:space="preserve">
+    <value>horas planejadas</value>
+  </data>
+  <data name="Worked_hours" xml:space="preserve">
+    <value>horas trabalhadas</value>
+  </data>
+  <data name="ZoomLevel_Items" xml:space="preserve">
+    <value>Itens</value>
+  </data>
+  <data name="ZoomLevel_Project" xml:space="preserve">
+    <value>Projeto</value>
+  </data>
+  <data name="ZoomLevel_Structures" xml:space="preserve">
+    <value>Estruturas</value>
+  </data>
+  <data name="Project_indicators_report" xml:space="preserve">
+    <value>Indicadores</value>
+  </data>
+  <data name="Total_Hours_In_This_Project" xml:space="preserve">
+    <value>Trabalhou {0} horas nesse projeto</value>
+  </data>
+  <data name="ZoomLevel_Roles" xml:space="preserve">
+    <value>Papéis</value>
+  </data>
+  <data name="planned" xml:space="preserve">
+    <value>planejadas</value>
+  </data>
+  <data name="worked" xml:space="preserve">
+    <value>trabalhadas</value>
+  </data>
+  <data name="N_worked_hours" xml:space="preserve">
+    <value>{0} hrs trabalhadas</value>
+  </data>
+  <data name="ticket_project" xml:space="preserve">
+    <value>projeto de ticket</value>
+  </data>
+  <data name="Ticket_project_alert" xml:space="preserve">
+    <value>Projetos de Tickets não possuem sprints. Ao invés disso, eles são priorizados e entregues conforme solicitação do cliente.</value>
+  </data>
+  <data name="back_to_project_N" xml:space="preserve">
+    <value>voltar para '{0}'</value>
+  </data>
+  <data name="HELP_Project_created" xml:space="preserve">
+    <value>&lt;TextBlock TextWrapping="Wrap"&gt;
+                    Parabéns, &lt;LineBreak/&gt;
+                   o seu projeto acabou de ser criado.&lt;LineBreak/&gt;&lt;LineBreak/&gt;
+                    
+                    Você pode utilizar a aba &lt;Bold&gt;Backlog&lt;/Bold&gt; para adicionar itens ao projeto. Para estimar o esforço de cada item, clique sobre o item e informe 
+                    a quantidade de horas estimadas por recurso.&lt;LineBreak/&gt;
+                    Essas horas serão exibidas no gráfico burndown do projeto.&lt;LineBreak/&gt;&lt;LineBreak/&gt;
+                    
+                    Depois, divida os itens em sprints clicando na aba &lt;Bold&gt;Sprint&lt;/Bold&gt; e arrastando os itens de um sprint para outro.&lt;LineBreak/&gt;
+                    A prioridade dos itens também pode ser alterada arrastando-os para cima ou para baixo.&lt;LineBreak/&gt;&lt;LineBreak/&gt;
+                    
+                    Você também pode definir a equipe que irá trabalhar nesse projeto e identificar os riscos do projeto usando as abas &lt;Bold&gt;Equipe&lt;/Bold&gt; e &lt;Bold&gt;Riscos&lt;/Bold&gt;.&lt;LineBreak/&gt;
+                    Caso o seu projeto necessite de uma proposta comercial utilize a aba &lt;Bold&gt;Propostas&lt;/Bold&gt; para cadastrar propostas, enviá-las ao seu cliente e aprová-las.
+                    &lt;LineBreak/&gt;&lt;LineBreak/&gt;
+                    Uma vez que esses passos estejam feitos e você esteja pronto para iniciar  o projeto utilize o botão Iniciar (&lt;Image Source="/Images/ToolBar/startProject.png" Width="16" Height="16" Stretch="Uniform"/&gt;) no topo da página.                                        
+                &lt;/TextBlock&gt;</value>
+  </data>
+  <data name="need_help" xml:space="preserve">
+    <value>ajuda?</value>
+  </data>
+  <data name="ok_i_know" xml:space="preserve">
+    <value>ok, eu ja entendi</value>
+  </data>
+  <data name="Project_created" xml:space="preserve">
+    <value>Projeto criado</value>
+  </data>
+  <data name="since_N" xml:space="preserve">
+    <value>desde {0}</value>
+  </data>
+  <data name="Send_Mail" xml:space="preserve">
+    <value>Notificar</value>
+  </data>
+  <data name="create_a_new_one" xml:space="preserve">
+    <value>novo repositório em</value>
+  </data>
+  <data name="use_old_one" xml:space="preserve">
+    <value>usar do projeto já existente</value>
+  </data>
+  <data name="use_one_of_the_following_reps" xml:space="preserve">
+    <value>usar um dos repositórios de código abaixo:</value>
+  </data>
+  <data name="Create_N_repository" xml:space="preserve">
+    <value>Criar {0}</value>
+  </data>
+  <data name="Create_rep_text_help" xml:space="preserve">
+    <value>Por favor, selecione um repositório, ou escolha por criar um novo repositório.</value>
+  </data>
+  <data name="comparing_with_N" xml:space="preserve">
+    <value>planejamento {0}</value>
+  </data>
+  <data name="comparing_with_proposal" xml:space="preserve">
+    <value>proposta</value>
+  </data>
+  <data name="do_not_use_as_baseline" xml:space="preserve">
+    <value>não usar como baseline</value>
+  </data>
+  <data name="use_as_baseline" xml:space="preserve">
+    <value>usar como baseline</value>
+  </data>
+  <data name="Could_not_open_path_N" xml:space="preserve">
+    <value>Não foi possível abrir o caminho '{0}'.</value>
+  </data>
+</root>

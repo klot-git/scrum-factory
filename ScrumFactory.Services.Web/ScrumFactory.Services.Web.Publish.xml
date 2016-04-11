@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\inetpub\wwwroot\sf" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/ScrumFactory.Services.pdb" publishTime="07/17/2012 18:17:52" />
+    <file relUrl="ReportTemplates/include/locale.pt-br.xslt" publishTime="05/30/2012 08:38:01" />
+    <file relUrl="Images/RiskIndicators/BlueSquare.png" publishTime="12/22/2011 13:55:52" />
+    <file relUrl="WindowsAuth/authOk.aspx" publishTime="07/11/2012 19:01:53" />
+    <file relUrl="ReportTemplates/include/styles.xslt" publishTime="12/22/2011 13:55:54" />
+    <file relUrl="Global.asax" publishTime="12/22/2011 13:55:55" />
+    <file relUrl="App_Data/Hooks/CreateProject.bat_" publishTime="03/20/2012 14:21:10" />
+    <file relUrl="Images/login_help.png" publishTime="04/30/2012 21:28:44" />
+    <file relUrl="ReportTemplates/ProposalReport/simple.xslt" publishTime="02/02/2012 13:43:55" />
+    <file relUrl="bin/ScrumFactory.dll" publishTime="07/17/2012 18:17:51" />
+    <file relUrl="Web.config" publishTime="07/17/2012 18:28:25" />
+    <file relUrl="bin/ScrumFactory.Services.Web.pdb" publishTime="07/17/2012 18:17:54" />
+    <file relUrl="App_Data/DB_SCRIPT/DB_SCRIPT.sql" publishTime="05/14/2012 18:23:54" />
+    <file relUrl="Images/alert.png" publishTime="03/20/2012 13:55:27" />
+    <file relUrl="ReportTemplates/include/locale.xslt" publishTime="05/30/2012 08:37:47" />
+    <file relUrl="READ-ME.txt" publishTime="06/05/2012 11:02:58" />
+    <file relUrl="Images/RiskIndicators/YellowSquare.png" publishTime="12/22/2011 13:55:52" />
+    <file relUrl="ReportTemplates/include/helpers.xslt" publishTime="04/17/2012 11:48:46" />
+    <file relUrl="ReportTemplates/include/emailHelpers.xslt" publishTime="04/17/2012 11:52:55" />
+    <file relUrl="Images/factorylogo.png" publishTime="12/22/2011 13:55:53" />
+    <file relUrl="ReportTemplates/DeliveryReport/DeliveryReport.xslt" publishTime="04/11/2012 15:20:30" />
+    <file relUrl="ReportTemplates/ProposalReport/default pt-br.xslt" publishTime="02/02/2012 13:44:55" />
+    <file relUrl="Images/ff_logo.png" publishTime="01/25/2012 15:39:01" />
+    <file relUrl="Images/RiskIndicators/RedSquare.png" publishTime="12/22/2011 13:55:52" />
+    <file relUrl="bin/ScrumFactory.pdb" publishTime="07/17/2012 18:17:50" />
+    <file relUrl="Images/noneMember.png" publishTime="04/10/2012 17:04:33" />
+    <file relUrl="bin/ScrumFactory.Services.Web.dll" publishTime="07/17/2012 18:17:54" />
+    <file relUrl="default.aspx" publishTime="04/30/2012 21:37:47" />
+    <file relUrl="Images/RiskIndicators/GreenSquare.png" publishTime="12/22/2011 13:55:52" />
+    <file relUrl="Images/chrome_logo.png" publishTime="01/25/2012 15:38:36" />
+    <file relUrl="Images/contextBg.gif" publishTime="12/22/2011 13:55:53" />
+    <file relUrl="WindowsAuth/default.aspx" publishTime="07/12/2012 10:48:49" />
+    <file relUrl="ReportTemplates/include/deliveryHelpers.xslt" publishTime="03/30/2012 17:44:45" />
+    <file relUrl="Setup/default.aspx" publishTime="05/18/2012 18:02:04" />
+    <file relUrl="bin/Microsoft.Net.Http.dll" publishTime="02/12/2012 18:34:11" />
+    <file relUrl="ReportTemplates/EmailNotifications/project_started.xslt" publishTime="03/17/2012 07:23:57" />
+    <file relUrl="ReportTemplates/EmailNotifications/project_closed.xslt" publishTime="03/17/2012 18:45:22" />
+    <file relUrl="ReportTemplates/EmailNotifications/member_invited.xslt" publishTime="03/16/2012 15:11:37" />
+    <file relUrl="loginHelp.aspx" publishTime="05/01/2012 14:14:36" />
+    <file relUrl="bin/System.ComponentModel.Composition.Extensions.pdb" publishTime="07/17/2012 18:17:51" />
+    <file relUrl="ReportTemplates/include/locale.en-us.xslt" publishTime="05/30/2012 08:38:01" />
+    <file relUrl="ReportTemplates/include/proposalHelpers.xslt" publishTime="05/30/2012 08:40:06" />
+    <file relUrl="bin/ScrumFactory.Services.dll" publishTime="07/17/2012 18:17:52" />
+    <file relUrl="ReportTemplates/ProposalReport/simple pt-br.xslt" publishTime="02/02/2012 13:45:04" />
+    <file relUrl="bin/System.ComponentModel.Composition.Extensions.dll" publishTime="07/17/2012 18:17:51" />
+    <file relUrl="ReportTemplates/SprintReview/default.xslt" publishTime="03/30/2012 17:16:44" />
+    <file relUrl="Images/Companylogo.png" publishTime="02/03/2012 16:45:48" />
+    <file relUrl="css/style.css" publishTime="04/11/2012 14:37:02" />
+    <file relUrl="MemberImage.aspx" publishTime="12/22/2011 13:55:55" />
+    <file relUrl="ReportTemplates/ProposalReport/default.xslt" publishTime="02/02/2012 13:44:03" />
+    <file relUrl="Images/pageBg.gif" publishTime="12/22/2011 13:55:53" />
+  </publishProfile>
+  <publishProfile publishUrl="C:\inetpub\wwwroot\sf" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="DeployPackage" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False" />
+</publishData>

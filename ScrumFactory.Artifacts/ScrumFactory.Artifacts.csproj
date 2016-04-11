@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{19030D7B-7C59-4A57-AEE1-E1E2107F359C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ScrumFactory.Artifacts</RootNamespace>
+    <AssemblyName>ScrumFactory.Artifacts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArtifactDetail.xaml.cs">
+      <DependentUpon>ArtifactDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ArtifactsList.xaml.cs">
+      <DependentUpon>ArtifactsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ArtifactImageConverter.cs" />
+    <Compile Include="CanEnlargeConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.pt-br.Designer.cs">
+      <DependentUpon>Resources.pt-br.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ViewModel\ArtifactsListViewModel.cs" />
+    <Compile Include="ViewModel\ArtifactDetailViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ArtifactDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ArtifactsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScrumFactory.Composition\ScrumFactory.Composition.csproj">
+      <Project>{B08DBAD5-F222-42F7-A277-7C83DAD4596F}</Project>
+      <Name>ScrumFactory.Composition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScrumFactory.Services\ScrumFactory.Services.csproj">
+      <Project>{8C02F064-7935-460A-89AA-A77B8511874C}</Project>
+      <Name>ScrumFactory.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScrumFactory.Windows.Helpers\ScrumFactory.Windows.Helpers.csproj">
+      <Project>{372804EF-BB1E-4B18-ACCB-4776EA590258}</Project>
+      <Name>ScrumFactory.Windows.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScrumFactory\ScrumFactory.csproj">
+      <Project>{B73E8E5E-4C76-4663-8E6F-51E069ECBDE1}</Project>
+      <Name>ScrumFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.ComponentModel.Composition.Extensions\System.ComponentModel.Composition.Extensions.csproj">
+      <Project>{8ECDEED1-329A-40BF-9E37-DAA1AEADF555}</Project>
+      <Name>System.ComponentModel.Composition.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.pt-br.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt-br.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

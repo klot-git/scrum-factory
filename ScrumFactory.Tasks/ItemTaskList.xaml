@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="ScrumFactory.Tasks.ItemTaskList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"                          
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"                             
+             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Helpers_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             
+             xmlns:props="clr-namespace:ScrumFactory.Tasks.Properties"
+             
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+
+             x:Name="thisView"
+             
+        
+
+             HorizontalAlignment="Stretch" 
+           
+             
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
+    </UserControl.InputBindings>
+
+   
+
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Focusable="False">
+
+            <TextBlock 
+                        Text="{x:Static props:Resources.press_Esc_to_cancel}" 
+                        FontStyle="Italic" FontSize="{StaticResource SmallFontSize}" 
+                        Focusable="False"
+                        Foreground="Gray" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsAddingTask}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+            </TextBlock>
+
+            <TextBox Text="{Binding NewTaskName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Height="100"                             
+                             Focusable="True" FocusManager.IsFocusScope="True" Margin="3"
+                             SF_Helpers_Ext:TextBoxExtension.IsFocused="{Binding IsFocusAtNewTask}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAddingTask}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding ConfirmAddTaskCommand}"/>
+                    <KeyBinding Key="Esc" Command="{Binding CancelAddTaskCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+
+
+            <DockPanel HorizontalAlignment="Right">                
+                <Button 
+                    Command="{Binding AddTaskCommand}" CommandParameter="False"
+                    Focusable="False" DockPanel.Dock="Left"
+                    Content="{x:Static props:Resources.New_task}" HorizontalAlignment="Stretch"
+                    Background="{StaticResource ActionButtonBackground}"/>
+                <Button 
+                    Command="{Binding AddTaskCommand}" CommandParameter="True" 
+                    Focusable="False" DockPanel.Dock="Right"
+                    Content="{x:Static props:Resources.work_on_it}" HorizontalAlignment="Stretch"
+                    Background="{StaticResource ActionButtonBackground}"/>
+                <DockPanel.Style>
+                    <Style TargetType="DockPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAddingTask}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+            </DockPanel>
+           
+
+
+        </StackPanel>
+
+
+        <ListView 
+            x:Name="taskList"                    
+            Grid.Row="1" 
+            SF_Helpers:ListViewColumnsExtension.Stretch="True"
+            VirtualizingStackPanel.IsVirtualizing="True"            
+            Style="{StaticResource ListViewNoHeader}"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding Tasks}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="65">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentControl Style="{StaticResource MemberImageNoIndicatorControlStyle}" DataContext="{Binding TaskAssigneeUId}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image 
+                                    DataContext="{Binding Status}"
+                                    Style="{StaticResource TaskStatusImage}"
+                                    Width="24" Height="24"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock                             
+                                    FontWeight="Bold" HorizontalAlignment="Right" Foreground="Gray">
+                                    <TextBlock Text="{Binding EffectiveHours, Mode=OneWay, StringFormat='{}0.#'}" FontSize="{StaticResource ReallyBigFontSize}"/>
+                                    <Run Text="{x:Static props:Resources.hrs}" FontSize="{StaticResource SmallFontSize}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Grid.Column="3" Orientation="Vertical" Margin="10,0,0,0">
+                                    <!--<TextBlock TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Text="{Binding TaskName}" FontSize="{StaticResource BigFontSize}" FontWeight="Normal" />-->
+                                    <TextBlock TextWrapping="Wrap" TextTrimming="CharacterEllipsis">
+                                        <Hyperlink Command="{Binding Model.ShowTaskCommand, ElementName=thisView}" CommandParameter="{Binding .}">
+                                            <Run Text="{Binding TaskName}" FontSize="{StaticResource BigFontSize}" />    
+                                        </Hyperlink>                                        
+                                    </TextBlock>
+                                    <TextBlock Foreground="Gray" FontSize="{StaticResource SmallFontSize}">                                                
+                                                <Run Text="{Binding CreatedAt, Mode=OneWay, Converter={StaticResource ContextDateConverter}, ConverterParameter=True}" />
+                                                <Run Text="{x:Static props:Resources._by}"/>
+                                                <Run Text="{Binding TaskAssigneeUId, Mode=OneWay}" FontStyle="Italic" />
+                                    </TextBlock>
+
+                                </StackPanel>
+
+
+
+                                
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button                            
+                                    Style="{StaticResource CleanButton}" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    Command="{Binding Model.ShowRepositoryLogCommand, ElementName=thisView}"
+                                    CommandParameter="{Binding TaskNumber}">
+                                    <Image Source="/Images/ToolBar/tail.png" Width="16" Height="16" Stretch="Uniform"/>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ContentControl Style="{StaticResource LoadingAnimationContent}"/>
+    </Grid>
+
+
+    
+  
+
+                       
+                        
+     
+                
+                
+
+
+</UserControl>

@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel_task" xml:space="preserve">
+    <value>Cancelar essa tarefa</value>
+  </data>
+  <data name="Can_not_create_task" xml:space="preserve">
+    <value>Não é possível criar nova tarefa</value>
+  </data>
+  <data name="Finish_this_task" xml:space="preserve">
+    <value>Concluir</value>
+  </data>
+  <data name="New_task" xml:space="preserve">
+    <value>Nova tarefa</value>
+  </data>
+  <data name="New_task_name" xml:space="preserve">
+    <value>Nome da nova tarefa</value>
+  </data>
+  <data name="Please_select_a_backlog_item_to_create_the_new_task" xml:space="preserve">
+    <value>Por favor, selecione um item de backlog para criar uma nova tarefa</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="Set_this_task_as_planned" xml:space="preserve">
+    <value>Mudar a tarefa para planejado</value>
+  </data>
+  <data name="Set_this_task_as_working_on" xml:space="preserve">
+    <value>Mudar a tarefa para em andamento</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tarefas</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Responsável</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Conclusão</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planejado</value>
+  </data>
+  <data name="Real" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tarefa</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Feito</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>Lista</value>
+  </data>
+  <data name="Post_it" xml:space="preserve">
+    <value>Post it</value>
+  </data>
+  <data name="today" xml:space="preserve">
+    <value>hoje</value>
+  </data>
+  <data name="yesterday" xml:space="preserve">
+    <value>ontem</value>
+  </data>
+  <data name="sprintEndDate_filter" xml:space="preserve">
+    <value>{0: dd-MMM}</value>
+  </data>
+  <data name="sprintStartDate_filter" xml:space="preserve">
+    <value>, {0: dd-MMM} até</value>
+  </data>
+  <data name="All_tasks" xml:space="preserve">
+    <value>Todas tarefas</value>
+  </data>
+  <data name="Task_N" xml:space="preserve">
+    <value>Tarefa {0}</value>
+  </data>
+  <data name="Task_type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Horas</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="finished_at" xml:space="preserve">
+    <value>concluído em</value>
+  </data>
+  <data name="started_at" xml:space="preserve">
+    <value>Iniciado em</value>
+  </data>
+  <data name="by_N" xml:space="preserve">
+    <value>, por {0}</value>
+  </data>
+  <data name="created_at_N" xml:space="preserve">
+    <value>criado em {0:d/M/yyyy HH:mm}</value>
+  </data>
+  <data name="as_" xml:space="preserve">
+    <value>como</value>
+  </data>
+  <data name="Spent_hours" xml:space="preserve">
+    <value>Horas gastas</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+  <data name="mins" xml:space="preserve">
+    <value>mins</value>
+  </data>
+  <data name="secs" xml:space="preserve">
+    <value>segs</value>
+  </data>
+  <data name="hrs" xml:space="preserve">
+    <value>hrs</value>
+  </data>
+  <data name="copy_track_info_to_clipboard" xml:space="preserve">
+    <value>copiar informação de rastreio para o clipboard</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>Participar</value>
+  </data>
+  <data name="Please_join_the_project_to_create_the_new_task" xml:space="preserve">
+    <value>Você precisa ser um participante do projeto para poder criar tarefas</value>
+  </data>
+  <data name="Copy_tag" xml:space="preserve">
+    <value>Copiar tag</value>
+  </data>
+  <data name="Copy_tag_tooltip" xml:space="preserve">
+    <value>Copiar a tag dessa tarefa para o clipboard</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="N_days_left" xml:space="preserve">
+    <value>{0} dia(s) restantes</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Papel</value>
+  </data>
+  <data name="assign_task_to_me" xml:space="preserve">
+    <value>pegar tarefa</value>
+  </data>
+  <data name="show_all_items" xml:space="preserve">
+    <value>mostrar todos os itens</value>
+  </data>
+  <data name="not_planned" xml:space="preserve">
+    <value>não planejado</value>
+  </data>
+  <data name="Please_select_a_backlog_item" xml:space="preserve">
+    <value>No modo de lista é necessário selecionar um item de backlog para visualizar suas tarefas.</value>
+  </data>
+  <data name="Replan_item" xml:space="preserve">
+    <value>Planejar</value>
+  </data>
+  <data name="Replan_item_tooltip" xml:space="preserve">
+    <value>Quando ativo replaneja horas do item de backlog conforme as tarefas</value>
+  </data>
+  <data name="add_task_tooltip" xml:space="preserve">
+    <value>selecione um item de backlog e clique com o botão direito aqui para adicionar uma nova tarefa</value>
+  </data>
+  <data name="startClock_tooltip" xml:space="preserve">
+    <value>Clique aqui para iniciar/parar o cronômetro</value>
+  </data>
+  <data name="N_planned" xml:space="preserve">
+    <value>{0:0.#} planejado</value>
+  </data>
+  <data name="N_spent" xml:space="preserve">
+    <value>{0:0.#} gasto</value>
+  </data>
+  <data name="copytasks_tooltip" xml:space="preserve">
+    <value>Ctrl-C para copiar</value>
+  </data>
+  <data name="Pasting_tasks" xml:space="preserve">
+    <value>Colando tarefas</value>
+  </data>
+  <data name="Pasting_tasks_prompt" xml:space="preserve">
+    <value>Você está prestes a colar {0} tarefas no item de backlog {1}.
+Tem certeza?</value>
+  </data>
+  <data name="Could_not_paste_tasks" xml:space="preserve">
+    <value>Não foi possível colar as tarefas</value>
+  </data>
+  <data name="You_can_only_paste_your_own_tasks" xml:space="preserve">
+    <value>Você só pode colar suas próprias tarefas.
+Algumas das tarefas do clipboard não são suas.</value>
+  </data>
+  <data name="You_need_to_be_a_project_member_to_paste_tasks" xml:space="preserve">
+    <value>Você precisar estar na equipe do projeto para colar as tarefas</value>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Seleção</value>
+  </data>
+  <data name="Selection_tooltip" xml:space="preserve">
+    <value>Ativa/desativa seleção de multiplos itens</value>
+  </data>
+  <data name="Payable" xml:space="preserve">
+    <value>Pagável</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
+  <data name="from_X" xml:space="preserve">
+    <value>de {0}</value>
+  </data>
+  <data name="to_X" xml:space="preserve">
+    <value>até {0}</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="role_not_defined" xml:space="preserve">
+    <value>papel não definido</value>
+  </data>
+  <data name="Working_at_T" xml:space="preserve">
+    <value>Trabalhando em '{0}'</value>
+  </data>
+  <data name="The_planned_effor_to_finish_task_T_has_ran_out" xml:space="preserve">
+    <value>Tenha conhecimento que o esforço planejado para conclusão da tarefa '{0}' se esgotou.</value>
+  </data>
+  <data name="Time_is_up" xml:space="preserve">
+    <value>Seu tempo acabou</value>
+  </data>
+  <data name="New_bug" xml:space="preserve">
+    <value>Novo bug</value>
+  </data>
+  <data name="work_on_it" xml:space="preserve">
+    <value>nova tarefa para mim</value>
+  </data>
+  <data name="item_done" xml:space="preserve">
+    <value>concluir</value>
+  </data>
+  <data name="start_track" xml:space="preserve">
+    <value>iniciar cronômetro</value>
+  </data>
+  <data name="no_tasks_for_you" xml:space="preserve">
+    <value>nenhuma tarefa para você.</value>
+  </data>
+  <data name="Release" xml:space="preserve">
+    <value>Liberar</value>
+  </data>
+  <data name="take_one_task" xml:space="preserve">
+    <value>pegar uma tarefa para mim</value>
+  </data>
+  <data name="Confirm_remove_review_tag_N" xml:space="preserve">
+    <value>Todas as tarefas marcadas com '{0}' serão desmarcadas. Continuar?</value>
+  </data>
+  <data name="New_tag" xml:space="preserve">
+    <value>Nova revisão</value>
+  </data>
+  <data name="New_tag_tooltip" xml:space="preserve">
+    <value>Inicia uma nova revisão</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="Remove_review_tag" xml:space="preserve">
+    <value>Remover marca de revisão</value>
+  </data>
+  <data name="Review_tag" xml:space="preserve">
+    <value>Revisão</value>
+  </data>
+  <data name="Review_tags" xml:space="preserve">
+    <value>Revisões</value>
+  </data>
+  <data name="Start_clock" xml:space="preserve">
+    <value>Cronômetro</value>
+  </data>
+  <data name="TagName_N" xml:space="preserve">
+    <value>Revisão {0}</value>
+  </data>
+</root>

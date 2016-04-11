@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="ScrumFactory.Backlog.GroupList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:props="clr-namespace:ScrumFactory.Backlog.Properties"
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"                             
+             xmlns:SF_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             
+             x:Name="thisView"
+             
+             Focusable="False"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid  Focusable="False" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{x:Static props:Resources.Work_structures}" Style="{StaticResource LabelTextBlock}" Margin="5,0,0,0"/>
+            <ListBox
+                IsTabStop="False" Focusable="False" 
+                SelectedItem="{Binding SelectedGroup}"
+                SF_Ext:ListSelectionBehavior.ClickSelection="True"
+                ItemContainerStyle="{StaticResource NoHorizontalLineDividedListBoxItem}"
+                ItemsSource="{Binding Groups}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch" Width="200">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0" 
+                                    Style="{StaticResource ColorComboBox}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    SelectedItem="{Binding GroupColor}"
+                                    IsEnabled="{Binding IsEnabled, ElementName=addButton}"
+                                    SF_Comp:CommandBehavior.RoutedEventName="SelectionChanged"
+                                    SF_Comp:CommandBehavior.TheCommandToRun="{Binding ElementName=thisView, Path=Model.UpdateGroupCommand}"
+                                    SF_Comp:CommandBehavior.TheCommandParameter="{Binding .}"/>
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <TextBlock
+                                    FontSize="{StaticResource TinyFontSize}" FontStyle="Italic" Margin="7,0,0,-7">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DefaultGroup}" Value="0">
+                                                    <Setter Property="TextBlock.Text" Value="{x:Static props:Resources.planGroup}"/>
+                                                </DataTrigger>
+                                                    <DataTrigger Binding="{Binding DefaultGroup}" Value="1">
+                                                    <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding DefaultGroup}" Value="2">
+                                                    <Setter Property="TextBlock.Text" Value="{x:Static props:Resources.deliveryGroup}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBox 
+                                    Text="{Binding GroupName}" Margin="0" x:Name="groupName"                                                           
+                                    FontSize="{StaticResource NormalFontSize}" MaxLength="50"
+                                    Style="{StaticResource ClickToEditTextBox}" TextWrapping="Wrap" HorizontalAlignment="Stretch"
+                                    IsEnabled="{Binding ElementName=editButton, Path=IsChecked}"                                                                        
+                                    
+                                    
+                                    SF_Comp:CommandBehavior.RoutedEventName="LostFocus"
+                                    SF_Comp:CommandBehavior.TheCommandToRun="{Binding ElementName=thisView, Path=Model.UpdateGroupCommand}"
+                                    SF_Comp:CommandBehavior.TheCommandParameter="{Binding .}"/>                                
+                            </StackPanel>
+                            
+                            <DockPanel Grid.Column="2" Style="{StaticResource ItemActionMenu}" VerticalAlignment="Center">
+                                <ToggleButton  x:Name="editButton" Style="{StaticResource CleanToggleButton}"
+                                               Visibility="{Binding ElementName=addButton, Path=Visibility}"
+                                               IsChecked="{Binding ElementName=groupName, Path=IsKeyboardFocusWithin, Mode=OneWay}">
+                                    <ToggleButton.Content>
+                                        <Image Source="/Images/Buttons/edit.png" Stretch="Uniform" Width="16" Height="16"/>
+                                    </ToggleButton.Content>                                                                        
+                                </ToggleButton>
+                            </DockPanel>
+                            
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Command="{Binding AddGroupCommand}" Cursor="Hand" HorizontalAlignment="Left" Margin="0,0,0,0" x:Name="addButton">
+                <Image Source="/Images/Add.png" Width="24" Height="24" Stretch="Uniform"/>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource OverButton}">
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </Style.Triggers>    
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+
+        <ContentControl Style="{StaticResource LoadingAnimationContent}"/>
+
+    </Grid>
+  
+</UserControl>

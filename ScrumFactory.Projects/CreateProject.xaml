@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="ScrumFactory.Projects.CreateProject"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:props="clr-namespace:ScrumFactory.Projects.Properties"        
+        
+        xmlns:local="clr-namespace:ScrumFactory.Projects"
+        xmlns:SF_Validation="clr-namespace:ScrumFactory.Windows.Helpers.ValidationRules;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"
+             xmlns:SF_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:KExt="clr-namespace:System.Windows.KExtensions;assembly=System.Windows.KExtensions"
+        
+        SnapsToDevicePixels="True"
+             
+             
+        
+              TextElement.Foreground="{StaticResource TextBrush}"
+        TextElement.FontSize="{StaticResource NormalFontSize}"
+             x:Name="thisView">
+
+
+    <TabControl Style="{StaticResource WindowTabControl}">
+        <TabControl.Items>
+            <TabItem Header="{Binding PanelName}">
+                <SF_Helpers:PanelLayout 
+                    ShowCurrentProjectName="False"
+                    Title="{Binding PanelName}" Style="{StaticResource DetailPanelLayout}">
+                    <!-- TOOLBAR -->
+                    <SF_Helpers:PanelLayout.Toolbar>
+                        <ToolBar Grid.Row="0">
+                            <MenuItem Style="{StaticResource GoBackMenuItem}"/>
+                            <MenuItem Command="{Binding CreateProjectCommand}" Header="{x:Static props:Resources.Create}" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/Toolbar/checked.png" Width="32" Height="32" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ToolBar>
+                    </SF_Helpers:PanelLayout.Toolbar>
+
+                    <SF_Helpers:PanelLayout.Content>
+                        <Grid>
+                            <!-- BASIC DATA -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+
+
+                                <TextBlock                          
+            Grid.Column="0" Grid.Row="0"                                    
+            Text="{x:Static props:Resources.Project_name}"
+            Style="{StaticResource LabelTextBlock}"/>
+                                <TextBox   
+                                    SF_Ext:TextBoxExtension.IsFocused="True"
+                                    KExt:SpellCheck.IsEnabled="True"
+            Grid.Column="1" Grid.Row="0"  MaxLength="200"
+            Text="{Binding ProjectName}"            
+            HorizontalAlignment="Stretch"/>
+
+                                <TextBlock                          
+            Grid.Column="0" Grid.Row="1"                                    
+            Text="{x:Static props:Resources.Customer}"
+            Style="{StaticResource LabelTextBlock}"/>
+                                <ComboBox Grid.Column="1" Grid.Row="1"
+                      HorizontalAlignment="Stretch"
+                      IsEditable="True"
+                      Text="{Binding ClientName}"
+                      ItemsSource="{Binding Clients}"/>
+
+             
+                                <TextBlock                          
+            Grid.Column="0" Grid.Row="2"           
+            Style="{StaticResource LabelTextBlock}"            
+            Text="{x:Static props:Resources.Platform}"
+            VerticalAlignment="Top"/>
+                                <ComboBox Grid.Column="1" Grid.Row="2"
+                      HorizontalAlignment="Stretch"
+                      IsEditable="True"
+                      Text="{Binding Platform, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Platforms}"/>
+
+                                <TextBlock                          
+            Grid.Column="0" Grid.Row="3"           
+            Style="{StaticResource LabelTextBlock}"            
+            Text="{x:Static props:Resources.Project_abstract}"
+            VerticalAlignment="Top"/>
+                                <TextBox    
+                                     KExt:SpellCheck.IsEnabled="True"
+            Grid.Column="1" Grid.Row="3"                                    
+            Height="80" MaxLength="255"
+            AcceptsReturn="True" TextWrapping="Wrap"
+            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Stretch"/>
+
+                                <CheckBox
+                Grid.Column="1" Grid.Row="4"
+                IsChecked="{Binding UseLastProjectAsModel}"
+                Content="{x:Static props:Resources.use_last_project_as_model}"/>
+
+                                <StackPanel Grid.Column="1" Grid.Row="5">
+                                    <CheckBox                                    
+                                        IsChecked="{Binding IsTicketProject}"                                    
+                                        Content="{x:Static props:Resources.ticket_project}"/>                                        
+                                    <TextBlock Text="{x:Static props:Resources.Ticket_project_alert}" FontSize="{StaticResource SmallFontSize}" />                        
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel" >
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsTicketProjectsEnabled}" Value="False">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                </StackPanel>
+
+                                
+
+
+
+
+                            </Grid>
+
+                        </Grid>
+
+                    </SF_Helpers:PanelLayout.Content>
+
+                </SF_Helpers:PanelLayout>
+            </TabItem>
+        </TabControl.Items>
+    </TabControl>
+
+       
+    
+</UserControl>

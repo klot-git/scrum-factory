@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\marcos.martins\Desktop\thescrumfactory2012\ServerDeploy\packages</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/DB_SCRIPT/DB_SCRIPT.sql">
+      <publishTime>11/10/2014 17:35:30</publishTime>
+    </File>
+    <File Include="App_Data/DB_SCRIPT/DB_SCRIPT_30.sql">
+      <publishTime>11/10/2014 17:35:30</publishTime>
+    </File>
+    <File Include="App_Data/DB_SCRIPT/DB_SCRIPT_32.sql">
+      <publishTime>11/24/2014 15:53:01</publishTime>
+    </File>
+    <File Include="App_Data/DB_SCRIPT/DB_SCRIPT_defaultItemSizes.sql">
+      <publishTime>11/10/2014 17:35:30</publishTime>
+    </File>
+    <File Include="App_Data/Hooks/CreateProject.bat_">
+      <publishTime>11/10/2014 17:35:30</publishTime>
+    </File>
+    <File Include="App_Data/log.txt">
+      <publishTime>08/07/2015 14:00:00</publishTime>
+    </File>
+    <File Include="bin-plugins/Foster.FosterAdm.dll">
+      <publishTime>04/07/2015 11:12:00</publishTime>
+    </File>
+    <File Include="bin-plugins/Foster.FosterAdm.Services.Web.dll">
+      <publishTime>04/07/2015 11:28:08</publishTime>
+    </File>
+    <File Include="bin-plugins/Foster.FosterAdm.Services.Web.dll.config">
+      <publishTime>09/18/2012 16:12:51</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>08/07/2015 15:12:41</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>08/07/2015 15:12:41</publishTime>
+    </File>
+    <File Include="bin/App_Web_2tjegxyz.dll">
+      <publishTime>08/07/2015 15:12:42</publishTime>
+    </File>
+    <File Include="bin/App_Web_3a0dxmza.dll">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/App_Web_hb1c4pry.dll">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/authok.aspx.9c10d21d.compiled">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/default.aspx.4cd3357d.compiled">
+      <publishTime>08/07/2015 15:12:42</publishTime>
+    </File>
+    <File Include="bin/default.aspx.9c10d21d.compiled">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/default.aspx.cdcab7d2.compiled">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/memberimage.aspx.cdcab7d2.compiled">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Json.dll">
+      <publishTime>11/10/2014 17:35:12</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Net.Http.dll">
+      <publishTime>11/10/2014 17:35:12</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Net.Http.Formatting.dll">
+      <publishTime>11/10/2014 17:35:12</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Server.Common.dll">
+      <publishTime>11/10/2014 17:35:12</publishTime>
+    </File>
+    <File Include="bin/open-project.aspx.cdcab7d2.compiled">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/open-task.aspx.cdcab7d2.compiled">
+      <publishTime>08/07/2015 15:12:43</publishTime>
+    </File>
+    <File Include="bin/PdfSharp-WPF.dll">
+      <publishTime>03/30/2015 16:19:40</publishTime>
+    </File>
+    <File Include="bin/PdfSharp-WPF.xml">
+      <publishTime>03/30/2015 16:19:40</publishTime>
+    </File>
+    <File Include="bin/PdfSharp.Xps.dll">
+      <publishTime>03/30/2015 16:19:40</publishTime>
+    </File>
+    <File Include="bin/PdfSharp.Xps.xml">
+      <publishTime>03/30/2015 16:19:40</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Data.dll">
+      <publishTime>08/07/2015 14:31:55</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Data.Sql.dll">
+      <publishTime>08/07/2015 14:31:57</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Data.Sql.dll.config">
+      <publishTime>07/30/2015 14:49:52</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.dll">
+      <publishTime>08/07/2015 15:19:32</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.ReportHelper.dll">
+      <publishTime>08/07/2015 14:31:55</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Services.dll">
+      <publishTime>08/07/2015 15:19:34</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Services.Logic.dll">
+      <publishTime>08/07/2015 14:32:08</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Services.Logic.dll.config">
+      <publishTime>07/30/2015 14:47:29</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Services.Web.dll">
+      <publishTime>08/07/2015 15:19:48</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.Services.Web.dll.config">
+      <publishTime>07/30/2015 14:57:37</publishTime>
+    </File>
+    <File Include="bin/System.ComponentModel.Composition.Extensions.dll">
+      <publishTime>08/07/2015 15:19:32</publishTime>
+    </File>
+    <File Include="css/style.css">
+      <publishTime>12/02/2014 16:13:31</publishTime>
+    </File>
+    <File Include="default.aspx">
+      <publishTime>12/02/2014 15:49:14</publishTime>
+    </File>
+    <File Include="default.aspx.cs">
+      <publishTime>12/03/2014 07:29:06</publishTime>
+    </File>
+    <File Include="default.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="ErrorHandler.cs">
+      <publishTime>08/07/2015 13:57:00</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Global.asax.cs">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/alert.png">
+      <publishTime>08/05/2015 14:21:28</publishTime>
+    </File>
+    <File Include="Images/chrome_logo.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/Companylogo.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/contactMember.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/contextBg.gif">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/factorylogo.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/factoryLogoFooter.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/factorylogo_medium.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/factorylogo_small.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/ff_logo.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/login_help.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/noneMember.png">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/pageBg.gif">
+      <publishTime>11/10/2014 17:35:31</publishTime>
+    </File>
+    <File Include="Images/ProjectStatus/prjApproved.png">
+      <publishTime>08/04/2015 17:27:14</publishTime>
+    </File>
+    <File Include="Images/ProjectStatus/prjDone.png">
+      <publishTime>08/04/2015 17:26:19</publishTime>
+    </File>
+    <File Include="Images/ProjectStatus/prjOportunity.png">
+      <publishTime>08/04/2015 17:26:03</publishTime>
+    </File>
+    <File Include="Images/ProjectStatus/prjRejected.png">
+      <publishTime>08/04/2015 17:27:10</publishTime>
+    </File>
+    <File Include="Images/ProjectStatus/prjRunning.png">
+      <publishTime>08/04/2015 17:27:18</publishTime>
+    </File>
+    <File Include="Images/ProjectStatus/prjSupport.png">
+      <publishTime>08/06/2015 09:24:25</publishTime>
+    </File>
+    <File Include="Images/RiskIndicators/BlueSquare.png">
+      <publishTime>08/05/2015 14:35:52</publishTime>
+    </File>
+    <File Include="Images/RiskIndicators/GreenSquare.png">
+      <publishTime>08/05/2015 14:35:49</publishTime>
+    </File>
+    <File Include="Images/RiskIndicators/RedSquare.png">
+      <publishTime>08/05/2015 14:35:45</publishTime>
+    </File>
+    <File Include="Images/RiskIndicators/YellowSquare.png">
+      <publishTime>08/05/2015 14:35:42</publishTime>
+    </File>
+    <File Include="Images/sf_banner.jpg">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="Images/tail.png">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="Images/Thumbs.db">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="Images/whomember.png">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="loginHelp.aspx">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="loginHelp.aspx.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="loginHelp.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="MefBehavior.cs">
+      <publishTime>03/20/2015 16:45:15</publishTime>
+    </File>
+    <File Include="MefInstanceProvider.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="MefWebServiceHostFactory.cs">
+      <publishTime>03/20/2015 16:45:33</publishTime>
+    </File>
+    <File Include="MemberImage.aspx">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="MemberImage.aspx.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="MemberImage.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="open-project.aspx">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="open-project.aspx.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="open-project.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="open-task.aspx">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="open-task.aspx.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="open-task.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>08/07/2015 15:12:37</publishTime>
+    </File>
+    <File Include="Properties/AssemblyInfo.cs">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="Properties/PublishProfiles/DeployPackage.pubxml">
+      <publishTime>08/07/2015 15:01:34</publishTime>
+    </File>
+    <File Include="Properties/PublishProfiles/DeployPackage.pubxml.user">
+      <publishTime>11/25/2014 10:18:50</publishTime>
+    </File>
+    <File Include="Properties/PublishProfiles/local.pubxml">
+      <publishTime>08/07/2015 15:13:36</publishTime>
+    </File>
+    <File Include="Properties/PublishProfiles/local.pubxml.user">
+      <publishTime>08/07/2015 15:12:47</publishTime>
+    </File>
+    <File Include="READ-ME.txt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/DeliveryReport/DeliveryReport.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/DeliveryReport/FullDeliveryReport.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/DeliveryReport/SprintStackReport.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/EmailNotifications/member_invited.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/EmailNotifications/project_closed.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/EmailNotifications/project_started.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/constraintsHelpers.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/deliveryHelpers.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/emailHelpers.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/helpers.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/locale.en-us.xslt">
+      <publishTime>04/14/2015 14:12:12</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/locale.pt-br.xslt">
+      <publishTime>04/14/2015 14:12:27</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/locale.xslt">
+      <publishTime>04/14/2015 14:12:12</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/proposalHelpers.xslt">
+      <publishTime>04/14/2015 14:11:37</publishTime>
+    </File>
+    <File Include="ReportTemplates/include/styles.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/ProposalReport/default pt-br.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/ProposalReport/default.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/ProposalReport/simple pt-br.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/ProposalReport/simple.xslt">
+      <publishTime>11/10/2014 17:35:33</publishTime>
+    </File>
+    <File Include="ReportTemplates/SprintReview/default.xslt">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="ReportTemplates/SprintReview/guide.xslt">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="ReportTemplates/SprintReview/indicators.xslt">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="ReportTemplates/SprintReview/scope.xslt">
+      <publishTime>02/13/2015 08:39:46</publishTime>
+    </File>
+    <File Include="scripts/jquery-1.11.1.min.js">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="scripts/knockout-3.1.0.js">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="scripts/projectSearch.js">
+      <publishTime>12/02/2014 15:50:04</publishTime>
+    </File>
+    <File Include="ScrumFactory.Services.Web.csproj">
+      <publishTime>08/07/2015 15:12:34</publishTime>
+    </File>
+    <File Include="ScrumFactory.Services.Web.csproj.user">
+      <publishTime>08/07/2015 15:12:34</publishTime>
+    </File>
+    <File Include="ScrumFactory.Services.Web.Publish.xml">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="ScrumFactory.Services.Web.wpp.targets">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="Setup/default.aspx">
+      <publishTime>11/25/2014 14:01:30</publishTime>
+    </File>
+    <File Include="Setup/default.aspx.cs">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="Setup/default.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:34</publishTime>
+    </File>
+    <File Include="Templates/default-constraints.xml">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/07/2015 15:20:22</publishTime>
+    </File>
+    <File Include="Web.Debug.config">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="Web.Release.config">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth/authOk.aspx">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth/authOk.aspx.cs">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth/authOk.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth/default.aspx">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth/default.aspx.cs">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth/default.aspx.designer.cs">
+      <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

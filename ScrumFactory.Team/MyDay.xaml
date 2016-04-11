@@ -1,0 +1,202 @@
+﻿ <UserControl x:Class="ScrumFactory.Team.MyDay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:props="clr-namespace:ScrumFactory.Team.Properties" 
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+              xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"
+          
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             
+             x:Name="thisView"
+             
+             FontSize="{StaticResource BigFontSize}"
+             
+             SF_Comp:CommandBehavior.RoutedEventName="Loaded"
+            SF_Comp:CommandBehavior.TheCommandToRun="{Binding OnLoadCommand}">
+    
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/TeamStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
+    </UserControl.InputBindings>
+
+    <SF_Helpers:DockWindowContainer>
+        <SF_Helpers:PanelLayout Title="{Binding PanelName}" ShowCurrentProjectName="False" Background="Transparent" BorderBrush="Transparent">
+
+            <SF_Helpers:PanelLayout.Toolbar>
+                <ToolBar />
+            </SF_Helpers:PanelLayout.Toolbar>
+
+            <SF_Helpers:PanelLayout.Content>
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" ScrollViewer.PanningMode="VerticalOnly">
+                        <Grid>
+                            <Grid.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding TeamMembers}" Value="{x:Null}">
+                                            <Setter Property="Grid.Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="400" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" >
+
+
+
+                                <!-- PENDING COMMITMENTS-->
+                                <ContentControl Content="{Binding PendingMembershipsListViewModel.View}"/>
+
+
+                                <!-- MY TEAM TASKS -->
+                                <ItemsControl
+                                Margin="0,10,0,20"
+                                Style="{StaticResource MemberTeamTasksListBox}"                        
+                                ItemsSource="{Binding TeamMembers}">
+                                </ItemsControl>
+
+                                <TextBlock Text="{x:Static props:Resources.showing_up_to_25_members}" FontStyle="Italic" Foreground="White">
+                            <TextBlock.Style>
+                                <Style BasedOn="{StaticResource LabelHelp}" TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding TeamMembers.Count}" Value="25">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                                </TextBlock>
+
+                                <TextBlock Foreground="White" FontSize="{StaticResource NormalFontSize}" FontWeight="Light" >
+                            <TextBlock.Style>
+                            <Style TargetType="TextBlock" >
+                                <Setter Property="Text" Value="{Binding MemberProfile.TeamCode, StringFormat={x:Static props:Resources.Your_team_tooltip}}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MemberProfile.TeamCode}" Value="{x:Null}">
+                                        <Setter Property="Text" Value="{x:Static props:Resources.No_team_tooltip}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                            </TextBlock.Style>
+                                </TextBlock>
+
+                                <TextBlock Foreground="White" Text="{x:Static props:Resources.Change_your_team_tooltip}" Margin="0,0,0,20" FontSize="{StaticResource NormalFontSize}"/>
+
+
+
+
+                            </StackPanel>
+
+                            <Button
+                                Command="{Binding CreateNewProjectCommand}"
+                                Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-100,0,0">
+                                <TextBlock
+                                        FontSize="42" Style="{StaticResource CoverTextTitle}"
+                                        Text="{x:Static props:Resources.start_a_new_project}" Margin="10" />
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource OverButton}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TeamTaskCount}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Margin="20,0,0,0">
+
+
+
+                                <!-- EVENTS -->
+                                <ItemsControl
+                                Margin="0,40,0,20"
+                                ItemsSource="{Binding Events}">
+                                    <ItemsControl.GroupStyle>
+                                        <GroupStyle>
+
+                                            <GroupStyle.ContainerStyle>
+                                                <Style TargetType="{x:Type GroupItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                <Grid Background="Transparent" Margin="0,0,0,15">
+                                                                    <TextBlock Text="{Binding Name, StringFormat='{}{0:dddd, MMMM d}'}" Style="{StaticResource CoverTextTitle}"/>
+                                                                    <ItemsPresenter Margin="0,20,0,0" />
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </GroupStyle.ContainerStyle>
+                                        </GroupStyle>
+                                    </ItemsControl.GroupStyle>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource OverButton}" Command="{Binding Model.ShowProjectDetailCommand, ElementName=thisView}" CommandParameter="{Binding ProjectUId}">
+                                                <TextBlock Style="{StaticResource EventDescriptionTextBlock}" TextWrapping="Wrap"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+
+                            </StackPanel>
+
+                            <ContentControl Style="{StaticResource LoadingAnimationContent}"/>
+
+
+
+                        </Grid>
+
+                    </ScrollViewer>
+                    <!-- TROPHIES -->
+                    <ItemsControl                                
+                                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-10,0,0"
+                                ItemsSource="{Binding MemberProfile.Performance.Trophies}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Style="{StaticResource SignedMemberTrophyImage}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+                
+
+            </SF_Helpers:PanelLayout.Content>
+        </SF_Helpers:PanelLayout>
+    </SF_Helpers:DockWindowContainer>
+
+
+
+
+
+
+
+</UserControl>

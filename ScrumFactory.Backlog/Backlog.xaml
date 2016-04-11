@@ -1,0 +1,753 @@
+﻿<UserControl x:Class="ScrumFactory.Backlog.Backlog"             
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:props="clr-namespace:ScrumFactory.Backlog.Properties"
+             
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition"                             
+             xmlns:SF_VM="clr-namespace:ScrumFactory.Backlog.ViewModel;assembly=ScrumFactory.Backlog"
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"   
+             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Helpers_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_DD="clr-namespace:ScrumFactory.Windows.Helpers.DragDrop;assembly=ScrumFactory.Windows.Helpers"
+             
+             xmlns:SF_Converters="clr-namespace:ScrumFactory.Windows.Helpers.Converters;assembly=ScrumFactory.Windows.Helpers"
+             
+             xmlns:KExt="clr-namespace:System.Windows.KExtensions;assembly=System.Windows.KExtensions"
+             
+             
+             x:Name="thisView"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding CreateNewBacklogItemCommand}"/>
+        <KeyBinding Key="C" Modifiers="Control" Command="{Binding CopyItemsCommand}"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding PasteItemsCommand}"/>
+        <KeyBinding Key="T" Modifiers="Control" Command="{Binding SelectAllItemsCommand}"/>
+    </UserControl.InputBindings>
+
+    <UserControl.Resources>
+
+
+        <DataTemplate x:Key="BacklogItemDragDataTemplate">
+            <Image  DataContext="{Binding Item.Status}" Style="{StaticResource BacklogItemStatusImage}" Width="20" Height="20" Stretch="Uniform" />
+        </DataTemplate>
+
+        <Style x:Key="CurrentSprintTextBlock" TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsAtCurrentSprint}" Value="True">
+                    <Setter Property="TextBlock.FontWeight" Value="SemiBold"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MonthFilterTextBlock" TargetType="TextBlock">
+            <Setter Property="TextBlock.Text" Value="{Binding ., StringFormat='{}{0:MMM-yy}'}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding .}" Value="{x:Static sys:DateTime.MinValue}">
+                    <Setter Property="TextBlock.Text" Value="{x:Static props:Resources.any_date}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding DataContext.Project.IsTicketProject, ElementName=thisView}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="StatusFilterImage" TargetType="{x:Type Image}">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding .}" Value="0">
+                    <Setter Property="Source" Value="/Images/ToolBar/todo_backlog.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding .}" Value="1">
+                    <Setter Property="Source" Value="/Images/ToolBar/planning_backlog.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding}" Value="2">
+                    <Setter Property="Image.Source" Value="/Images/ToolBar/selected_backlog.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding}" Value="3">
+                    <Setter Property="Image.Source" Value="/Images/ToolBar/all_backlog.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding}" Value="4">
+                    <Setter Property="Image.Source" Value="/Images/ToolBar/product_backlog.png"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DueDateTextBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="TextBlock.Foreground" Value="{StaticResource SubTextBrush}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsAtCurrentSprint}" Value="True">
+                    <Setter Property="TextBlock.FontWeight" Value="SemiBold"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsPlanningLate}" Value="True">
+                    <Setter Property="TextBlock.Foreground" Value="{StaticResource AlertBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Item.SprintNumber}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DueDateMenu" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="{Binding ItemSprintLabel}"/>
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+            <Setter Property="Foreground" Value="{StaticResource LinkBrush}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Item.SprintNumber}" Value="{x:Null}">
+                    <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <ObjectDataProvider  x:Key="backlogFilterList" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="SF_VM:BacklogStatusFilter"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <DataTemplate x:Key="BacklogStatusFilterDataTemplate">
+            <Grid Width="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="38"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Style="{StaticResource StatusFilterImage}" Grid.Row="0"/>
+                <TextBlock FontSize="{StaticResource SmallFontSize}" Grid.Row="1" 
+                           FontFamily="Arial" Padding="0" Margin="0,-1,0,0"
+                           TextTrimming="CharacterEllipsis" TextAlignment="Center"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Foreground="{StaticResource ToolBarItemBrush}"
+                           Text="{Binding ., Converter={StaticResource LocalizeConverter}, ConverterParameter='ScrumFactory.Backlog.Backlog,ScrumFactory.Backlog'}"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="BacklogStatusFilterDropDownDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Style="{StaticResource StatusFilterImage}" Margin="0,0,5,0"/>
+                <TextBlock>
+                    <Run Text="{Binding ., Converter={StaticResource LocalizeConverter}, ConverterParameter='ScrumFactory.Backlog.Backlog,ScrumFactory.Backlog'}"/>    
+                    <LineBreak/>
+                    <Run FontSize="{StaticResource SmallFontSize}"                         
+                         Text="{Binding ., Converter={StaticResource LocalizeWithTooltipConverter}, ConverterParameter='ScrumFactory.Backlog.Backlog,ScrumFactory.Backlog'}"/>
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <SF_Helpers:PanelLayout Title="{Binding PanelName}" 
+                            SF_Helpers_Ext:SearchBoxExtension.SearchBox="{Binding ElementName=searchTextBox}"
+                            SF_Comp:CommandBehavior.RoutedEventName="Loaded"
+                            SF_Comp:CommandBehavior.TheCommandToRun="{Binding LoadDataCommand}">
+
+            <!-- TOOLBAR -->
+            <SF_Helpers:PanelLayout.Toolbar>
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ToolBar Grid.Row="0">
+
+                        <MenuItem 
+                        x:Name="addButton" 
+                        Grid.Column="0" Focusable="False"                
+                        IsEnabled="{Binding CanCreateNewBacklogItem}"
+                        Header="{x:Static props:Resources.New_item}">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/ToolBar/Add.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                            <MenuItem.Style>
+                                <Style BasedOn="{StaticResource Toolbar_MenuItemStyleHideWhenDisabled}" TargetType="MenuItem">
+                                    <Style.Triggers>
+                                        <Trigger Property="MenuItem.IsPressed" Value="True">
+                                            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=addTextBox}"/>
+                                        </Trigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </MenuItem.Style>
+                        </MenuItem>
+
+                        <!--<MenuItem IsCheckable="True" x:Name="selectionButton" FocusManager.IsFocusScope="False" Focusable="False"
+                              Header="{x:Static props:Resources.Selection}" ToolTip="{x:Static props:Resources.Selection_tooltip}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/ToolBar/mouse_cursor.png" Width="32" Height="32" Stretch="Uniform"/>
+                        </MenuItem.Icon>
+                    </MenuItem>-->
+
+                      
+
+                        <ComboBox x:Name="itemStatusFilterComboBox"                                                                 
+                        Width="80" 
+                        Style="{StaticResource CleanComboBox}"                                  
+                        SelectedItem="{Binding StatusFilter}"
+                        VerticalAlignment="Stretch"                                                                      
+                        ItemsSource="{Binding Source={StaticResource backlogFilterList}}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl x:Name="content" Content="{Binding}" ContentTemplate="{StaticResource BacklogStatusFilterDropDownDataTemplate}"/>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBoxItem}}" Value="{x:Null}">
+                                            <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource BacklogStatusFilterDataTemplate}"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                        </ComboBox>
+
+
+                        <MenuItem 
+                            Focusable="False"
+                            Header="{x:Static props:Resources.Issue_only}" IsCheckable="True" IsChecked="{Binding ShowIssueOnly}">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/toolbar/bug.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                    <MenuItem 
+                            Focusable="False"
+                            Header="{x:Static props:Resources.Plan_items}" Command="{Binding PlanAllLateItemsCommand}"
+                          Style="{StaticResource Toolbar_MenuItemStyleHideWhenDisabled}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/ToolBar/planItems.png" Width="32" Height="32" Stretch="Uniform"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+
+                    <MenuItem
+                            Focusable="False"
+                            Header="{x:Static props:Resources.Item_sizes}" Command="{Binding EditItemSizesCommand}">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/ToolBar/Plan.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                    <MenuItem x:Name="showValuesButton" 
+                          Header="{x:Static props:Resources.Preview_price}" 
+                          IsCheckable="True"  
+                          IsChecked="{Binding ShowValues}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/ToolBar/eye.png" Width="32" Height="32" Stretch="Uniform"/>
+                        </MenuItem.Icon>
+                        <MenuItem.Style>
+                            <Style BasedOn="{StaticResource Toolbar_MenuItemStyle}" TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanSeeProposals}" Value="false">
+                                        <Setter Property="MenuItem.Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+
+
+                    <TextBlock Text="{Binding BacklogPriceStr}" FontSize="{StaticResource ReallyBigFontSize}" Foreground="{StaticResource ToolBarItemBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0" >
+                        <TextBlock.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowValues}" Value="False">
+                                        <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </ToolBar>
+
+                    <Grid x:Name="newItemPanel" Grid.Row="1" 
+                            Style="{StaticResource NewItemPanelAutoClose}">
+
+                        <DockPanel VerticalAlignment="Top">
+                            <TextBlock Text="{x:Static props:Resources.New_item}" VerticalAlignment="Center" Style="{StaticResource LabelTextBlock}" DockPanel.Dock="Left"/>
+                            <TextBox                        
+                            x:Name="addTextBox"  DockPanel.Dock="Right"
+                            KExt:SpellCheck.IsEnabled="True"
+                            HorizontalAlignment="Stretch" BorderBrush="{StaticResource TextBoxBackgroundBrush}" 
+                            ToolTip="{x:Static props:Resources.New_item_name}" VerticalAlignment="Center"
+                            Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+
+                    </Grid>
+
+                </Grid>
+            </SF_Helpers:PanelLayout.Toolbar>
+
+            <!-- CONTENT -->
+            <SF_Helpers:PanelLayout.Content>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Expander Grid.Column="0" Margin="0,0,10,0" ExpandDirection="Right" HorizontalContentAlignment="Right"  TabIndex="50"
+                          Focusable="False" VerticalAlignment="Top"
+                          IsExpanded="{Binding ShowGroupList, Mode=OneWay}">
+                        <ContentPresenter x:Name="groupListView" Content="{Binding GroupList.View}" Focusable="False"/>
+                    </Expander>
+
+                    <DockPanel Grid.Column="1">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5" HorizontalAlignment="Right">
+
+                            <TextBlock ToolTip="{x:Static props:Resources.size_left_tooltip}" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="{StaticResource SubTextBrush}">
+                            <TextBlock Text="{x:Static props:Resources.Your_current_backlog_size_is}"/>
+                            <TextBlock Text="{Binding ItemsLeftTotalSize, Mode=OneWay, StringFormat='{}{0:0}'}" FontWeight="Bold"/>
+                            <TextBlock Text="{x:Static props:Resources.pts}"/>
+                        </TextBlock>
+
+                            <TextBlock ToolTip="{x:Static props:Resources.hrs_left_tooltip}" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="{StaticResource SubTextBrush}">
+                            <TextBlock Text="{x:Static props:Resources.to_be_done_using}"/>
+                            <TextBlock Text="{Binding ItemsLeftTotalHours, Mode=OneWay, StringFormat='{}{0:0.#}'}" FontWeight="Bold"/>
+                            <TextBlock Text="{x:Static props:Resources.hrs_left}"/>
+                        </TextBlock>
+
+                            <TextBlock ToolTip="{x:Static props:Resources.velocity_tooltip}" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="{StaticResource SubTextBrush}">
+                            <Run Text="("/>
+                            <TextBlock Text="{Binding RequiredVelocity, Mode=OneWay, StringFormat='{}{0:0.#}'}"/>
+                            <TextBlock Text="{x:Static props:Resources.pts_hrs}"/>
+                            <Run Text=")"/>
+                        </TextBlock>
+
+                        </StackPanel>
+
+                    <ItemsControl 
+                        DockPanel.Dock="Top"
+                        ItemsSource="{Binding MonthFilters}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button MinWidth="80"
+                                        Command="{Binding Model.FilterByMonthCommand, ElementName=thisView}" CommandParameter="{Binding .}" >
+                                    <TextBlock Style="{StaticResource MonthFilterTextBlock}" />                                        
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Project.IsTicketProject}" Value="False">
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+
+                    <TextBlock DataContext="{Binding SelectedMonthFilter}" Style="{StaticResource MonthFilterTextBlock}" DockPanel.Dock="Top" Margin="10,5,0,0" FontWeight="Bold" />
+
+                        <ListView
+                    
+                        DockPanel.Dock="Bottom"
+                    x:Name="listview"       
+                 
+                         SelectionMode="Extended"
+                    
+                    SF_Helpers:ListViewColumnsExtension.Stretch="True"
+            
+                    SF_Helpers:ItemActivation.ActivationMode="Both"            
+                    SF_Helpers:ItemActivation.TheCommandToRun="{Binding ShowDetailWindowCommand}"                                                        
+                                        
+                    SF_DD:DragDropHelper.OnDropCommand="{Binding MoveItemToCommand}"                    
+                    SF_DD:DragDropHelper.IsDropTarget="True"
+                    SF_DD:DragDropHelper.DragDropTemplate="{StaticResource BacklogItemDragDataTemplate}"
+                                
+                    ItemsSource="{Binding FilteredBacklog}" 
+                    
+                    VirtualizingStackPanel.IsVirtualizing="True"
+                        
+                  
+                    
+                    ScrollViewer.PanningMode="VerticalOnly"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"            
+                    VerticalAlignment="Stretch"                        
+                    BorderThickness="0">
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                        <Grid>
+                                                            
+                                                        <Expander 
+                                                            IsExpanded="True" Margin="0,0,0,0" Padding="0,0,0,4"
+                                                            Header="{x:Static props:Resources.The_following_items_have_not_been_planned_yet}"
+                                                            Foreground="{StaticResource AlertBrush}" 
+                                                            Background="{StaticResource AlertBackgroundBrush}"
+                                                            ExpandDirection="Down" HorizontalAlignment="Stretch">
+                                                                <ItemsPresenter />                                                               
+                                                            <Expander.Style>
+                                                                    <Style>
+                                                                    <Setter Property="Expander.Visibility" Value="Collapsed"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                                            <Setter Property="Expander.Visibility" Value="Visible"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                            </Expander.Style>
+                                                        </Expander>
+
+                                                        <ItemsPresenter >
+                                                            <ItemsPresenter.Style>
+                                                                <Style>
+                                                                    <Setter Property="ItemsPresenter.Visibility" Value="Visible"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                                            <Setter Property="ItemsPresenter.Visibility" Value="Collapsed"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </ItemsPresenter.Style>
+                                                        </ItemsPresenter>
+                                                        <Line X1="0" X2="1" Y1="0" Y2="0" Stretch="Fill" VerticalAlignment="Bottom"
+                                                  StrokeDashArray="2" StrokeThickness="3">
+                                                                <Line.Style>
+                                                                    <Style>
+                                                                        <Setter Property="Line.Stroke" Value="LightGray"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                                                <Setter Property="Line.Stroke" Value="{StaticResource AlertBrush}"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Line.Style>
+                                                            </Line>
+                                                            
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+
+
+                            <ListView.View>
+                                <GridView>
+
+                                    <GridViewColumn Header="{x:Static props:Resources.Status}"  Width="65">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                               
+                                                    <ComboBox         
+                                                IsTabStop="False"
+                                                Style="{StaticResource CleanComboBox}"
+                                                IsReadOnly="{Binding Model.UserCannotEdit, ElementName=thisView}"                                    
+                                                SelectedValue="{Binding ItemStatus, Converter={StaticResource EnumToShortConverter}, ConverterParameter={x:Type SF:BacklogItemStatus},UpdateSourceTrigger=PropertyChanged}"                        
+                                                Width="38"                                   
+                                                SF_Comp:CommandBehavior.RoutedEventName="SelectionChanged"
+                                                SF_Comp:CommandBehavior.TheCommandToRun="{Binding ChangeStatusCommand}"
+                                                ItemsSource="{Binding Source={StaticResource BacklogItemStatusList}}">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <ContentControl x:Name="content" Content="{Binding}" ContentTemplate="{StaticResource StatusItemDataTemplate}"/>
+                                                                <DataTemplate.Triggers>
+                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBoxItem}}" Value="{x:Null}">
+                                                                        <Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource StatusItemShortDataTemplate}"/>
+                                                                    </DataTrigger>
+                                                                </DataTemplate.Triggers>
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
+
+                                                
+                                              
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Header="{x:Static props:Resources.Item}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Height="16" >
+                                                    <Image DataContext="{Binding HasArtifact}" Style="{StaticResource HasArtifactImage}"/>    
+                                                    <Image DataContext="{Binding Item.IssueType}" Style="{StaticResource IssueImage}"/>
+                                                    <TextBlock Text="{Binding Item.BacklogItemNumber}" Foreground="{StaticResource SubTextBrush}" FontSize="{StaticResource SmallFontSize}" Style="{StaticResource CurrentSprintTextBlock}" VerticalAlignment="Center"/>    
+                                                </TextBlock>
+                                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0">
+
+                                                        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                                    <Hyperlink Command="{Binding Model.ShowDetailWindowCommand, ElementName=thisView}"
+                                                               CommandParameter="{Binding .}" >                                                                                                
+                                                        <TextBlock Style="{StaticResource CurrentSprintTextBlock}" FontSize="{StaticResource BigFontSize}"  Text="{Binding Item.Name}"/>                                                            
+                                                    </Hyperlink>
+                                                    
+                                                </TextBlock>
+                                                        <TextBlock                                        
+                                                     VerticalAlignment="Center"
+                                                    Text="{Binding Item.Description}"                                        
+                                                    MaxHeight="60"
+                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
+                                                    </StackPanel>
+                                                    <DockPanel Style="{StaticResource ItemActionMenu}">
+                                                        <Button                                                       
+                                                    Style="{StaticResource RemoveActionButton}"                                             
+                                                    Command="{Binding ElementName=thisView, Path=DataContext.DeleteBacklogItemCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                                    </DockPanel>
+
+                                                </Grid>
+
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+
+                                <GridViewColumn Header="{x:Static props:Resources.pts}" Width="{Binding PointsColumnWidth}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical" Width="50" Grid.Column="0">
+                                                <TextBlock Text="{Binding Item.Size, StringFormat='{}0.#'}"                                           
+                                                        FontSize="{StaticResource ReallyBigFontSize}"
+                                                        FontWeight="Bold"
+                                                        HorizontalAlignment="Center"                                           
+                                                        Foreground="{StaticResource SubTextBrush}"
+                                                        />
+                                                        
+                                                <TextBlock Text="{x:Static props:Resources.pts}"
+                                                HorizontalAlignment="Center"
+                                                FontSize="{StaticResource SmallFontSize}" Foreground="{StaticResource SubTextBrush}"/>
+                                            </StackPanel>
+                                                
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                    
+                                </GridViewColumn>
+
+
+
+
+                                <GridViewColumn Header="{x:Static props:Resources.Hours}" Width="150" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <StackPanel Orientation="Vertical" Width="50" Grid.Column="0">
+                                                    <TextBlock Text="{Binding Item.CurrentTotalHours, StringFormat='{}0.#'}"                                           
+                                                            FontSize="{StaticResource ReallyBigFontSize}"
+                                                            FontWeight="Bold"
+                                                               Foreground="{StaticResource SubTextBrush}"
+                                                            HorizontalAlignment="Center">
+                                                        
+                                                    </TextBlock>
+                                                    <TextBlock Text="{x:Static props:Resources.hrs}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="{StaticResource SmallFontSize}" Foreground="{StaticResource SubTextBrush}"/>
+                                                    </StackPanel>
+                                                    <ContentControl 
+                                                    Style="{StaticResource BacklogItemProgressBarBorder}"                                                    
+                                                    HorizontalAlignment="Stretch" Grid.Column="1" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                           
+
+
+
+                                <GridViewColumn Header="{x:Static props:Resources.Due_to}" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+
+                                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+
+                                                <!--<TextBlock Text="{Binding Item.BusinessPriority}" Foreground="White" Background="Black"/>-->
+
+                                                    <TextBlock 
+                                                Text="{Binding DeliveryDate, Converter={StaticResource ContextDateConverter}}" HorizontalAlignment="Center"
+                                                Style="{StaticResource DueDateTextBlock}" />
+
+                                                <Menu Margin="0" Padding="0" HorizontalAlignment="Center">
+                                                    <MenuItem  Margin="0" Padding="0" HorizontalAlignment="Center">
+                                                            <MenuItem.Header>
+                                                                <TextBlock Style="{StaticResource DueDateMenu}" HorizontalAlignment="Center"/>
+                                                            </MenuItem.Header>
+                                                            <MenuItem.Items>
+                                                                <MenuItem Header="{x:Static props:Resources.to_current}" Command="{Binding MoveItemToCurrentSprintCommand}"/>
+                                                                <MenuItem Header="{x:Static props:Resources.to_previous}"  Command="{Binding MoveItemToPreviousSprintCommand}" />
+                                                                <MenuItem Header="{x:Static props:Resources.to_next}"  Command="{Binding MoveItemToNextSprintCommand}"/>
+                                                                <MenuItem Header="{x:Static props:Resources.to_last}" Command="{Binding MoveItemToLastSprintCommand}"/>
+                                                                <Separator />
+                                                                <MenuItem Header="{x:Static props:Resources.to_product_backlog}" Command="{Binding MoveItemToProductBacklogCommand}"/>
+                                                        </MenuItem.Items>
+                                                        </MenuItem>
+                                                        <Menu.Style>
+                                                            <Style TargetType="Menu" BasedOn="{StaticResource {x:Type Menu}}">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Item.Project.IsTicketProject}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Menu.Style>
+                                                    </Menu>
+
+
+                                                </StackPanel>
+
+
+
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="35">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox   HorizontalAlignment="Left" VerticalAlignment="Stretch"                                                        
+                                                    SF_Comp:CommandBehavior.RoutedEventName="SelectionChanged"
+                                                    SF_Comp:CommandBehavior.TheCommandToRun="{Binding ChangeGroupCommand}"                                                    
+                                                    ItemsSource="{Binding ElementName=groupListView, Path=Content.Model.Groups}"
+                                                    SelectedValue="{Binding Item.GroupUId}" SelectedValuePath="GroupUId" 
+                                                    Style="{StaticResource ItemGroupComboBox}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                </GridView>
+                            </ListView.View>
+
+                            <ListView.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource {x:Type ListViewItem}}" TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="SF_DD:DragDropHelper.IsDragAllowed" Value="{Binding IsDevelopmentItem}"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.Style>
+                                <Style BasedOn="{StaticResource ListViewNoHeader}" TargetType="{x:Type ListView}">
+                                    <Setter Property="SF_DD:DragDropHelper.IsDragSource" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Model.UserCannotEdit, ElementName=thisView}" Value="True">
+                                            <Setter Property="SF_DD:DragDropHelper.IsDragSource" Value="False"/>
+                                        </DataTrigger>
+                                        <!--<DataTrigger Binding="{Binding IsChecked, ElementName=selectionButton}" Value="True">
+                                        <Setter Property="ListView.SelectionMode" Value="Multiple"/>
+                                    </DataTrigger>-->
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.Style>
+
+
+                        </ListView>
+                    </DockPanel>
+
+
+                    <Grid
+                    Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Images/information.png"  Width="32" Height="32" Margin="3" VerticalAlignment="Top"  Stretch="Uniform" />
+                        <TextBlock Grid.Column="1" TextWrapping="Wrap" >
+                <TextBlock TextWrapping="Wrap" Text="{x:Static props:Resources.No_items_were_found}"/><LineBreak/>
+                <TextBlock TextWrapping="Wrap"                            
+                           Margin="0,10,0,0" Foreground="{StaticResource SubTextBrush}" Text="{x:Static props:Resources.No_items_were_found_tip}"/>
+            </TextBlock>
+                        <Grid.Style>
+                            <Style>
+                                <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=listview, Path=HasItems}" Value="False"/>
+                                            <Condition Binding="{Binding IsLoadingData}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Grid.Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+                    <Border Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Left">
+                                <TextBlock 
+                                Foreground="Black"
+                                Text="{Binding SelectedItemsCount}" FontSize="{StaticResource ReallyBigFontSize}" 
+                                HorizontalAlignment="Center" FontWeight="Bold"/>
+                                <TextBlock 
+                                Foreground="Black"
+                                Text="{x:Static props:Resources.Items}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Right" Margin="20,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding SelectedItemsPlannedHours, StringFormat={x:Static props:Resources.N_planned}}"/>
+                                <TextBlock Text="{Binding SelectedItemsEffectiveHours, StringFormat={x:Static props:Resources.N_spent}}"/>
+                                <TextBlock Text="{x:Static props:Resources.copyitems_tooltip}" FontSize="{StaticResource SmallFontSize}" FontStyle="Italic" Foreground="{StaticResource LabelBrush}"/>
+                            </StackPanel>
+
+                        </DockPanel>
+                        <Border.Style>
+                            <Style BasedOn="{StaticResource AlertBorder}" TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItemsCount}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedItemsCount}" Value="1">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+
+
+                    <TextBox 
+                    x:Name="searchTextBox"
+                    Grid.ColumnSpan="2"
+                                                              
+                    Text="{Binding SearchFilterText, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource SearchTextBox}"/>
+
+
+                    <ContentControl                  
+                            Grid.Column="1"                                                
+                            Style="{StaticResource LoadingAnimationContent}"/>
+
+
+
+
+
+                </Grid>
+            </SF_Helpers:PanelLayout.Content>
+
+        </SF_Helpers:PanelLayout>
+    
+    
+</UserControl>

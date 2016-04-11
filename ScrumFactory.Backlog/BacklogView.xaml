@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ScrumFactory.Backlog.BacklogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <ListView ItemsSource="{Binding Path=Items}" Height="200" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"  />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Path=Description}" />
+                        <TextBlock Text="{Binding Path=Weight, StringFormat=Weight: \{0\}}" Grid.Column="1" />
+                        <TextBlock Text="{Binding Path=Spent, StringFormat=Spent: \{0\}}"  Grid.Column="2"/>
+                        <Button Content="Delete" Command="{Binding Path=DataContext.DeleteBacklogItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding Path=.}" Grid.Column="3" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="New item description" />
+            <TextBox Text="{Binding Path=NewItemDescription, Mode=TwoWay}" Grid.Column="1"/>
+        </Grid>
+        <Button Command="{Binding Path=AddBacklogItemCommand}" Content="Add new item" />
+        <Button Command="{Binding Path=SaveBacklogCommand}" Content="Save backlog" />
+    </StackPanel>
+</UserControl>

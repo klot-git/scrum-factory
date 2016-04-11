@@ -1,0 +1,259 @@
+﻿<UserControl x:Class="ScrumFactory.ProjectConstraints.ConstraintList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+              xmlns:KExt="clr-namespace:System.Windows.KExtensions;assembly=System.Windows.KExtensions"
+              xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition" 
+             xmlns:props="clr-namespace:ScrumFactory.ProjectConstraints.Properties"
+             
+             x:Name="thisView"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding AddConstraintCommand}"/>
+    </UserControl.InputBindings>
+
+    <SF_Helpers:PanelLayout Title="{Binding PanelName}"
+                            SF_Comp:CommandBehavior.RoutedEventName="Loaded"
+                            SF_Comp:CommandBehavior.TheCommandToRun="{Binding OnLoadCommand}">
+        <SF_Helpers:PanelLayout.Toolbar>
+            
+            <Grid VerticalAlignment="Center">                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ToolBar Grid.Row="0">
+                    <Menu>
+                        <MenuItem
+                        IsEnabled="{Binding CanEdit}"
+                        Header="{x:Static props:Resources.Add_constraint}" Focusable="False">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/ToolBar/Add.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                            <MenuItem.Style>
+                                <Style BasedOn="{StaticResource Toolbar_MenuItemStyleHideWhenDisabled}" TargetType="MenuItem">
+                                    <Style.Triggers>
+                                        <Trigger Property="MenuItem.IsPressed" Value="True">
+                                            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=addTextBox}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </MenuItem.Style>
+                        </MenuItem>
+                        <MenuItem
+                            x:Name="showSuggestionBtn"
+                            Header="{x:Static props:Resources.Show_suggestions}"
+                            IsCheckable="True" IsChecked="{Binding ShowSuggestions}">
+                            <MenuItem.Icon>
+                                <Image Source="/Images/ToolBar/preview.png" Width="32" Height="32" Stretch="Uniform"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+                    
+                </ToolBar>
+                <Grid  Grid.Row="1" 
+                            Style="{StaticResource NewItemPanelAutoClose}">
+
+                    <DockPanel VerticalAlignment="Top">
+                        <TextBlock Text="{x:Static props:Resources.Constraint}" VerticalAlignment="Center" 
+                                   Style="{StaticResource LabelTextBlock}" DockPanel.Dock="Left"/>
+                        <TextBox                        
+                            x:Name="addTextBox"  DockPanel.Dock="Right"
+                            KExt:SpellCheck.IsEnabled="True" MaxLength="500"
+                            HorizontalAlignment="Stretch" BorderBrush="{StaticResource TextBoxBackgroundBrush}" 
+                            ToolTip="{x:Static props:Resources.Constraint}" VerticalAlignment="Center"
+                            Text="{Binding NewConstraint, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DockPanel>
+
+                </Grid>
+
+            </Grid>
+
+
+
+
+        </SF_Helpers:PanelLayout.Toolbar>
+        <SF_Helpers:PanelLayout.Content>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Width="300">
+                    <ItemsControl 
+                        ItemsSource="{Binding Suggestions}" HorizontalAlignment="Stretch">
+                        <ItemsControl.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="#EFEFEF" Orientation="Horizontal" Height="32">
+                                            <Image Style="{StaticResource ConstraintGroupImage}" DataContext="{Binding Name}" Width="24" Height="24" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Name, Converter={StaticResource LocalizeConverter}}" 
+                                                   FontWeight="Bold" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ItemsControl.GroupStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource OverButton}" 
+                                    Command="{Binding Model.AddSuggestionCommand, ElementName=thisView}" CommandParameter="{Binding .}">
+                                    <TextBlock Margin="28,4,4,8" Text="{Binding Constraint}" TextWrapping="Wrap" FontSize="{StaticResource SmallFontSize}"/>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>                        
+                    </ItemsControl>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0"  HorizontalAlignment="Stretch">
+                    <Image Grid.Column="0" Source="/Images/information.png" Margin="3" VerticalAlignment="Top" Width="32" Height="32" Stretch="Uniform" />
+                        <TextBlock Width="280"
+                    TextWrapping="Wrap" HorizontalAlignment="Stretch" Foreground="{StaticResource SubTextBrush}"
+                    Text="{x:Static props:Resources.no_suggestions}"/>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Suggestions.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    
+                </StackPanel>
+                    
+                    
+                    
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=showSuggestionBtn}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+
+                
+                
+                <StackPanel Grid.Column="1" Width="200" HorizontalAlignment="Right">
+                    <TextBlock Text="{x:Static props:Resources.adjusted_points}" TextAlignment="Center" FontWeight="Bold" />
+                    <Grid HorizontalAlignment="Stretch" Margin="10,8,10,0" >
+                        <TextBlock Text="{x:Static props:Resources._08}" FontSize="{StaticResource SmallFontSize}" HorizontalAlignment="Left" />
+                        <TextBlock Text="{x:Static props:Resources._10}" FontSize="{StaticResource SmallFontSize}" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Static props:Resources._12}" FontSize="{StaticResource SmallFontSize}" HorizontalAlignment="Right"/>    
+                    </Grid>                    
+                </StackPanel>
+                
+                <ListBox
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"                           
+                    ItemContainerStyle="{StaticResource NoHoverListBoxItem}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"                                                                                                   
+                    Margin="0,30,0,0"                    
+                    ItemsSource="{Binding Constraints}">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*" x:Name="textColumn"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="200"/>
+                                    
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBox Grid.Column="0" Text="{Binding ConstraintId}" HorizontalAlignment="Stretch"
+                                         SF_Comp:CommandBehavior.RoutedEventName="LostFocus"
+                                         SF_Comp:CommandBehavior.TheCommandToRun="{Binding Model.UpdateConstraintCommand, ElementName=thisView}"
+                                         SF_Comp:CommandBehavior.TheCommandParameter="{Binding .}"/>
+
+                                
+                                    <TextBox Grid.Column="1" Text="{Binding Constraint}" Height="80" TextWrapping="Wrap" 
+                                          HorizontalAlignment="Stretch"
+                                         AcceptsReturn="True" MaxLength="500"
+                                         SF_Comp:CommandBehavior.RoutedEventName="LostFocus"
+                                         SF_Comp:CommandBehavior.TheCommandToRun="{Binding Model.UpdateConstraintCommand, ElementName=thisView}"
+                                         SF_Comp:CommandBehavior.TheCommandParameter="{Binding .}"/>
+                                
+                                
+                                
+                                <Slider HorizontalAlignment="Stretch" 
+                                        Value="{Binding AdjustPointFactor}"
+                                        Minimum="0.8" Maximum="1.20" 
+                                        TickFrequency="0.1" LargeChange="0.1" SmallChange="0.1"
+                                        TickPlacement="TopLeft" 
+                                        IsSnapToTickEnabled="True" VerticalAlignment="Center" Grid.Column="3" Margin="10,0,10,0"
+                                        SF_Comp:CommandBehavior.RoutedEventName="ValueChanged"
+                                         SF_Comp:CommandBehavior.TheCommandToRun="{Binding Model.UpdateConstraintPointsCommand, ElementName=thisView}"
+                                         SF_Comp:CommandBehavior.TheCommandParameter="{Binding .}"/>
+
+                                <ComboBox Grid.Column="2"           
+                                         MaxDropDownHeight="500"
+                                        IsTabStop="False" Style="{StaticResource CleanComboBox}" HorizontalAlignment="Stretch"
+                                        IsEnabled="{Binding Model.CanEdit, ElementName=thisView}"                                            
+                                        SelectedValue="{Binding ConstraintGroup, Converter={StaticResource EnumToShortConverter}, ConverterParameter={x:Type SF:ContraintGroups},UpdateSourceTrigger=PropertyChanged}"                                                                                                                                  
+                                        ItemsSource="{Binding Source={StaticResource ConstraintGroupList}}"                                          
+                                          SF_Comp:CommandBehavior.RoutedEventName="SelectionChanged"
+                                         SF_Comp:CommandBehavior.TheCommandToRun="{Binding Model.UpdateConstraintCommand, ElementName=thisView}"
+                                         SF_Comp:CommandBehavior.TheCommandParameter="{Binding .}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Image Style="{StaticResource ConstraintGroupImage}" DataContext="{Binding .}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding ., Converter={StaticResource LocalizeConverter}}" HorizontalAlignment="Center" FontSize="{StaticResource SmallFontSize}" TextAlignment="Center" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+
+                                <DockPanel Style="{StaticResource ItemActionMenu}"   
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                                    <Button  
+                                    Style="{StaticResource RemoveActionButton}" DockPanel.Dock="Bottom"
+                                            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                            Command="{Binding ElementName=thisView, Path=Model.RemoveConstraintCommand}"
+                                            CommandParameter="{Binding}"/>
+                                </DockPanel>
+                            </Grid>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <TextBlock 
+                    Grid.Column="1"
+                    Text="{x:Static props:Resources.No_constraints_found}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Constraints.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            
+            
+        </SF_Helpers:PanelLayout.Content>
+    </SF_Helpers:PanelLayout>
+</UserControl>

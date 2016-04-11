@@ -1,0 +1,40 @@
+BUGS
+================================
+
+
+-> Um projeto com uma proposta aprovada e outra rejeitada não foi possível iniciar
+
+-> Como remover um contato?
+
+-> excluir tarefa
+-> evitar participar nao funcionou
+
+
+
+GAMEFICATION
+============
+
+ Marcos:  ideia simples
+pra quem não sabe que há medalhas no factoru - coloca uma medalha de primeira tarefa feita 
+"Cadastrou a 1ª de muitas tarefas que desbloqueiam novas medalhas"
+
+Isso vai fazer as pessoas  se perguntarem quais as outras medalhas
+
+Chama ela de noob
+ Enviado às 15:26 de sexta-feira
+ Marcos:  *desbloqueiam novas medalhas que não são tão simples de se desbloquear"
+
+NOVIDADES
+=========
+--> mostrar no gráfico histograma planejado x realizado por sprint
+--> mostrar tag review na visão de tarefas em baixo
+--> fazer relatório lista de impedimentos e opção p/ mostrar esconder impedimentos
+--> Colocar status do ITEM TESTADO
+--> Permitir FOLLOW-UP NOS ITENS
+--> sinalizador de velocidade muito alta ou baixa no item
+
+BANCO DE TAREFAS
+==========================
+--> Permitir pessoaA colocar (tag) na tarefa, p/ que  pessoaB possa utilizar o código como referencia
+
+http://www.surveymonkey.com/s/DZK3XGW

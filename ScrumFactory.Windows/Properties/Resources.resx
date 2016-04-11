@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="current_sprint" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="ITEM_CANCELED" xml:space="preserve">
+    <value>Item canceled</value>
+  </data>
+  <data name="ITEM_DONE" xml:space="preserve">
+    <value>Item done</value>
+  </data>
+  <data name="ITEM_REQUIRED" xml:space="preserve">
+    <value>Item required</value>
+  </data>
+  <data name="ITEM_WORKING" xml:space="preserve">
+    <value>Item in progress</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading, please wait...</value>
+  </data>
+  <data name="next_sprint" xml:space="preserve">
+    <value>next_sprint</value>
+  </data>
+  <data name="previous_sprint" xml:space="preserve">
+    <value>previous sprint</value>
+  </data>
+  <data name="PROJECT_CANCELED" xml:space="preserve">
+    <value>Canceled project</value>
+  </data>
+  <data name="PROJECT_DONE" xml:space="preserve">
+    <value>Closed project</value>
+  </data>
+  <data name="PROJECT_STARTED" xml:space="preserve">
+    <value>Running project</value>
+  </data>
+  <data name="sprint_N" xml:space="preserve">
+    <value>sprint {0}</value>
+  </data>
+  <data name="Sprint_N_of_M" xml:space="preserve">
+    <value>Sprint {0} of {1}</value>
+  </data>
+  <data name="New_project" xml:space="preserve">
+    <value>New project</value>
+  </data>
+  <data name="Microsoft_Http_HttpStageProcessingException_errorMessage" xml:space="preserve">
+    <value>Could not connect to the Factory Server.
+Verify your network connection.</value>
+  </data>
+  <data name="Microsoft_Http_HttpStageProcessingException_errorMessageTitle" xml:space="preserve">
+    <value>Error connecting to the server</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ServerErrorException_errorMessage" xml:space="preserve">
+    <value>An unexpected error ocurred at the Factory Server. Check the log error at the server.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ServerErrorException_errorMessageTitle" xml:space="preserve">
+    <value>Server error</value>
+  </data>
+  <data name="Microsoft_Http_HttpStageProcessingException_errorImageSource" xml:space="preserve">
+    <value>/Images/ErrorStatus/errorNetWork.png</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ServerErrorException_errorImageSource" xml:space="preserve">
+    <value>/Images/ErrorStatus/errorServer.png</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="day12_allocation" xml:space="preserve">
+    <value>4 hours/day</value>
+  </data>
+  <data name="day14_allocation" xml:space="preserve">
+    <value>2 hours/day</value>
+  </data>
+  <data name="day34_allocation" xml:space="preserve">
+    <value>6 hours/day</value>
+  </data>
+  <data name="day44_allocation" xml:space="preserve">
+    <value>8 hours/day</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="No_combobox_items" xml:space="preserve">
+    <value>Could not find item match</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Close (Esc)</value>
+  </data>
+  <data name="DELIVERY" xml:space="preserve">
+    <value>Delivery Item</value>
+  </data>
+  <data name="PLANNING" xml:space="preserve">
+    <value>Planning item</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ForbittenException_errorImageSource" xml:space="preserve">
+    <value>/Images/ErrorStatus/errorSecurity.png</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ForbittenException_errorMessage" xml:space="preserve">
+    <value>Sorry, you are not authorized to perform this operation.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_ForbittenException_errorMessageTitle" xml:space="preserve">
+    <value>Not authorized</value>
+  </data>
+  <data name="Sign_in" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="My_profile" xml:space="preserve">
+    <value>My profile</value>
+  </data>
+  <data name="Sign_out" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NetworkException_errorImageSource" xml:space="preserve">
+    <value>/Images/ErrorStatus/errorNetWork.png</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NetworkException_errorMessage" xml:space="preserve">
+    <value>Could not connect to the Factory Server.
+Verify your network connection.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NetworkException_errorMessageTitle" xml:space="preserve">
+    <value>Error connecting to the server</value>
+  </data>
+  <data name="COMMERCIAL_GUY" xml:space="preserve">
+    <value>Commercial Guy</value>
+  </data>
+  <data name="PRODUCT_OWNER" xml:space="preserve">
+    <value>Product Owner</value>
+  </data>
+  <data name="SCRUM_MASTER" xml:space="preserve">
+    <value>Scrum Master</value>
+  </data>
+  <data name="TEAM" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="More_combobox_items" xml:space="preserve">
+    <value>refine your search for more results</value>
+  </data>
+  <data name="AFTER_DEPLOY_BUG_TASK" xml:space="preserve">
+    <value>After deployment bug</value>
+  </data>
+  <data name="BUG_TASK" xml:space="preserve">
+    <value>Bug</value>
+  </data>
+  <data name="DEVELOPMENT_TASK" xml:space="preserve">
+    <value>Development task</value>
+  </data>
+  <data name="IMPEDIMENT_TASK" xml:space="preserve">
+    <value>Impediment</value>
+  </data>
+  <data name="IPROVEMENT_TASK" xml:space="preserve">
+    <value>Improvement</value>
+  </data>
+  <data name="TEST_TASK" xml:space="preserve">
+    <value>Test task</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="done_panel_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\whiteboard\done.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="todo_panel_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\whiteboard\todo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="working_panel_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\whiteboard\working.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Task_canceled" xml:space="preserve">
+    <value>Task canceled</value>
+  </data>
+  <data name="CANCELED_TASK" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="DONE_TASK" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="REQUIRED_TASK" xml:space="preserve">
+    <value>Planned</value>
+  </data>
+  <data name="WORKING_ON_TASK" xml:space="preserve">
+    <value>Working on</value>
+  </data>
+  <data name="Sigining" xml:space="preserve">
+    <value>Signing...</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="factoryIco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\factory.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Suggested_hours_tooltip" xml:space="preserve">
+    <value>Suggested hours based at your historical velocity data</value>
+  </data>
+  <data name="REJECTED_BY_CLIENT_CANCEL" xml:space="preserve">
+    <value>rejected because the project we canceled</value>
+  </data>
+  <data name="REJECTED_BY_DEADLINE" xml:space="preserve">
+    <value>rejected due the proposal deadline</value>
+  </data>
+  <data name="REJECTED_BY_OTHER_PROPOSAL" xml:space="preserve">
+    <value>other proposal was used</value>
+  </data>
+  <data name="REJECTED_BY_PRICE" xml:space="preserve">
+    <value>rejected due the proposal price</value>
+  </data>
+  <data name="REJECTED_BY_UNKNOW" xml:space="preserve">
+    <value>i do not know the reject reason</value>
+  </data>
+  <data name="PROPOSAL_APPROVED" xml:space="preserve">
+    <value>Approved proposal</value>
+  </data>
+  <data name="PROPOSAL_CREATION" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="PROPOSAL_REJECTED" xml:space="preserve">
+    <value>Rejected proposal</value>
+  </data>
+  <data name="HIGH_IMPACT_RISK" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="HIGH_PROBABILITY_RISK" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="LOW_IMPACT_RISK" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="LOW_PROBABILITY_RISK" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="MEDIUM_IMPACT_RISK" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="MEDIUM_PROBABILITY_RISK" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="NONE_IMPACT_RISK" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NONE_PROBABILITY_RISK" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="IMPROVEMENT_TASK" xml:space="preserve">
+    <value>Improvement task</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="About_Scrum_Factory" xml:space="preserve">
+    <value>About Scrum Factory</value>
+  </data>
+  <data name="IMPROVEMENT_ITEM" xml:space="preserve">
+    <value>Improvement</value>
+  </data>
+  <data name="ISSUE_ITEM" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="NORMAL_ITEM" xml:space="preserve">
+    <value>Normal item</value>
+  </data>
+  <data name="You_have_not_signed" xml:space="preserve">
+    <value>You have not signed yet</value>
+  </data>
+  <data name="PROJECT_SUPPORT" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="Error_reading_report_template_errorMessage" xml:space="preserve">
+    <value>Sorry, could not find the report template.</value>
+  </data>
+  <data name="Error_reading_report_template_errorMessageTitle" xml:space="preserve">
+    <value>Error reading report template</value>
+  </data>
+  <data name="Scrum_factory_in_background" xml:space="preserve">
+    <value>Fix the Scrum Factory icon at the system trail to have fast access to your tasks</value>
+  </data>
+  <data name="Tip" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Factory_owners" xml:space="preserve">
+    <value>Factory owners</value>
+  </data>
+  <data name="select_member_tip" xml:space="preserve">
+    <value>select a member</value>
+  </data>
+  <data name="dayNull_allocation" xml:space="preserve">
+    <value>Less than 2 hours/day</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NotFoundException_errorMessage" xml:space="preserve">
+    <value>The item you are trying to change is no longer at the server.
+It may has been removed by somebody else.
+Try to Refresh (F5) your project.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_NotFoundException_errorMessageTitle" xml:space="preserve">
+    <value>Could not find item</value>
+  </data>
+  <data name="Recent_projects" xml:space="preserve">
+    <value>Recent projects</value>
+  </data>
+  <data name="Go_to_project_N" xml:space="preserve">
+    <value>Go to project {0}</value>
+  </data>
+  <data name="Repository_log_settings" xml:space="preserve">
+    <value>Repository log settings</value>
+  </data>
+  <data name="Inactives" xml:space="preserve">
+    <value>Show inactives</value>
+  </data>
+  <data name="Feedback_survey" xml:space="preserve">
+    <value>Feedback Survey</value>
+  </data>
+  <data name="Feedback_survey_text" xml:space="preserve">
+    <value>We are working on improve The Scrum Factory to meet your needs.
+Could you give us some feedback about the tool?</value>
+  </data>
+  <data name="HIGH_PRIORITY" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="MEDIUM_PRIORITY" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="NORMAL_PRIORITY" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="URGENT_PRIORITY" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="ChangeLanguageHeader" xml:space="preserve">
+    <value>Re-start Scrum Factory?</value>
+  </data>
+  <data name="ChangeLanguageText" xml:space="preserve">
+    <value>The Scrum Factory need to be re-started in order to apply your changes.
+Re-start now?</value>
+  </data>
+  <data name="LanguageMenu" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageMenuItemEN" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageMenuItemPT" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>edit</value>
+  </data>
+  <data name="English_eua" xml:space="preserve">
+    <value>English - EUA</value>
+  </data>
+  <data name="Portuguese_brazil" xml:space="preserve">
+    <value>Portuguese - Brazil</value>
+  </data>
+  <data name="More_Information" xml:space="preserve">
+    <value>For more information and support access:</value>
+  </data>
+  <data name="TopMenu_tooltip" xml:space="preserve">
+    <value>Click here for more menu options</value>
+  </data>
+  <data name="Go_back_to_project" xml:space="preserve">
+    <value>back to '{0}'</value>
+  </data>
+  <data name="My_tasks" xml:space="preserve">
+    <value>See my tasks</value>
+  </data>
+  <data name="CRITICAL_ITEM" xml:space="preserve">
+    <value>Critical item</value>
+  </data>
+  <data name="What_is_new" xml:space="preserve">
+    <value>What is new</value>
+  </data>
+  <data name="Always_show_on_startup" xml:space="preserve">
+    <value>Always show on start up</value>
+  </data>
+  <data name="N_hours_left" xml:space="preserve">
+    <value>{0:0.#} hours left</value>
+  </data>
+  <data name="Enable_ticket_projects" xml:space="preserve">
+    <value>Enable Ticket projects (beta)</value>
+  </data>
+  <data name="Options_" xml:space="preserve">
+    <value>Options...</value>
+  </data>
+  <data name="Interface_language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Language_settings" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="en_US_description" xml:space="preserve">
+    <value>English United State</value>
+  </data>
+  <data name="pt_BR_description" xml:space="preserve">
+    <value>Portuguese Brazil</value>
+  </data>
+  <data name="SVN_command" xml:space="preserve">
+    <value>External program to open repositories</value>
+  </data>
+  <data name="SVN_settings" xml:space="preserve">
+    <value>SVN</value>
+  </data>
+  <data name="SVN_tooltip" xml:space="preserve">
+    <value>Ex: C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"{0}" /findstring:"{1}" /findtype:1</value>
+  </data>
+  <data name="Requires_restart" xml:space="preserve">
+    <value>(requires re-start)</value>
+  </data>
+  <data name="Ticket_projects_settings" xml:space="preserve">
+    <value>Ticket projects</value>
+  </data>
+  <data name="disabled" xml:space="preserve">
+    <value>disabled</value>
+  </data>
+  <data name="Spell_checker" xml:space="preserve">
+    <value>Spell checker</value>
+  </data>
+  <data name="Spell_checker_tooltip" xml:space="preserve">
+    <value>You can use any Open Office dictionary. Just copy the .dic and .aff files to "My Documets\Scrum Factory\SpellDics" folder.</value>
+  </data>
+  <data name="Ticket_project_alert" xml:space="preserve">
+    <value>Ticket projects do not have sprints. Instead, they have a continuous backlog that is prioritized and delivered as the client requests.</value>
+  </data>
+  <data name="Continue_with_SF" xml:space="preserve">
+    <value>Continue with Scrum Factory</value>
+  </data>
+  <data name="N_hours_of_work" xml:space="preserve">
+    <value>{0:0.#} hrs of work to do</value>
+  </data>
+  <data name="Preferences" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="Show_points_at_backlog_list" xml:space="preserve">
+    <value>Show points at backlog list</value>
+  </data>
+  <data name="more_" xml:space="preserve">
+    <value>more...</value>
+  </data>
+  <data name="go_to_projects" xml:space="preserve">
+    <value>go back to projects (F2)</value>
+  </data>
+  <data name="my_tasks_f2" xml:space="preserve">
+    <value>my tasks (F2)</value>
+  </data>
+  <data name="DELIVERY_OCC" xml:space="preserve">
+    <value>Fixed at the sprint end</value>
+  </data>
+  <data name="DEVELOPMENT_OCC" xml:space="preserve">
+    <value>Along the sprint</value>
+  </data>
+  <data name="PLANNING_OCC" xml:space="preserve">
+    <value>Fixed at the sprint planning</value>
+  </data>
+  <data name="FIXED_OCC" xml:space="preserve">
+    <value>Fixed date</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_OldServerException_errorMessage" xml:space="preserve">
+    <value>Your server version does not support this feature. Please update your Scrum Factory server.</value>
+  </data>
+  <data name="ScrumFactory_Exceptions_OldServerException_errorMessageTitle" xml:space="preserve">
+    <value>Old server version</value>
+  </data>
+  <data name="Sprint_length" xml:space="preserve">
+    <value>Sprint length (work days)</value>
+  </data>
+  <data name="TROPHY_BUG_KILLER" xml:space="preserve">
+    <value>Bug killer</value>
+  </data>
+  <data name="TROPHY_EXPERT" xml:space="preserve">
+    <value>Expert</value>
+  </data>
+  <data name="TROPHY_HARD_WORKER" xml:space="preserve">
+    <value>Hard worker</value>
+  </data>
+  <data name="TROPHY_IMPROVER" xml:space="preserve">
+    <value>Improver</value>
+  </data>
+  <data name="TROPHY_THE_FLASH" xml:space="preserve">
+    <value>The flash</value>
+  </data>
+  <data name="TROPHY_BUG_KILLER_tooltip" xml:space="preserve">
+    <value>Solved more than 3 bugs this month.</value>
+  </data>
+  <data name="TROPHY_EXPERT_tooltip" xml:space="preserve">
+    <value>Worked more than 2.000 hours.</value>
+  </data>
+  <data name="TROPHY_HARD_WORKER_tooltip" xml:space="preserve">
+    <value>Worked more than 160 hours this month.</value>
+  </data>
+  <data name="TROPHY_IMPROVER_tooltip" xml:space="preserve">
+    <value>Made more than 3 improvements this month.</value>
+  </data>
+  <data name="TROPHY_THE_FLASH_tooltip" xml:space="preserve">
+    <value>Solved more than 3 tasks before the planned time.</value>
+  </data>
+  <data name="N_hrs_this_month" xml:space="preserve">
+    <value>{0} hrs this month</value>
+  </data>
+  <data name="BROWSER_CONSTRAINT" xml:space="preserve">
+    <value>Browsers</value>
+  </data>
+  <data name="BUSINESS_CONSTRAINT" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="DATABASE_CONSTRAINT" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="DEVICE_CONSTRAINT" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="OS_CONSTRAINT" xml:space="preserve">
+    <value>OS</value>
+  </data>
+  <data name="ENVIRONMENT_CONSTRAINT" xml:space="preserve">
+    <value>Environment</value>
+  </data>
+  <data name="Repository" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="RepositoryPath" xml:space="preserve">
+    <value>Code repository file path</value>
+  </data>
+  <data name="RepositoryPath_tooltip" xml:space="preserve">
+    <value>Ex: d:\myrepositories (leave it blank to use server-side configuration)</value>
+  </data>
+  <data name="RepositoryUrl" xml:space="preserve">
+    <value>Code repository server url</value>
+  </data>
+  <data name="RepositoryUrl_tooltip" xml:space="preserve">
+    <value>Ex: https://yourcompany/svn (leave it blank to use server-side configuration)</value>
+  </data>
+  <data name="RepositoryVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="RepositoryVersion_tooltip" xml:space="preserve">
+    <value>(leave it blank to use server-side configuration)</value>
+  </data>
+  <data name="General_options" xml:space="preserve">
+    <value>General options</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="SVN_options" xml:space="preserve">
+    <value>SVN options</value>
+  </data>
+  <data name="ProjectFolderFilePath" xml:space="preserve">
+    <value>Projects Network folder</value>
+  </data>
+  <data name="ProjectFolderFilePath_tooltip" xml:space="preserve">
+    <value>Everytime you create a project a folder will be created inside this folder. (leave it blank to use server-side configuration)</value>
+  </data>
+  <data name="Factory_settings" xml:space="preserve">
+    <value>Server settings</value>
+  </data>
+  <data name="_N_days_left" xml:space="preserve">
+    <value>({0} days left)</value>
+  </data>
+  <data name="Copy_project_url_to_clipboard" xml:space="preserve">
+    <value>Copy project url to clipboard</value>
+  </data>
+</root>

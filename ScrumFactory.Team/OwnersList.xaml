@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="ScrumFactory.Team.OwnersList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             
+             xmlns:props="clr-namespace:ScrumFactory.Team.Properties"
+             
+             xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition" 
+             
+             x:Name="thisView"
+             
+             SF_Comp:CommandBehavior.RoutedEventName="Loaded"
+             SF_Comp:CommandBehavior.TheCommandToRun="{Binding OnLoadCommand}"
+             
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding AddNewMemberCommand}"/>
+    </UserControl.InputBindings>
+
+    <TabControl Style="{StaticResource WindowTabControl}">
+        <TabControl.Items>
+            <TabItem Header="{x:Static props:Resources.Factory_owners}">
+                <SF_Helpers:PanelLayout 
+                    ShowCurrentProjectName="False"
+                    Title="{x:Static props:Resources.Factory_owners}" Style="{StaticResource DetailPanelLayout}">
+                    
+                    <!-- TOOLBAR -->
+                    <SF_Helpers:PanelLayout.Toolbar>
+                        <ToolBar>
+                            <!--<MenuItem Style="{StaticResource GoBackMenuItem}"/>-->
+
+                            <Border Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    
+                                    <SF_Helpers:FilteredComboBox            
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" 
+                                        AlternationCount="2" MaxItemsResults="8"                           
+                                        SelectedValue="{Binding NewMember, UpdateSourceTrigger=PropertyChanged}"                            
+                                        MaxDropDownHeight="800"
+                                        BorderBrush="{StaticResource TextBoxBackgroundBrush}"                                               
+                                        IsEditable="True" ContainsFilter="true"
+                                        RefreshItemSource="{Binding RefreshMemberFilter}"
+                                        CustomFilter="{Binding MemberCustomFilter}"
+                                        ItemTemplate="{StaticResource MemberDataTemplate}"
+                                        ItemsSource="{Binding Members}"/>
+
+                                        
+                                        <MenuItem                                                                         
+                                            Header="{x:Static props:Resources.Add_member}" Command="{Binding AddNewMemberCommand}">                                            
+                                            <MenuItem.Icon>
+                                                <Image Source="/Images/ToolBar/Add.png" Width="32" Height="32" Stretch="Uniform"/>
+                                            </MenuItem.Icon>
+                                            
+                                        </MenuItem>
+
+                                </StackPanel>
+                              
+                            </Border>
+
+
+                        </ToolBar>
+                    </SF_Helpers:PanelLayout.Toolbar>
+
+                    <!-- CONTENT -->
+                    <SF_Helpers:PanelLayout.Content>
+                        
+                        <Grid>
+
+                            <ListBox 
+                                ItemsSource="{Binding Owners}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="300"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl                        
+                                                DataContext="{Binding MemberProfile}"
+                                                Grid.Column="0" Margin="4"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                Style="{StaticResource MemberImageControlStyle}"/>
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock 
+                                                    Style="{StaticResource ItemTitleTextBlock}" 
+                                                    Text="{Binding MemberProfile.FullName}"/>
+                                                <TextBlock                                                     
+                                                    Text="{Binding MemberProfile.MemberUId}"/>
+                                            </StackPanel>                                            
+                                            <CheckBox
+                                                Grid.Column="2" Content="{x:Static props:Resources.is_owner}" Margin="20,0,0,0"                                                
+                                                IsChecked="{Binding MemberProfile.IsFactoryOwner}"
+                                                Command="{Binding Model.ChangeFactoryOwnerCommand, ElementName=thisView}" CommandParameter="{Binding MemberProfile.MemberUId}"/>
+                                            <CheckBox
+                                                Grid.Column="3" Content="{x:Static props:Resources.can_see_proposals}" Margin="20,0,0,0"
+                                                IsChecked="{Binding MemberProfile.CanSeeProposalValues}"
+                                                Command="{Binding Model.ChangeCanSeeProposalsCommand, ElementName=thisView}" CommandParameter="{Binding MemberProfile.MemberUId}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <ContentControl Style="{StaticResource LoadingAnimationContent}"/>
+
+                        </Grid>
+                        
+                      
+
+                    </SF_Helpers:PanelLayout.Content>
+                    
+                </SF_Helpers:PanelLayout>
+            </TabItem>
+        </TabControl.Items>
+    </TabControl>
+</UserControl>

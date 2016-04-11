@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="ScrumFactory.Team.MyProfile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:props="clr-namespace:ScrumFactory.Team.Properties"
+             
+             xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Ext="clr-namespace:ScrumFactory.Windows.Helpers.Extensions;assembly=ScrumFactory.Windows.Helpers"
+             xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition" 
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/TeamStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <TabControl Style="{StaticResource WindowTabControl}">
+        <TabControl.Items>
+            <TabItem Header="{Binding PanelName}">
+                <SF_Helpers:PanelLayout 
+                    ShowCurrentProjectName="False"
+                    Title="{Binding PanelName}" Style="{StaticResource DetailPanelLayout}">
+
+                    <!-- TOOLBAR -->
+                    <SF_Helpers:PanelLayout.Toolbar>
+                        <ToolBar>
+                            
+                            <MenuItem Command="{Binding CloseWindowCommand}" Header="{x:Static props:Resources.Apply}" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/Toolbar/checked.png" Width="32" Height="32" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem  Header="{x:Static props:Resources.Change_image}" Command="{Binding ChangeAvatarCommand}">
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/ToolBar/image.png" Width="32" Height="32" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem  
+                                Header="{x:Static props:Resources.Remove_Image}" Command="{Binding RemoveAvatarCommand}">
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/ToolBar/gravatar.png" Width="32" Height="32" Stretch="Uniform"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                           
+
+                        </ToolBar>
+                    </SF_Helpers:PanelLayout.Toolbar>
+
+                    <!-- CONTENT -->
+                    <SF_Helpers:PanelLayout.Content>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Orientation="Vertical">
+                                <Border Margin="0,0,0,10">
+                                    <TextBlock Text="{x:Static props:Resources.Profile_not_completed}"/>
+                                    <Border.Style>
+                                        <Style BasedOn="{StaticResource AlertBorder}" TargetType="Border">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding  MemberProfile.EmailAccount}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding  MemberProfile.EmailAccount}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="200"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Column="2" Grid.RowSpan="7" Orientation="Vertical">
+
+                                        <!--<Border  Width="110"  Height="110" BorderBrush="#B4B4B4" Background="#E6E6E6" BorderThickness="2">
+                                            <Image 
+                                        Width="100" Height="100"                         
+                                        SF_Ext:ImageAsyncHelper.SourceUri="{Binding MemberAvatarUrl}"                                
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>-->
+
+                                        <Ellipse Width="100" Height="100" StrokeThickness="1" Stroke="{StaticResource MemberTodayPlannedNullBorderBrush}" >
+                                            <Ellipse.Fill>
+                                                <ImageBrush SF_Ext:ImageBrushAsyncHelper.SourceUri="{Binding MemberAvatarUrl}">
+                                                </ImageBrush>
+                                            </Ellipse.Fill>
+
+
+                                        </Ellipse>
+
+                                        <TextBlock Margin="8" TextWrapping="Wrap" HorizontalAlignment="Center">
+                                    <Hyperlink Command="{Binding CreateAvatarCommand}">
+                                        <Run Text="{x:Static props:Resources.Change_image_tooltip}" />
+                                    </Hyperlink>
+                                        </TextBlock>
+
+
+                                        <ProgressBar  
+                                        Style="{StaticResource WorkedHoursProgressBar}"
+                                        DataContext="{Binding MemberProfile.Performance}"/>
+
+                                        <ContentControl Style="{StaticResource PerformanceBoard}"/>
+
+
+
+
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"
+                                    Style="{StaticResource ValueTextBlock}" 
+                                    Text="{Binding MemberProfile.MemberUId}"/>
+
+                                    <TextBlock
+                        Grid.Column="0" Grid.Row="1"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="{x:Static props:Resources.My_name}"/>
+                                    <TextBox
+                        Grid.Column="1" Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding MemberProfile.FullName}"/>
+
+                                    <TextBlock 
+                        Grid.Column="0" Grid.Row="2" 
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="{x:Static props:Resources.My_email}"/>
+                                    <TextBox
+                        Grid.Column="1" Grid.Row="2" 
+                        HorizontalAlignment="Stretch"
+                        SF_Comp:CommandBehavior.RoutedEventName="LostFocus"
+                        SF_Comp:CommandBehavior.TheCommandToRun="{Binding UpdateAvatarCommand}"                                    
+                        Text="{Binding MemberProfile.EmailAccount, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                    <TextBlock
+                        Grid.Column="0" Grid.Row="3"
+                        Style="{StaticResource LabelTextBlock}" VerticalAlignment="Top"
+                        Text="{x:Static props:Resources.My_company}"/>
+                                    <TextBox
+                        Grid.Column="1" Grid.Row="3"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding MemberProfile.CompanyName}"/>
+
+
+                                    <TextBlock
+                        Grid.Column="0" Grid.Row="4"
+                        Style="{StaticResource LabelTextBlock}" VerticalAlignment="Top"
+                        Text="{x:Static props:Resources.Team_code}"/>
+                                    <TextBox
+                        Grid.Column="1" Grid.Row="4"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding MemberProfile.TeamCode}"/>
+
+                                    <TextBlock
+                        Grid.Column="0" Grid.Row="5"
+                        Style="{StaticResource LabelTextBlock}" VerticalAlignment="Top"
+                        Text="{x:Static props:Resources.My_skills}"/>
+                                    <TextBox
+                        Grid.Column="1" Grid.Row="5"
+                        HorizontalAlignment="Stretch" Height="150" MinLines="3"
+                        Text="{Binding MemberProfile.Skills}"/>
+
+                                    <TextBlock
+                        Grid.Column="0" Grid.Row="6"
+                        Style="{StaticResource LabelTextBlock}" VerticalAlignment="Top"
+                        Text="{x:Static props:Resources.Contact_information}"/>
+                                    <TextBox
+                        Grid.Column="1" Grid.Row="6"
+                        HorizontalAlignment="Stretch" Height="150" MinLines="3"
+                        Text="{Binding MemberProfile.ContactData}"/>
+
+                                </Grid>
+                            </StackPanel>
+                        </ScrollViewer>
+                        
+                        
+                    </SF_Helpers:PanelLayout.Content>
+                </SF_Helpers:PanelLayout>
+            </TabItem>
+        </TabControl.Items>
+    </TabControl>
+
+</UserControl>

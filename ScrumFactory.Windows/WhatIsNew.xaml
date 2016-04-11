@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="ScrumFactory.Windows.WhatIsNew"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:properties="clr-namespace:ScrumFactory.Windows.Properties"
+            xmlns:props="clr-namespace:ScrumFactory.Windows.Properties"
+               
+            xmlns:SF="clr-namespace:ScrumFactory;assembly=ScrumFactory"             
+            xmlns:SF_Helpers="clr-namespace:ScrumFactory.Windows.Helpers;assembly=ScrumFactory.Windows.Helpers"
+            xmlns:SF_Comp="clr-namespace:ScrumFactory.Composition;assembly=ScrumFactory.Composition" 
+            xmlns:SF_Converters="clr-namespace:ScrumFactory.Windows.Helpers.Converters;assembly=ScrumFactory.Windows.Helpers"
+            x:Name="thisView">
+
+    <Grid Background="DarkGray">
+
+        <TextBlock 
+            Text="{Binding PanelName}" Style="{StaticResource PanelMainTitle}"
+            VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-30,0,0" Padding="0"  />
+
+        <!--<Image Source="/Images/news/newslogo.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="370" Opacity="0.3"/>-->
+        
+        <FlowDocumentScrollViewer
+          Background="Transparent" Foreground="White" Margin="0,60,0,0"
+           ScrollViewer.VerticalScrollBarVisibility="Auto"
+            x:Name="documentReader"/>
+
+
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,60,20" Content="{x:Static props:Resources.Continue_with_SF}"
+                Command="{Binding CloseWindowCommand}"/>
+      
+        
+    </Grid>
+ 
+</UserControl>

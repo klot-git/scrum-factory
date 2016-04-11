@@ -1,0 +1,19 @@
+﻿<Window x:Class="ScrumFactory.ProjectsList.CreateProjectView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CreateProjectView">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Name:" Grid.Column="0" Grid.Row="0" />
+        <TextBox Text="{Binding Path=ProjectName, Mode=TwoWay}" Grid.Column="1" Grid.Row="0" />
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Create project" Command="{Binding Path=CreateProjectCommand}" MinWidth="200" />
+    </Grid>
+</Window>
