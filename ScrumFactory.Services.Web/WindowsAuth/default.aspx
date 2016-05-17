@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="../css/style.css" type="text/css" />    
 </head>
 <body>
-    <header></header>
-    
-    
+        
     <div id="content" style="width: 440px; left: 50%; margin-left: -220px;">
         <h2>Windows Authentication</h2>
    
@@ -50,7 +48,7 @@
             <br />
             <br />
             
-            <asp:Button Text="Sign in" runat="server" OnClick="Signin_Click" Width="100%" Height="80"/>
+            <asp:Button Text="Sign in" runat="server" OnClick="Signin_Click" Width="100%" Height="80" Font-Size="XX-Large"/>
             
             </asp:Panel>
 

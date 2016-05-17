@@ -64,10 +64,12 @@ namespace ScrumFactory.Services.Logic {
 
             errorMessage = "";
 
-            fileName = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", Guid.NewGuid() + "." + format);                
+            fileName = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", Guid.NewGuid() + "." + format);
 
-            serverUrl = WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri.Scheme + "://" +
-                        WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri.Authority;
+            //serverUrl = WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri.Scheme + "://" +
+            //            WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri.Authority;
+
+            serverUrl = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
 
             this.format = format;
 
@@ -241,9 +243,11 @@ namespace ScrumFactory.Services.Logic {
                 //window.ShowInTaskbar = false;
                 window.Show();
                 // Ensure that dispatcher has done the layout and render passes
-                Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Loaded, new Action(() => { }));
-                viewer.Document = null;
-                window.Close();
+                Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Loaded, new Action(() => {
+                    viewer.Document = null;
+                    window.Close();
+                }));
+                
             }
         }
 
