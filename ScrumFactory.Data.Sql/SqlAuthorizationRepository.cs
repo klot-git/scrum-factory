@@ -18,10 +18,15 @@ namespace ScrumFactory.Data.Sql {
             this.connectionString = connectionString;
         }
 
-        public AuthorizationInfo GetAuthorizationInfo(string token) {            
+        public AuthorizationInfo GetAuthorizationInfo(string token, int validPeriod = 0) {            
             using (var context = new ScrumFactoryEntities(this.connectionString)) {
-                System.DateTime limit = System.DateTime.Now.AddHours(-24);
-                return context.AuthorizationInfos.Where(a => a.Token == token && a.IssueDate > limit).FirstOrDefault();
+                if (validPeriod != 0) {
+                    System.DateTime limit = System.DateTime.Now.AddHours(-validPeriod);
+                    return context.AuthorizationInfos.Where(a => a.Token == token && a.IssueDate > limit).FirstOrDefault();
+                }
+                else {
+                    return context.AuthorizationInfos.Where(a => a.Token == token).FirstOrDefault();
+                }
             };    
         }
 

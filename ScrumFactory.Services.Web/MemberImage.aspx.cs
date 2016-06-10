@@ -6,6 +6,7 @@ using System.Text;
 using System.Net;
 using System.Drawing;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace ScrumFactory.Services.Web {
 
@@ -216,9 +217,77 @@ namespace ScrumFactory.Services.Web {
 
             byte[] image = GetImage(memberUId);
 
+            int size = 0;
+            int.TryParse(Request["size"], out size);            
+            if (size > 0)
+                image = CreateThumbnail(image, size, size);
+            
+
             Response.ContentType = "image/png";
             Response.BinaryWrite(image);
 
         }
+
+
+        public static byte[] CreateThumbnail(byte[] PassedImage, int newWidth, int newHeight) {
+            byte[] ReturnedThumbnail;
+
+            using (MemoryStream StartMemoryStream = new MemoryStream(), NewMemoryStream = new MemoryStream()) {
+                // write the string to the stream   
+                StartMemoryStream.Write(PassedImage, 0, PassedImage.Length);
+
+                // create the start Bitmap from the MemoryStream that contains the image   
+                Bitmap startBitmap = new Bitmap(StartMemoryStream);
+
+                // create a new Bitmap with dimensions for the thumbnail.   
+                Bitmap newBitmap = new Bitmap(newWidth, newHeight);
+
+                // Copy the image from the START Bitmap into the NEW Bitmap.   
+                // This will create a thumnail size of the same image.   
+                newBitmap = ResizeImage(startBitmap, newWidth, newHeight);
+
+                // Save this image to the specified stream in the specified format.   
+                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+                EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+                myEncoderParameters.Param[0] = myEncoderParameter;
+                ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+
+                newBitmap.Save(NewMemoryStream, jpgEncoder, myEncoderParameters);
+
+                // Fill the byte[] for the thumbnail from the new MemoryStream.   
+                ReturnedThumbnail = NewMemoryStream.ToArray();
+            }
+
+            // return the resized image as a string of bytes.   
+            return ReturnedThumbnail;
+        }
+
+        private static ImageCodecInfo GetEncoder(ImageFormat format) {
+
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+
+            foreach (ImageCodecInfo codec in codecs) {
+                if (codec.FormatID == format.Guid) {
+                    return codec;
+                }
+            }
+            return null;
+        }
+
+        // Resize a Bitmap   
+        private static Bitmap ResizeImage(Bitmap image, int width, int height) {
+            Bitmap resizedImage = new Bitmap(width, height);
+            using (Graphics gfx = Graphics.FromImage(resizedImage)) {
+                gfx.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                gfx.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+                gfx.DrawImage(image, new Rectangle(0, 0, width, height),
+                    new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
+            }
+            return resizedImage;
+        }
+
     }
 }
