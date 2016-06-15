@@ -13,6 +13,9 @@ namespace ScrumFactory.Services.Logic.AuthProviders {
     [Export(typeof(IWindowsTokenStore))]
     public class WindowsTokenStore : ScrumFactory.Services.AuthProviders.IWindowsTokenStore {
 
+        [Import(typeof(Data.IAuthorizationRepository))]
+        private Data.IAuthorizationRepository authorizationRepository { get; set; }
+
         private static readonly ConcurrentDictionary<string, string> tokens = new ConcurrentDictionary<string, string>();
 
         public string CreateTokenFor(string user) {
@@ -36,8 +39,11 @@ namespace ScrumFactory.Services.Logic.AuthProviders {
             string memberUId = null;
             tokens.TryGetValue(token, out memberUId);
 
-            if (memberUId == null)
-                return null;
+            if (memberUId == null) {
+                var authInfo = authorizationRepository.GetAuthorizationInfo(token);
+                if(authInfo!=null)
+                    memberUId = authInfo.MemberUId;
+            }
 
             MemberProfile member = new MemberProfile();
             member.MemberUId = memberUId;
