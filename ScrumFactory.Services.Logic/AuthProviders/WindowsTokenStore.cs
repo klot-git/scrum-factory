@@ -45,6 +45,9 @@ namespace ScrumFactory.Services.Logic.AuthProviders {
                     memberUId = authInfo.MemberUId;
             }
 
+            if (memberUId == null)
+                return null;
+
             MemberProfile member = new MemberProfile();
             member.MemberUId = memberUId;
 
