@@ -183,6 +183,12 @@
   <xsl:variable name="_FUNCTIONAL_REQUIREMENTS_tooltip" select="''"/>
   <xsl:variable name="_NON_FUNCTIONAL_REQUIREMENTS" select="'NON_FUNCTIONAL REQUIREMENTS'"/>
 
-  
+  <xsl:variable name="_GRAPH_Hours" select="'Hours to finish'" />
+  <xsl:variable name="_GRAPH_Actual_hours" select="'Actual'" />
+  <xsl:variable name="_GRAPH_Planned_hours" select="'Planned'" />
+  <xsl:variable name="_GRAPH_DateBindShort" select="'{Binding StringFormat=MMM dd}'" />
+  <xsl:variable name="_GRAPH_walked" select="'% walked'" />
+  <xsl:variable name="_GRAPH_hrs_ahead" select="'hr(s) ahead'" />
+  <xsl:variable name="_GRAPH_hrs_late" select="'hr(s) late'" />
 
 </xsl:stylesheet>

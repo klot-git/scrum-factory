@@ -73,10 +73,16 @@ namespace ScrumFactory.Services.Logic {
 
             this.format = format;
 
-            config = CreateReportConfig(projectUId, templateGroup, template, "report");
+            var project = projectService.GetProject(projectUId);
+
+            config = CreateReportConfig(project, templateGroup, template, "report");
 
             if (templateGroup == "ProposalReport") {
                 ProposalConfig(config, projectUId, proposalUId);                
+            }
+
+            if(templateGroup=="SprintReview" && template=="default10") {
+                BurndownConfig(config, project);
             }
             
             Thread thread = new Thread(_GetReport);
@@ -98,30 +104,28 @@ namespace ScrumFactory.Services.Logic {
             CreateReport(document);
         }
 
-        private ReportHelper.ReportConfig CreateReportConfig(string projectUId, string group, string template, string name) {
+        private ReportHelper.ReportConfig CreateReportConfig(ScrumFactory.Project project, string group, string template, string name) {
 
             var config = new ReportHelper.ReportConfig(group, template, name);
-
-            var project = projectService.GetProject(projectUId);
-
+            
             // add project
             config.ReportObjects.Add(project);
 
             // get project members
-            var members = teamService.GetProjectMembers(projectUId);
+            var members = teamService.GetProjectMembers(project.ProjectUId);
             foreach (var mm in project.Memberships)
                 mm.Member = members.SingleOrDefault(m => m.MemberUId == mm.MemberUId);
 
             // add risks
-            ICollection<Risk> risks = projectService.GetProjectRisks(projectUId);
+            ICollection<Risk> risks = projectService.GetProjectRisks(project.ProjectUId);
             config.ReportObjects.Add(risks);
 
             // add groups
-            ICollection<BacklogItemGroup> groups = backlogService.GetBacklogItemGroups(projectUId);
+            ICollection<BacklogItemGroup> groups = backlogService.GetBacklogItemGroups(project.ProjectUId);
             config.ReportObjects.Add(groups);
 
             // add itens
-            ICollection<BacklogItem> items = backlogService.GetBacklog(projectUId, null, (short)ScrumFactory.Services.BacklogFiltersMode.ALL);
+            ICollection<BacklogItem> items = backlogService.GetBacklog(project.ProjectUId, null, (short)ScrumFactory.Services.BacklogFiltersMode.ALL);
             
             foreach (BacklogItem item in items) {
                 item.ValidPlannedHours = item.GetValidPlannedHours();
@@ -144,7 +148,7 @@ namespace ScrumFactory.Services.Logic {
                         
 
             // add constraints
-            ICollection<ProjectConstraint> constraints = constraintsService.GetProjectConstraints(projectUId);
+            ICollection<ProjectConstraint> constraints = constraintsService.GetProjectConstraints(project.ProjectUId);
             config.ReportObjects.Add(constraints);
 
             // add end date
@@ -167,6 +171,22 @@ namespace ScrumFactory.Services.Logic {
 
             
             return config;
+
+        }
+
+        private void BurndownConfig(ReportHelper.ReportConfig config, ScrumFactory.Project project) {
+            
+            var leftHoursByDay = backlogService.GetBurndownHoursByDay(project.ProjectUId, project.CurrentPlanningNumber.ToString());
+
+            if (leftHoursByDay == null) return;
+
+            var burndownVM = new BurnDownViewModel();
+            burndownVM.ActualHours = leftHoursByDay.Where(h => h.LeftHoursMetric == LeftHoursMetrics.LEFT_HOURS).ToArray();
+            burndownVM.ActualHoursAhead = leftHoursByDay.Where(h => h.LeftHoursMetric == LeftHoursMetrics.LEFT_HOURS_AHEAD).ToArray();
+            burndownVM.PlannedHours = leftHoursByDay.Where(h => h.LeftHoursMetric == LeftHoursMetrics.PLANNING).ToArray();
+
+            config.ReportViewModels.Add("burndown", burndownVM);
+
 
         }
 
@@ -283,7 +303,7 @@ namespace ScrumFactory.Services.Logic {
         private void SetElementViewModel(string name, object model, System.Windows.Documents.FlowDocument document) {
             if (document == null)
                 return;
-            System.Windows.FrameworkElement element = document.FindName(name) as System.Windows.FrameworkElement;
+            var element = document.FindName(name) as FrameworkElement;
             if (element == null)
                 return;
             element.DataContext = model;
@@ -339,9 +359,75 @@ namespace ScrumFactory.Services.Logic {
 
     }
 
+    public class BurnDownViewModel {
+        public ICollection<BurndownLeftHoursByDay> ActualHours { get; set; }
+        public ICollection<BurndownLeftHoursByDay> ActualHoursAhead { get; set; }
+        public ICollection<BurndownLeftHoursByDay> PlannedHours { get; set; }
+
+        public decimal WalkedPct {
+            get {
+                if (PlannedHours == null || PlannedHours.Count == 0)
+                    return -100;
+                if (ActualHours == null || ActualHours.Count == 0)
+                    return 0;
+
+                decimal? plannedTotalHours = 0;
+
+                plannedTotalHours = PlannedHours.Where(h => h.SprintNumber == 1).Max(h => h.TotalHours);
+
+                if (!plannedTotalHours.HasValue || plannedTotalHours == 0)
+                    return -100;
+
+
+                BurndownLeftHoursByDay actual = ActualHours.FirstOrDefault(d => d.Date.Equals(DateTime.Today));
+                if (actual == null)
+                    actual = ActualHours.Last();
+                if (actual == null)
+                    return 0;
+
+                if (actual.TotalHours == 0)
+                    return 100;
+
+
+                decimal done = plannedTotalHours.Value - actual.TotalHours;
+                decimal walked = done / plannedTotalHours.Value * 100;
+
+
+                return walked;
+            }
+        }
+        
+        public bool DeadlineAhead { get; set; }
+        public decimal DeadlinePosition {
+            get {
+                if (PlannedHours == null || PlannedHours.Count == 0)
+                    return 0;
+                if (ActualHours == null || ActualHours.Count == 0)
+                    return 0;
+
+                BurndownLeftHoursByDay planned = PlannedHours.FirstOrDefault(d => d.Date.Equals(DateTime.Today));
+                if (planned == null)
+                    planned = PlannedHours.Last();
+                BurndownLeftHoursByDay actual = ActualHours.FirstOrDefault(d => d.Date.Equals(DateTime.Today));
+                if (actual == null)
+                    actual = ActualHours.Last();
+                if (actual == null || planned == null)
+                    return 0;
+
+                decimal position = planned.TotalHours - actual.TotalHours;
+
+                if (position < 0) {
+                    DeadlineAhead = false;                                        
+                }
+                else {
+                    DeadlineAhead = true;                    
+                }
+
+                return Math.Abs(position);
+            }
+        }
+    }
     
-
-
     public class ProposalItemWithPrice : ProposalItem {
 
         [DataMember]

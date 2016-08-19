@@ -301,6 +301,9 @@
     <Content Include="ReportTemplates\include\helpers.xslt">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ReportTemplates\SprintReview\default10.xslt">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ReportTemplates\SprintReview\indicators.xslt">
       <SubType>Designer</SubType>
     </Content>

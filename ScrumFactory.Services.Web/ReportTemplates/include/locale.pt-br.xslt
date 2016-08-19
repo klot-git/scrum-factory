@@ -176,5 +176,12 @@
   <xsl:variable name="_FUNCTIONAL_REQUIREMENTS_tooltip" select="'Os requisitos funcionais que compõem o escopo do projeto são apresentados abaixo e identificados por seu respectivo número entre parênteses.'"/>
   <xsl:variable name="_NON_FUNCTIONAL_REQUIREMENTS" select="'REQUISITOS NÃO FUNCIONAIS E PREMISSAS'"/>
 
+  <xsl:variable name="_GRAPH_Hours" select="'Horas restantes para conclusão'" />
+  <xsl:variable name="_GRAPH_Actual_hours" select="'Real'" />
+  <xsl:variable name="_GRAPH_Planned_hours" select="'Planejado'" />
+  <xsl:variable name="_GRAPH_DateBindShort" select="'{Binding StringFormat=dd MMM}'" />
+  <xsl:variable name="_GRAPH_walked" select="'% caminhado'" />
+  <xsl:variable name="_GRAPH_hrs_ahead" select="'hr(s) adiantado'" />
+  <xsl:variable name="_GRAPH_hrs_late" select="'hr(s) atrasado'" />
 
 </xsl:stylesheet>
