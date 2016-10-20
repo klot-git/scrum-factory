@@ -120,10 +120,13 @@
               Sprint <xsl:value-of select="SprintNumber"/>
               </Paragraph>
               <Paragraph>
-                <xsl:for-each select="/ReportData/ArrayOfBacklogItem/BacklogItem[SprintNumber = $sprintNumber and OccurrenceConstraint=1]">
+                <xsl:for-each select="/ReportData/ArrayOfBacklogItem/BacklogItem[SprintNumber = $sprintNumber and OccurrenceConstraint=1 and Status &lt; 2]">                  
                   <xsl:sort select="OccurrenceConstraint" data-type="number"/>
                   <xsl:sort select="BusinessPriority" data-type="number"/>
-                  <xsl:if test="position() &gt; 1">,</xsl:if><xsl:value-of select="Name"/> [<xsl:value-of select="BacklogItemNumber"/>] 
+                  <xsl:variable name="itemUId" select="BacklogItemUId"/>
+                  <xsl:if test="/ReportData/ArrayOfProposalItemWithPrice/ProposalItemWithPrice[BacklogItemUId = $itemUId]">
+                  <xsl:if test="position() &gt; 1">,</xsl:if><xsl:value-of select="Name"/> [<xsl:value-of select="BacklogItemNumber"/>]
+                  </xsl:if>
                 </xsl:for-each>
                 <LineBreak/>
               </Paragraph>
@@ -366,7 +369,8 @@
     </Table>
   </xsl:template>
 
-  <xsl:template name="scopeOnly">    
+  <xsl:template name="scopeOnly">
+
     
         <xsl:for-each select="//ArrayOfBacklogItemGroup/BacklogItemGroup[DefaultGroup=1]">
           <xsl:sort select="DefaultGroup" data-type="number"/>
@@ -375,9 +379,11 @@
           <xsl:variable name="groupUId" select="GroupUId"/>
           <xsl:variable name="groupColor" select="GroupColor"/>
 
-          <xsl:variable name="groupItems" select="//ArrayOfBacklogItem/BacklogItem[GroupUId=$groupUId and Description != '']"/>
+          
+          <xsl:variable name="groupItems" select="//ArrayOfProposalItemWithPrice/ProposalItemWithPrice[BacklogItemUId=//ArrayOfBacklogItem/BacklogItem[GroupUId=$groupUId]/BacklogItemUId]"/>
 
           <xsl:if test="count($groupItems) &gt; 0">
+            
             
               <Paragraph Style="{{StaticResource GroupParagraph}}" Margin="0,20,0,10">
                 <InlineUIContainer>
@@ -386,23 +392,24 @@
                 <xsl:value-of select="GroupName"/>
               </Paragraph>
             
-            <xsl:for-each select="$groupItems">
+            <xsl:for-each select="$groupItems">              
               <xsl:variable name="itemUId" select="BacklogItemUId"/>
+              <xsl:variable name="item" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId=$itemUId]"/>
               
-              <xsl:if test="Description">
+              <xsl:if test="$item/Description">
               
                   <Paragraph Margin="30,0,0,0" FontWeight="Bold" FontSize="16">
 
-                    <xsl:value-of select="Name"/>
+                    <xsl:value-of select="$item/Name"/>
                     <Run Text=" "/>
                     <Run FontSize="10">
-                      (<xsl:value-of select="BacklogItemNumber"/>)
+                      (<xsl:value-of select="$item/BacklogItemNumber"/>)
                     </Run>
                   </Paragraph>
                   
                     <Paragraph Margin="30,0,0,15" LineHeight="Auto">
                       <xsl:call-template name="breakLines">
-                        <xsl:with-param name="text" select="Description" />
+                        <xsl:with-param name="text" select="$item/Description" />
                       </xsl:call-template>
                     </Paragraph>
               </xsl:if>
