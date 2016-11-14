@@ -31,6 +31,9 @@ namespace ScrumFactory.Services.Logic {
         [Import]
         private IBacklogService backlogservice { get; set; }
 
+        [Import]
+        private IReportService reportService { get; set; }
+
 
         [WebGet(UriTemplate = "ProjectProposals/{projectUId}/", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<Proposal> GetProjectProposals(string projectUId) {
@@ -170,6 +173,9 @@ namespace ScrumFactory.Services.Logic {
             proposal.ProposalStatus = (short)ProposalStatus.PROPOSAL_REJECTED;
             proposal.ApprovedBy = authorizationService.SignedMemberProfile.MemberUId;
 
+            if (documentXAML == null)
+                documentXAML = reportService.GetReportXAMLOnly("ProposalReport", proposal.TemplateName, proposal.ProjectUId, proposal.ProposalUId);
+
             proposal.ProposalDocument = new ProposalDocument() { ProposalUId = proposalUId, ProposalXAML = documentXAML };
 
             UpdateProposal(projectUId, proposal);
@@ -194,6 +200,9 @@ namespace ScrumFactory.Services.Logic {
             proposal.ApprovalDate = DateTime.Now;
             proposal.ApprovedBy = authorizationService.SignedMemberProfile.MemberUId;
             proposal.ProposalStatus = (short)ProposalStatus.PROPOSAL_APPROVED;
+
+            if (documentXAML == null)
+                documentXAML = reportService.GetReportXAMLOnly("ProposalReport", proposal.TemplateName, proposal.ProjectUId, proposal.ProposalUId);
 
             proposal.ProposalDocument = new ProposalDocument() { ProposalUId = proposalUId, ProposalXAML = documentXAML };
 
@@ -244,5 +253,6 @@ namespace ScrumFactory.Services.Logic {
             authorizationService.VerifyRequestAuthorizationToken();
             return proposalsRepository.IsItemAtAnyProposal(backlogItemUId);
         }
+        
     }
 }

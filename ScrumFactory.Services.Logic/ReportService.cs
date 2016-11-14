@@ -98,6 +98,31 @@ namespace ScrumFactory.Services.Logic {
             
         }
 
+
+        public string GetReportXAMLOnly(string templateGroup, string template, string projectUId, string proposalUId) {
+            serverUrl = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
+            
+            var project = projectService.GetProject(projectUId);
+
+            config = CreateReportConfig(project, templateGroup, template, "report");
+
+            if (templateGroup == "ProposalReport") {
+                ProposalConfig(config, projectUId, proposalUId);
+            }
+
+            if (templateGroup == "SprintReview" && template == "default10") {
+                BurndownConfig(config, project);
+            }
+
+            var report = new ReportHelper.Report();
+
+            var xaml = report.CreateReportXAML(serverUrl, config);
+            xaml = CleanInvalidXmlChars(xaml);
+
+            return xaml;
+
+        }
+
         private void _GetReport() {            
             var document = CreateFlowDocument();            
             ForceRenderFlowDocument(document);            
@@ -217,7 +242,7 @@ namespace ScrumFactory.Services.Logic {
 
             // creates proposal items with price            
             List<ProposalItemWithPrice> itemsWithValue = new List<ProposalItemWithPrice>();
-            ICollection<BacklogItem> items = backlogService.GetBacklog(projectUId, null, (short)ScrumFactory.Services.BacklogFiltersMode.ALL);
+            ICollection<BacklogItem> items = backlogService.GetCurrentBacklog(projectUId, (short)ScrumFactory.Services.BacklogFiltersMode.ALL);
             foreach (var item in proposal.Items) {
                 var itemB = items.SingleOrDefault(i => i.BacklogItemUId == item.BacklogItemUId);
                 if (itemB != null) {
