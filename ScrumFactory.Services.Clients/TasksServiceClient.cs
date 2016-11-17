@@ -154,6 +154,10 @@ namespace ScrumFactory.Services.Clients {
             ClientHelper.HandleHTTPErrorCode(response);
         }
 
+        public void ChangeTaskType(string taskUId, short type) {
+            throw new NotImplementedException();
+        }
+
         public void ChangeTaskItem(string taskUId, string backlogItemUId) {
             var client = ClientHelper.GetClient(authorizator);
             HttpResponseMessage response = ClientHelper.SafePut<string>(TASK_UPDATE_LOCK, client, Url("Tasks/" + taskUId + "/BacklogItemUId"), backlogItemUId);                

@@ -171,8 +171,7 @@ namespace ScrumFactory.Services.Logic {
             backlogService.UpdateItemStatusToWorking(task);
             
         }
-
-
+        
         private void ReplanBacklogItem(Task task, string oldRoleUId, decimal oldHours) {
             
             decimal delta = task.PlannedHours - oldHours;
@@ -224,6 +223,16 @@ namespace ScrumFactory.Services.Logic {
             backlogService.UpdateItemStatusToWorking(task);
 
             return now;
+        }
+
+        [WebInvoke(Method = "PUT", UriTemplate = "Tasks/{taskUId}/TaskType", ResponseFormat = WebMessageFormat.Json)]
+        public void ChangeTaskType(string taskUId, short type) {
+
+            Task task = GetTask(taskUId);
+            VerifyIfCanEditTask(task);
+            
+            task.TaskType = type;
+            tasksRepository.SaveTask(task);            
         }
 
         [WebInvoke(Method = "PUT", UriTemplate = "Tasks/{taskUId}/TaskAssigneeUId/?replanItem={replanItem}", ResponseFormat = WebMessageFormat.Json)]

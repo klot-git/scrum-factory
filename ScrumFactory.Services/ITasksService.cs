@@ -57,6 +57,9 @@ namespace ScrumFactory.Services {
         void ChangeTaskName(string taskUId, string taskName);
 
         [OperationContract]
+        void ChangeTaskType(string taskUId, short type);
+
+        [OperationContract]
         void ChangeTaskItem(string taskUId, string backlogItemUId);
 
         [OperationContract]
