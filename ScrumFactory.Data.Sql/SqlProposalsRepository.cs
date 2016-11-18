@@ -25,7 +25,7 @@
 
         public Proposal GetProjectProposal(string projectUId, string proposalUId) {
             using (var context = new ScrumFactoryEntities(this.connectionString)) {
-                return context.Proposals.Include("Clauses").Include("Items").Include("FixedCosts").SingleOrDefault(p => p.ProjectUId == projectUId && p.ProposalUId == proposalUId);
+                return context.Proposals.Include("Clauses").Include("Items").Include("FixedCosts").SingleOrDefault(p => p.ProposalUId == proposalUId);
             }
         }
 
