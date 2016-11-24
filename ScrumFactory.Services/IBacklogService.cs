@@ -47,6 +47,9 @@ namespace ScrumFactory.Services
         [OperationContract()]
         void ChangeBacklogItemStatus(string backlogItemUId, short status);
 
+        [OperationContract()]
+        void ChangeBacklogItemIssueType(string backlogItemUId, short issueType);
+
         void UpdateItemStatusToWorking(Task task);
        
         [OperationContract()]

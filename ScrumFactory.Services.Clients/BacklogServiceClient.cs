@@ -100,6 +100,10 @@ namespace ScrumFactory.Services.Clients {
             ClientHelper.HandleHTTPErrorCode(response);            
         }
 
+        public void ChangeBacklogItemIssueType(string backlogItemUId, short issueType) {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Saves a backlog item.
         /// If the item planned hours is old, it also replan the hours for the current planning number.

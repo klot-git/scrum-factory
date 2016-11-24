@@ -258,6 +258,14 @@ namespace ScrumFactory.Services.Logic {
             backlogRepository.SaveBacklogItemIgnoreHours(item);
         }
 
+        [WebInvoke(Method = "PUT", UriTemplate = "BacklogItems/{backlogItemUId}/IssueType", RequestFormat = WebMessageFormat.Json)]
+        public void ChangeBacklogItemIssueType(string backlogItemUId, short issueType) {
+            BacklogItem item = GetBacklogItem(backlogItemUId);
+            authorizationService.VerifyPermissionAtProject(item.ProjectUId, PermissionSets.SCRUM_MASTER);
+            item.IssueType = issueType;
+            backlogRepository.SaveBacklogItemIgnoreHours(item);
+        }
+
         public void UpdateItemStatusToWorking(Task task) {
             BacklogItem item = GetBacklogItem(task.BacklogItemUId);
             if (item.Status != (short)BacklogItemStatus.ITEM_REQUIRED || task.EffectiveHours == 0)
