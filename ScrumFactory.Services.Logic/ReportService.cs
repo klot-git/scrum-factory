@@ -54,6 +54,8 @@ namespace ScrumFactory.Services.Logic {
 
         private string errorMessage = "";
 
+        private string title = "";
+
 
 
         //http://localhost:1335/reportservice/SFReports/SprintReview/scope/1c286ff3-3060-4c55-b467-ae1aa1d9e52b
@@ -66,14 +68,13 @@ namespace ScrumFactory.Services.Logic {
 
             fileName = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", Guid.NewGuid() + "." + format);
 
-            //serverUrl = WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri.Scheme + "://" +
-            //            WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri.Authority;
-
             serverUrl = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
-
+            
             this.format = format;
 
             var project = projectService.GetProject(projectUId);
+
+            title = project.ClientName + " - " + project.ProjectName;
 
             config = CreateReportConfig(project, templateGroup, template, "report");
 
@@ -305,7 +306,8 @@ namespace ScrumFactory.Services.Logic {
           
             var report = new ReportHelper.Report();
 
-            var paginator = report.CreatePaginator(document, "title");
+            document.Tag = "sf-header:yes";
+            var paginator = report.CreatePaginator(document, title);
             
             try {
                 
