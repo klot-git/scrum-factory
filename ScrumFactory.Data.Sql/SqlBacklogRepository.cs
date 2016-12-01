@@ -381,6 +381,18 @@
             
         }
 
+        public BacklogItemGroup GetBacklogItemGroup(string groupUId) {
+            using (var context = new ScrumFactoryEntities(this.connectionString)) {
+                return context.BacklogItemGroups.SingleOrDefault(g => g.GroupUId == groupUId);
+            }
+        }
+
+        public void DeleteBacklogItemGroup(string groupUId) {
+            using (var context = new ScrumFactoryEntities(this.connectionString)) {
+                var group = context.BacklogItemGroups.SingleOrDefault(g => g.GroupUId == groupUId);
+                context.BacklogItemGroups.DeleteObject(group);
+            }
+        }
 
         public ICollection<BacklogItemGroup> GetBacklogItemGroups(string projectUId) {
             using (var context = new ScrumFactoryEntities(this.connectionString)) {

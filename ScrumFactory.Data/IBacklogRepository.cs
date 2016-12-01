@@ -40,6 +40,10 @@
 
         void UpdateBacklogItemGroup(BacklogItemGroup group);
 
+        BacklogItemGroup GetBacklogItemGroup(string groupUId);
+
+        void DeleteBacklogItemGroup(string groupUId);
+
         ICollection<BacklogItem> GetDoneItemsBySize(string sizeUId, int lasMonths);
 
         decimal GetTotalPointsDone(string projectUId);

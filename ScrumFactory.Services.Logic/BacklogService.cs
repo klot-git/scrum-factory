@@ -310,6 +310,18 @@ namespace ScrumFactory.Services.Logic {
             backlogRepository.DeleteBacklogItem(backlogItemUId);           
         }
 
+        [WebInvoke(Method = "DELETE", UriTemplate = "Groups/{groupUId}", ResponseFormat = WebMessageFormat.Json)]        
+        public void DeleteBacklogItemGroup(string groupUId) {
+
+            var group = backlogRepository.GetBacklogItemGroup(groupUId);
+            if (group == null)
+                return;
+
+            authorizationService.VerifyPermissionAtProject(group.ProjectUId, PermissionSets.SCRUM_MASTER);
+            
+            backlogRepository.DeleteBacklogItemGroup(groupUId);
+        }
+
         [WebInvoke(Method = "POST", UriTemplate = "BacklogItems/{backlogItemUId}/SprintNumber?lowPriority={lowPriority}", RequestFormat = WebMessageFormat.Json)]
         public BacklogItem[] ChangeItemSprint(string backlogItemUId, int sprintNumber, bool lowPriority) {
 

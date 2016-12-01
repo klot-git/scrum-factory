@@ -88,6 +88,9 @@ namespace ScrumFactory.Services
         [OperationContract()]
         void UpdateBacklogItemGroup(string projectUId, BacklogItemGroup group);
 
+        [OperationContract()]
+        void DeleteBacklogItemGroup(string groupUId);
+
         [OperationContract]
         Dictionary<string, decimal?> GetVelocityBySize(string sizeUId);
 
