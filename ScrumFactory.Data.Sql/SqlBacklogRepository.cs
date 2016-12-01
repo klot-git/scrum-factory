@@ -387,10 +387,18 @@
             }
         }
 
-        public void DeleteBacklogItemGroup(string groupUId) {
+        public bool DeleteBacklogItemGroup(string groupUId) {
             using (var context = new ScrumFactoryEntities(this.connectionString)) {
+
+                var inUse = context.BacklogItems.Any(i => i.GroupUId == groupUId);
+                if (inUse)
+                    return false;
+                    
                 var group = context.BacklogItemGroups.SingleOrDefault(g => g.GroupUId == groupUId);
                 context.BacklogItemGroups.DeleteObject(group);
+                context.SaveChanges();
+
+                return true;
             }
         }
 

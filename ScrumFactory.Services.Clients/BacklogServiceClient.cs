@@ -279,7 +279,7 @@ namespace ScrumFactory.Services.Clients {
             throw new NotSupportedException();
         }
 
-        public void DeleteBacklogItemGroup(string groupUId) {
+        public bool DeleteBacklogItemGroup(string groupUId) {
             throw new NotImplementedException();
         }
 

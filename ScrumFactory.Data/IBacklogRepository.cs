@@ -42,7 +42,7 @@
 
         BacklogItemGroup GetBacklogItemGroup(string groupUId);
 
-        void DeleteBacklogItemGroup(string groupUId);
+        bool DeleteBacklogItemGroup(string groupUId);
 
         ICollection<BacklogItem> GetDoneItemsBySize(string sizeUId, int lasMonths);
 
