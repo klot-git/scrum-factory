@@ -432,10 +432,10 @@ namespace ScrumFactory.Services.Logic {
                 if (ActualHours == null || ActualHours.Count == 0)
                     return 0;
 
-                BurndownLeftHoursByDay planned = PlannedHours.FirstOrDefault(d => d.Date.Equals(DateTime.Today));
+                BurndownLeftHoursByDay planned = PlannedHours.FirstOrDefault(d => d.Date.Date.Equals(DateTime.Today));
                 if (planned == null)
                     planned = PlannedHours.Last();
-                BurndownLeftHoursByDay actual = ActualHours.FirstOrDefault(d => d.Date.Equals(DateTime.Today));
+                BurndownLeftHoursByDay actual = ActualHours.FirstOrDefault(d => d.Date.Date.Equals(DateTime.Today));
                 if (actual == null)
                     actual = ActualHours.Last();
                 if (actual == null || planned == null)
