@@ -21,74 +21,79 @@
       <xsl:variable name="itemStyle">
         <xsl:choose>
           <xsl:when test="IssueType = 3 and $hideDeliveryDate = 0" >{StaticResource criticalItemCell}</xsl:when>
-          <xsl:when test="(OccurrenceConstraint = 2 or string-length(DeliveryDate) &gt; 0) and $hideDeliveryDate = 0" >{StaticResource deliveryItemCell}</xsl:when>
-          <xsl:when test="position() = 1 and $hideDeliveryDate = 0" >{StaticResource deliveryItemCell}</xsl:when>
+          <!--<xsl:when test="(OccurrenceConstraint = 2 or string-length(DeliveryDate) &gt; 0) and $hideDeliveryDate = 0" >{StaticResource deliveryItemCell}</xsl:when>
+          <xsl:when test="position() = 1 and $hideDeliveryDate = 0" >{StaticResource deliveryItemCell}</xsl:when>-->
           <xsl:otherwise>{StaticResource normalItemCell}</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
+
+      <xsl:variable name="bgColor" select="Group/GroupColor"/>
       
-      <TableRow >
+      <TableRow>
         <xsl:if test="$hideDeliveryDate = 0">
           <TableCell Style="{$itemStyle}" TextAlignment="Center">
 
-            <Paragraph FontWeight="Bold">
+              <xsl:if test="IssueType != 3 and string-length(DeliveryDate) &gt; 0">
+                <Paragraph FontWeight="Bold">
+                  <xsl:call-template name="formatShortDate">
+                    <xsl:with-param name="dateTime" select="DeliveryDate" />
+                  </xsl:call-template>
+                </Paragraph>                
+              </xsl:if>
 
-              <xsl:if test="string-length(DeliveryDate) &gt; 0">
-                
+            <xsl:if test="IssueType = 3 and string-length(DeliveryDate) &gt; 0">
+              <Paragraph FontWeight="Bold"  Foreground="White">
                 <xsl:call-template name="formatShortDate">
                   <xsl:with-param name="dateTime" select="DeliveryDate" />
                 </xsl:call-template>
-                
-              </xsl:if>
-              
-              <xsl:if test="string-length(DeliveryDate) = 0 and (OccurrenceConstraint = 2 or IssueType = 3)">
-                
-                <xsl:call-template name="formatShortDate">
-                  <xsl:with-param name="dateTime" select="$endDate" />
-                </xsl:call-template>
-
-                
-              </xsl:if>
-
-            
-
-            <xsl:if test="position() = 1 and string-length(DeliveryDate) = 0">
-
-                <xsl:if test="string-length(DeliveryDate) = 0 and (OccurrenceConstraint = 2 or IssueType = 3)">
-                  <LineBreak/>
-                </xsl:if>  
-                
-                <xsl:call-template name="formatShortDate">
-                  <xsl:with-param name="dateTime" select="$startDate" />
-                </xsl:call-template>
-              
+              </Paragraph>
             </xsl:if>
 
-            </Paragraph>
+              <xsl:if test="IssueType = 3 and string-length(DeliveryDate) = 0">
+                <Paragraph FontWeight="Bold" Foreground="White">
+                  <xsl:call-template name="formatShortDate">
+                    <xsl:with-param name="dateTime" select="$endDate" />
+                  </xsl:call-template>
+                </Paragraph>
+              </xsl:if>
+              
 
           </TableCell>
         </xsl:if>        
+        
         <TableCell Style="{{StaticResource normalItemCell}}" BorderThickness="0,0,0,1" BorderBrush="#EEEEEE">
-          <Paragraph TextAlignment="Left" Margin="10,0,0,0">
-            <xsl:value-of select="Name"/>
-            <TextBlock FontSize="10" Foreground="Gray" Margin="3,0,0,0" VerticalAlignment="Top">
-              [<xsl:value-of select="BacklogItemNumber"/>]
+          <Paragraph TextAlignment="Left" Margin="10,5,0,5">
+            <TextBlock Style="{{StaticResource BacklogItemGroupTextBlock}}" Background="{$bgColor}" TextWrapping="Wrap" FontSize="10">
+              <xsl:value-of select="Group/GroupName"/>
             </TextBlock>
+            <LineBreak/>
+            <TextBlock FontWeight="Bold" TextWrapping="Wrap">
+              <xsl:value-of select="Name"/>
+              #<xsl:value-of select="BacklogItemNumber"/>              
+            </TextBlock>
+            
+            <xsl:if test="Description">
+            <LineBreak/>
+            <TextBlock FontSize="10" TextWrapping="Wrap" Margin="0,5,0,0">
+              <xsl:call-template name="breakLines">
+                <xsl:with-param name="text" select="Description" />
+              </xsl:call-template>              
+            </TextBlock>  
+            </xsl:if>
+            
+
           </Paragraph>
         </TableCell>
         <TableCell Style="{{StaticResource normalItemCell}}" TextAlignment="Right" BorderThickness="0,0,0,1" BorderBrush="#EEEEEE">
-          <Paragraph>
+          <Paragraph Margin="0,5,0,5">
             <xsl:variable name="totalHours" select="sum(ValidPlannedHours/PlannedHour[SprintNumber =  $sprintNumber]/Hours)"/>
             
             <xsl:value-of select="format-number($totalHours, $decimalN1, 'numberFormat')"/> hrs
           </Paragraph>
         </TableCell>
         <TableCell Style="{{StaticResource normalItemCell}}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="#EEEEEE">
-          <Paragraph FontSize="10" Margin="0,4,0,0" >
-            
+          <Paragraph FontSize="10"  Margin="0,5,0,5" >
                 <xsl:call-template name="itemStatus" />  
-            
-
           </Paragraph>
         </TableCell>
     
@@ -100,6 +105,9 @@
     <xsl:param name="sprintNumber"/>
     <xsl:param name="usePreviousPlan"/>
     <xsl:param name="hideDeliveryDate" select="0"/>
+
+    <xsl:variable name="sprint" select="/ReportData/Project/Sprints/Sprint[SprintNumber = $sprintNumber]" />
+    
     <Table>
       <Table.Columns>
         <xsl:if test="$hideDeliveryDate = 0">
@@ -110,6 +118,18 @@
         <TableColumn Width="120" />        
       </Table.Columns>
       <TableRowGroup>
+        <xsl:if test="$hideDeliveryDate = 0">
+          <TableRow>
+            <TableCell Background="Black" TextAlignment="Center">
+              <Paragraph FontWeight="Bold"  Foreground="White">
+                <!--<xsl:value-of select="$_starts"/>&#160;-->
+                <xsl:call-template name="formatShortDate">
+                  <xsl:with-param name="dateTime" select="$sprint/StartDate" />
+                </xsl:call-template>
+              </Paragraph>
+            </TableCell>
+          </TableRow>
+        </xsl:if>
         
         <xsl:variable name="sprintItems">
           <xsl:copy-of select="/ReportData/ArrayOfBacklogItem/BacklogItem[ValidPlannedHours/PlannedHour/SprintNumber = $sprintNumber and Status !=3]"/>          
@@ -123,6 +143,19 @@
           <xsl:with-param name="startDate" select="/ReportData/Project/Sprints/Sprint[SprintNumber = $sprintNumber]/StartDate"/>
           <xsl:with-param name="sprintNumber" select="$sprintNumber"/>
         </xsl:call-template>
+
+        <xsl:if test="$hideDeliveryDate = 0">
+          <TableRow>
+            <TableCell Background="Black" TextAlignment="Center">
+              <Paragraph FontWeight="Bold" Foreground="White">
+                <!--<xsl:value-of select="$_ends"/>&#160;-->
+                <xsl:call-template name="formatShortDate">
+                  <xsl:with-param name="dateTime" select="$sprint/EndDate" />
+                </xsl:call-template>
+              </Paragraph>
+            </TableCell>
+          </TableRow>
+        </xsl:if>
      
       </TableRowGroup>
     </Table>

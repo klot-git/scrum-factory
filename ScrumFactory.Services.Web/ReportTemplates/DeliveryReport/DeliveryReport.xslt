@@ -55,7 +55,7 @@
               
             </xsl:for-each>            
           
-        <Table CellSpacing="4" Margin="00,60,0,0">
+        <!--<Table CellSpacing="4" Margin="00,60,0,0">
           <Table.Columns>            
             <TableColumn Width="20" />
             <TableColumn />
@@ -83,12 +83,13 @@
               </TableCell>
             </TableRow>
           </TableRowGroup>
-        </Table>
+        </Table>-->
 
 
         <xsl:if test="count($deliveriedItems) &gt; 0">
           <Paragraph Style="{{StaticResource GroupParagraph}}" Foreground="Gray">
-            <xsl:value-of select="$_DELIVERED_ITEMS"/>
+            <LineBreak/>
+            <xsl:value-of select="$_PREVIOUS_ITEMS"/>
           </Paragraph>
 
           <xsl:for-each select="$deliveriedItems">
