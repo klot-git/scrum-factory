@@ -63,16 +63,18 @@
         
         <TableCell Style="{{StaticResource normalItemCell}}" BorderThickness="0,0,0,1" BorderBrush="#EEEEEE">
           <Paragraph TextAlignment="Left" Margin="10,5,0,5">
-            <TextBlock Style="{{StaticResource BacklogItemGroupTextBlock}}" Background="{$bgColor}" TextWrapping="Wrap" FontSize="10">
-              <xsl:value-of select="Group/GroupName"/>
-            </TextBlock>
-            <LineBreak/>
+            <xsl:if test="$hideDeliveryDate = 0">
+              <TextBlock Style="{{StaticResource BacklogItemGroupTextBlock}}" Background="{$bgColor}" TextWrapping="Wrap" FontSize="10">
+                <xsl:value-of select="Group/GroupName"/>
+              </TextBlock>
+              <LineBreak/>
+            </xsl:if>
             <TextBlock FontWeight="Bold" TextWrapping="Wrap">
               <xsl:value-of select="Name"/>
               #<xsl:value-of select="BacklogItemNumber"/>              
-            </TextBlock>
+            </TextBlock>            
             
-            <xsl:if test="Description">
+            <xsl:if test="Description and $hideDeliveryDate = 0">
             <LineBreak/>
             <TextBlock FontSize="10" TextWrapping="Wrap" Margin="0,5,0,0">
               <xsl:call-template name="breakLines">
