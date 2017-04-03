@@ -202,7 +202,7 @@ namespace ScrumFactory.Services.Logic {
 
         private void BurndownConfig(ReportHelper.ReportConfig config, ScrumFactory.Project project) {
             
-            var leftHoursByDay = backlogService.GetBurndownHoursByDay(project.ProjectUId, project.CurrentPlanningNumber.ToString());
+            var leftHoursByDay = backlogService.GetBurndownHoursByDay(project.ProjectUId, project.Baseline.ToString());
 
             if (leftHoursByDay == null) return;
 
