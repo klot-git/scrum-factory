@@ -64,10 +64,6 @@
       <Project>{B08DBAD5-F222-42F7-A277-7C83DAD4596F}</Project>
       <Name>ScrumFactory.Composition</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScrumFactory.Team\ScrumFactory.Team.csproj">
-      <Project>{697400DF-E733-48C6-98F0-231E1C76C12B}</Project>
-      <Name>ScrumFactory.Team</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ScrumFactory.Services\ScrumFactory.Services.csproj">
       <Project>{8C02F064-7935-460A-89AA-A77B8511874C}</Project>
       <Name>ScrumFactory.Services</Name>
@@ -75,10 +71,6 @@
     <ProjectReference Include="..\ScrumFactory.Test\ScrumFactory.Test.csproj">
       <Project>{90DD15A5-7A7A-493C-B848-2974A0AA2C26}</Project>
       <Name>ScrumFactory.Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ScrumFactory.Windows\ScrumFactory.Windows.csproj">
-      <Project>{F507F2DA-4622-4737-ABBB-D6DE37BAA80F}</Project>
-      <Name>ScrumFactory.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\ScrumFactory\ScrumFactory.csproj">
       <Project>{B73E8E5E-4C76-4663-8E6F-51E069ECBDE1}</Project>

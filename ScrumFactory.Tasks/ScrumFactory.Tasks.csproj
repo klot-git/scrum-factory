@@ -123,14 +123,6 @@
       <Project>{8C02F064-7935-460A-89AA-A77B8511874C}</Project>
       <Name>ScrumFactory.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScrumFactory.Windows.Helpers\ScrumFactory.Windows.Helpers.csproj">
-      <Project>{372804EF-BB1E-4B18-ACCB-4776EA590258}</Project>
-      <Name>ScrumFactory.Windows.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ScrumFactory.Windows\ScrumFactory.Windows.csproj">
-      <Project>{F507F2DA-4622-4737-ABBB-D6DE37BAA80F}</Project>
-      <Name>ScrumFactory.Windows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ScrumFactory\ScrumFactory.csproj">
       <Project>{B73E8E5E-4C76-4663-8E6F-51E069ECBDE1}</Project>
       <Name>ScrumFactory</Name>

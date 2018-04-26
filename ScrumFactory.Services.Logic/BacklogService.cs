@@ -245,7 +245,10 @@ namespace ScrumFactory.Services.Logic {
         [WebInvoke(Method = "PUT", UriTemplate = "BacklogItems/{backlogItemUId}/GroupUId", RequestFormat = WebMessageFormat.Json)]
         public void ChangeBacklogItemGroup(string backlogItemUId, string groupUId) {
             BacklogItem item = GetBacklogItem(backlogItemUId);
-            authorizationService.VerifyPermissionAtProject(item.ProjectUId, PermissionSets.SCRUM_MASTER);
+
+            Project project = projectsService.GetProject(item.ProjectUId);
+            VerifyPermissionForCreateEditItem(item, project);
+
             item.GroupUId = groupUId;
             backlogRepository.SaveBacklogItemIgnoreHours(item);
         }
@@ -253,7 +256,10 @@ namespace ScrumFactory.Services.Logic {
         [WebInvoke(Method = "PUT", UriTemplate = "BacklogItems/{backlogItemUId}/Status", RequestFormat = WebMessageFormat.Json)]
         public void ChangeBacklogItemStatus(string backlogItemUId, short status) {
             BacklogItem item = GetBacklogItem(backlogItemUId);
-            authorizationService.VerifyPermissionAtProject(item.ProjectUId, PermissionSets.SCRUM_MASTER);
+
+            Project project = projectsService.GetProject(item.ProjectUId);
+            VerifyPermissionForCreateEditItem(item, project);
+
             item.Status = status;
             backlogRepository.SaveBacklogItemIgnoreHours(item);
         }
@@ -261,7 +267,10 @@ namespace ScrumFactory.Services.Logic {
         [WebInvoke(Method = "PUT", UriTemplate = "BacklogItems/{backlogItemUId}/IssueType", RequestFormat = WebMessageFormat.Json)]
         public void ChangeBacklogItemIssueType(string backlogItemUId, short issueType) {
             BacklogItem item = GetBacklogItem(backlogItemUId);
-            authorizationService.VerifyPermissionAtProject(item.ProjectUId, PermissionSets.SCRUM_MASTER);
+
+            Project project = projectsService.GetProject(item.ProjectUId);
+            VerifyPermissionForCreateEditItem(item, project);
+
             item.IssueType = issueType;
             backlogRepository.SaveBacklogItemIgnoreHours(item);
         }

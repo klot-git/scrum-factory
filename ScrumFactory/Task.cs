@@ -247,6 +247,9 @@ namespace ScrumFactory {
 
         [DataMember]
         public string BacklogItemName { get; set; }
+
+        [DataMember]
+        public string ClientName { get; set; }
     }
 
     [DataContract]

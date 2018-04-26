@@ -73,10 +73,6 @@
       <Project>{90DD15A5-7A7A-493C-B848-2974A0AA2C26}</Project>
       <Name>ScrumFactory.Test</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScrumFactory.Windows\ScrumFactory.Windows.csproj">
-      <Project>{F507F2DA-4622-4737-ABBB-D6DE37BAA80F}</Project>
-      <Name>ScrumFactory.Windows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ScrumFactory\ScrumFactory.csproj">
       <Project>{B73E8E5E-4C76-4663-8E6F-51E069ECBDE1}</Project>
       <Name>ScrumFactory</Name>

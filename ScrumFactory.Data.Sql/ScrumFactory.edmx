@@ -344,6 +344,7 @@ warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a pri
           <Property Name="ProjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="BacklogItemNumber" Type="int" Nullable="false" />
           <Property Name="BacklogItemName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="200" Nullable="true" />
         </EntityType>
         <Association Name="FK_BacklogItem_BacklogItemGroup">
           <End Role="BacklogItemGroup" Type="Self.BacklogItemGroup" Multiplicity="0..1" />
@@ -577,7 +578,8 @@ FROM [factory].[BacklogItemEffectiveHours] AS [BacklogItemEffectiveHours]</Defin
 [TaskInfo].[ProjectNumber] AS [ProjectNumber], 
 [TaskInfo].[ProjectName] AS [ProjectName], 
 [TaskInfo].[BacklogItemNumber] AS [BacklogItemNumber], 
-[TaskInfo].[BacklogItemName] AS [BacklogItemName]
+[TaskInfo].[BacklogItemName] AS [BacklogItemName],
+[TaskInfo].[ClientName] AS [ClientName]
 FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_BacklogItem_BacklogItemGroup" Association="Self.FK_BacklogItem_BacklogItemGroup">
@@ -1103,6 +1105,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="BacklogItemNumber" Nullable="false" />
           <Property Type="String" Name="BacklogItemName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="TaskInfoTask">
           <End Type="ScrumFactoryModel.TaskInfo" Role="TaskInfo" Multiplicity="1" />
@@ -1544,6 +1547,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <EntitySetMapping Name="TaskInfoes">
             <EntityTypeMapping TypeName="ScrumFactoryModel.TaskInfo">
               <MappingFragment StoreEntitySet="TaskInfo">
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="BacklogItemName" ColumnName="BacklogItemName" />
                 <ScalarProperty Name="BacklogItemNumber" ColumnName="BacklogItemNumber" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
