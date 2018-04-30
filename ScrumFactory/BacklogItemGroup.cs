@@ -31,6 +31,9 @@ namespace ScrumFactory {
         [DataMember]
         public short DefaultGroup { get; set; }
 
+        [DataMember]
+        public short? GroupOrder { get; set; }
+
 
         //public override bool Equals(object obj) {
         //    BacklogItemGroup g = obj as BacklogItemGroup;

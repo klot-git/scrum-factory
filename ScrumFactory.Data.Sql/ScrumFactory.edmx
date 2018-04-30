@@ -58,6 +58,7 @@
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="GroupColor" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="DefaultGroup" Type="smallint" Nullable="false" />
+          <Property Name="GroupOrder" Type="smallint" Nullable="true" />
         </EntityType>
         <EntityType Name="CalendarDay">
           <Key>
@@ -1071,6 +1072,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="GroupColor" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="Int16" Name="DefaultGroup" Nullable="false" />
+          <Property Name="GroupOrder" Type="Int16" Nullable="true"/>
         </EntityType>
         <Association Name="FK_BacklogItem_BacklogItemGroup">
           <End Type="ScrumFactoryModel.BacklogItemGroup" Role="BacklogItemGroup" Multiplicity="0..1" />
@@ -1541,6 +1543,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="ProjectUId" ColumnName="ProjectUId" />
                 <ScalarProperty Name="GroupUId" ColumnName="GroupUId" />
+                <ScalarProperty Name="GroupOrder" ColumnName="GroupOrder" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
