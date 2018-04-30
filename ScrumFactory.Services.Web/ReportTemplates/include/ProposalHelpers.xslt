@@ -187,6 +187,7 @@
         
         <xsl:for-each select="//ArrayOfBacklogItemGroup/BacklogItemGroup">
           <xsl:sort select="DefaultGroup" data-type="number"/>
+          <xsl:sort select="GroupOrder" data-type="number"/>
           <xsl:sort select="GroupName"/>
           <xsl:variable name="groupUId" select="GroupUId"/>
           
@@ -287,6 +288,129 @@
     </Table>
   </xsl:template>
 
+  <xsl:template name="proposalScopeNoValues">
+    <xsl:param name="showDetail" select="1"/>
+    <Table>
+      <Table.Columns>
+        <TableColumn  />        
+        <xsl:for-each select="$proposalRoles">
+          <TableColumn Width="50" />
+        </xsl:for-each>        
+      </Table.Columns>
+      <TableRowGroup>
+
+        <TableRow>
+          <TableCell>
+            <Paragraph></Paragraph>
+          </TableCell>
+          
+            <xsl:for-each select="$proposalRoles">
+              <xsl:variable name="roleUId" select="RoleUId"/>
+              <TableCell>
+                <Paragraph TextAlignment="Right" Style="{{StaticResource ValueParagraph}}">
+                  <xsl:value-of select="RoleShortName"/>
+                </Paragraph>
+              </TableCell>
+            </xsl:for-each>
+
+        </TableRow>
+
+        <xsl:for-each select="//ArrayOfBacklogItemGroup/BacklogItemGroup">
+          <xsl:sort select="DefaultGroup" data-type="number"/>
+          <xsl:sort select="GroupOrder" data-type="number"/>
+          <xsl:sort select="GroupName"/>
+          <xsl:variable name="groupUId" select="GroupUId"/>
+
+          <xsl:variable name="groupItems" select="//ArrayOfProposalItemWithPrice/ProposalItemWithPrice[BacklogItemUId=//ArrayOfBacklogItem/BacklogItem[GroupUId=$groupUId]/BacklogItemUId]"/>
+
+          <xsl:if test="count($groupItems) &gt; 0">
+            <xsl:variable name="columnSpan">
+              <xsl:choose>
+                <xsl:when test="//Proposal/UseCalcPrice='true'">
+                  <xsl:value-of select="count($proposalRoles) + 1"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <TableRow>
+              <TableCell ColumnSpan="{$columnSpan}">
+                <Paragraph Style="{{StaticResource ValueParagraph}}" Margin="0,10,0,0"  LineHeight="Auto">
+                  <xsl:value-of select="GroupName"/>
+                </Paragraph>
+              </TableCell>
+            </TableRow>
+            <xsl:for-each select="$groupItems">
+              <xsl:variable name="itemUId" select="BacklogItemUId"/>
+              <xsl:variable name="item" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId=$itemUId]"/>
+              <TableRow>
+                <TableCell BorderThickness="0,0,0,1" BorderBrush="LightGray">
+                  <Paragraph Margin="20,0,0,0" LineHeight="Auto">
+                    <xsl:value-of select="$item/Name"/>
+                    <Run Text=" "/>
+                    <Run FontSize="10">
+                      (<xsl:value-of select="$item/BacklogItemNumber"/>)
+                    </Run>
+                  </Paragraph>
+                  <xsl:if test="$item/Description and $showDetail">
+                    <Paragraph Margin="20,4,0,0" FontSize="11" FontStyle="Italic"  LineHeight="Auto">
+                      <xsl:call-template name="breakLines">
+                        <xsl:with-param name="text" select="$item/Description" />
+                      </xsl:call-template>
+                    </Paragraph>
+                  </xsl:if>
+
+                </TableCell>
+
+
+                  <xsl:for-each select="$proposalRoles">
+                    <xsl:variable name="roleUId" select="RoleUId"/>
+                    <TableCell BorderThickness="0,0,0,1" BorderBrush="LightGray">
+                      <Paragraph TextAlignment="Right" Foreground="LightGray"  LineHeight="Auto">
+                        <xsl:variable name="hours">
+                          <xsl:choose>
+                            <xsl:when test="$item/CurrentPlannedHours/PlannedHour[RoleUId=$roleUId]/Hours">
+                              <xsl:value-of select="$item/CurrentPlannedHours/PlannedHour[RoleUId=$roleUId]/Hours"/>
+                            </xsl:when>
+                            <xsl:otherwise>0</xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:variable>
+
+                        <xsl:value-of select="format-number($hours, $decimalN1, 'numberFormat')"/>
+
+                      </Paragraph>
+                    </TableCell>
+                  </xsl:for-each>
+
+
+              </TableRow>
+            </xsl:for-each>
+          </xsl:if>
+
+        </xsl:for-each>
+
+          <TableRow>
+            <TableCell>
+              <Paragraph></Paragraph>
+            </TableCell>
+            <xsl:for-each select="$proposalRoles">
+              <xsl:variable name="roleUId" select="RoleUId"/>
+              <TableCell>
+                <Paragraph TextAlignment="Right" Foreground="LightGray">
+
+                  <xsl:variable name="proposalItems" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId = //ArrayOfProposalItemWithPrice/ProposalItemWithPrice/BacklogItemUId]"/>
+
+                  <xsl:variable name="totalHours" select="sum($proposalItems/CurrentPlannedHours/PlannedHour[RoleUId=$roleUId]/Hours)"/>
+                  <xsl:value-of select="format-number($totalHours, $decimalN1, 'numberFormat')"/>
+                </Paragraph>
+              </TableCell>
+            </xsl:for-each>
+          </TableRow>
+
+
+      </TableRowGroup>
+    </Table>
+  </xsl:template>
+
   <xsl:template name="proposalScopeSimple">
     <Table>
       <Table.Columns>
@@ -374,6 +498,7 @@
     
         <xsl:for-each select="//ArrayOfBacklogItemGroup/BacklogItemGroup[DefaultGroup=1]">
           <xsl:sort select="DefaultGroup" data-type="number"/>
+          <xsl:sort select="GroupOrder" data-type="number"/>
           <xsl:sort select="GroupName"/>
           
           <xsl:variable name="groupUId" select="GroupUId"/>
@@ -439,8 +564,6 @@
   </xsl:template>
 
   <xsl:template name="proposalPrice">
-
-
     <Table>
       <Table.Columns>
         <TableColumn />
@@ -511,7 +634,91 @@
         </TableRow>
       </TableRowGroup>
     </Table>
+  </xsl:template>
 
+  <xsl:template name="proposalPrice2">
+    <Table>
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <xsl:if test="//Proposal/UseCalcPrice = 'true'">
+
+          <xsl:for-each select="//ArrayOfBacklogItemGroup/BacklogItemGroup">
+            <xsl:sort select="DefaultGroup" data-type="number"/>
+            <xsl:sort select="GroupOrder" data-type="number"/>
+            <xsl:sort select="GroupName"/>
+            <xsl:variable name="groupUId" select="GroupUId"/>
+            <xsl:variable name="groupName" select="GroupName"/>
+
+            <xsl:variable name="groupValue" select="sum(//ArrayOfProposalItemWithPrice/ProposalItemWithPrice[BacklogItemUId=//ArrayOfBacklogItem/BacklogItem[GroupUId=$groupUId]/BacklogItemUId]/Price)"/>
+
+            <TableRow>
+              <TableCell>
+                <Paragraph>
+                  <xsl:value-of select="$groupName"/>
+                </Paragraph>
+              </TableCell>
+              <TableCell>
+                <Paragraph  TextAlignment="Right">
+                  <xsl:value-of select="//Proposal/CurrencySymbol"/>
+                  <xsl:text>&#x20;</xsl:text>
+                  <xsl:value-of select="format-number($groupValue div $currencyRate, $moneyN, 'numberFormat')"/>
+                </Paragraph>
+              </TableCell>
+            </TableRow>
+          </xsl:for-each>
+          
+          <xsl:for-each select="//Proposal/FixedCosts/ProposalFixedCost[RepassToClient = 'true']">
+            <xsl:sort select="CostDescription" data-type="text"/>
+            <TableRow>
+              <TableCell>
+                <Paragraph>
+                  <xsl:value-of select="CostDescription"/>
+                </Paragraph>
+              </TableCell>
+              <TableCell>
+                <Paragraph TextAlignment="Right">
+                  <xsl:value-of select="//Proposal/CurrencySymbol"/>
+                  <xsl:text>&#x20;</xsl:text>
+                  <xsl:value-of select="format-number(Cost div $currencyRate, $moneyN, 'numberFormat')"/>
+                </Paragraph>
+              </TableCell>
+            </TableRow>
+          </xsl:for-each>
+          <xsl:if test="//Proposal/Discount &gt; 0">
+            <TableRow>
+              <TableCell>
+                <Paragraph>
+                  <xsl:value-of select="$_Discount"/>
+                </Paragraph>
+              </TableCell>
+              <TableCell>
+                <Paragraph Style="{{StaticResource ValueParagraph}}" TextAlignment="Right">
+                  - <xsl:value-of select="format-number(//Proposal/Discount, $decimalN, 'numberFormat')"/> %
+                </Paragraph>
+              </TableCell>
+            </TableRow>
+          </xsl:if>
+        </xsl:if>
+        <TableRow>
+          <TableCell BorderThickness="0,1,0,0" BorderBrush="Black">
+            <Paragraph>
+              <xsl:value-of select="$_Total_Price"/>
+            </Paragraph>
+          </TableCell>
+          <TableCell BorderThickness="0,1,0,0" BorderBrush="Black">
+            <Paragraph Style="{{StaticResource ValueParagraph}}" TextAlignment="Right">
+              <xsl:value-of select="//Proposal/CurrencySymbol"/>
+              <xsl:text>&#x20;</xsl:text>
+              <xsl:value-of select="format-number(//Proposal/TotalValue div $currencyRate, $moneyN, 'numberFormat')"/>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
   </xsl:template>
 
 
