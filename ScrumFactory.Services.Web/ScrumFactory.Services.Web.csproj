@@ -189,6 +189,20 @@
     <Compile Include="Setup\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WindowsAuth2\authOk.aspx.cs">
+      <DependentUpon>authOk.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WindowsAuth2\authOk.aspx.designer.cs">
+      <DependentUpon>authOk.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAuth2\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WindowsAuth2\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WindowsAuth\authOk.aspx.cs">
       <DependentUpon>authOk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -334,6 +348,8 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="WindowsAuth2\authOk.aspx" />
+    <Content Include="WindowsAuth2\default.aspx" />
     <Content Include="WindowsAuth\authOk.aspx" />
     <Content Include="WindowsAuth\default.aspx" />
   </ItemGroup>

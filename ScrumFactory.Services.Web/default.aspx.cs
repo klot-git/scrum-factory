@@ -82,7 +82,7 @@ namespace ScrumFactory.Services.Web {
                 conn.Close();
                 connOk = true;
             }
-            catch (Exception) {}
+            catch (Exception ex) {}
 
             return connOk;
         }
