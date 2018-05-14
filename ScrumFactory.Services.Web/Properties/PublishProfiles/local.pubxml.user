@@ -6,11 +6,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\marcos.martins\Desktop\thescrumfactory2012\ServerDeploy\packages</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\marcos.martins\Desktop\server</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/DB_SCRIPT/DB_SCRIPT.sql">
-      <publishTime>11/10/2014 17:35:30</publishTime>
+      <publishTime>05/14/2018 12:34:44</publishTime>
     </File>
     <File Include="App_Data/DB_SCRIPT/DB_SCRIPT_30.sql">
       <publishTime>11/10/2014 17:35:30</publishTime>
@@ -106,13 +106,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/30/2015 14:49:52</publishTime>
     </File>
     <File Include="bin/ScrumFactory.dll">
-      <publishTime>08/07/2015 15:19:32</publishTime>
+      <publishTime>05/14/2018 16:17:05</publishTime>
     </File>
     <File Include="bin/ScrumFactory.ReportHelper.dll">
-      <publishTime>08/07/2015 14:31:55</publishTime>
+      <publishTime>05/14/2018 16:17:08</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.dll">
-      <publishTime>08/07/2015 15:19:34</publishTime>
+      <publishTime>05/14/2018 16:17:08</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.Logic.dll">
       <publishTime>08/07/2015 14:32:08</publishTime>
@@ -121,19 +121,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/30/2015 14:47:29</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.Web.dll">
-      <publishTime>08/07/2015 15:19:48</publishTime>
+      <publishTime>05/14/2018 16:17:09</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.Web.dll.config">
       <publishTime>07/30/2015 14:57:37</publishTime>
     </File>
     <File Include="bin/System.ComponentModel.Composition.Extensions.dll">
-      <publishTime>08/07/2015 15:19:32</publishTime>
+      <publishTime>05/14/2018 16:17:05</publishTime>
     </File>
     <File Include="css/style.css">
-      <publishTime>12/02/2014 16:13:31</publishTime>
+      <publishTime>05/14/2018 13:28:00</publishTime>
     </File>
     <File Include="default.aspx">
-      <publishTime>12/02/2014 15:49:14</publishTime>
+      <publishTime>05/14/2018 13:28:45</publishTime>
     </File>
     <File Include="default.aspx.cs">
       <publishTime>12/03/2014 07:29:06</publishTime>
@@ -163,7 +163,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:31</publishTime>
     </File>
     <File Include="Images/contactMember.png">
-      <publishTime>11/10/2014 17:35:31</publishTime>
+      <publishTime>12/20/2016 17:59:27</publishTime>
     </File>
     <File Include="Images/contextBg.gif">
       <publishTime>11/10/2014 17:35:31</publishTime>
@@ -301,49 +301,52 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:33</publishTime>
     </File>
     <File Include="ReportTemplates/DeliveryReport/DeliveryReport.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>03/28/2017 13:54:20</publishTime>
     </File>
     <File Include="ReportTemplates/DeliveryReport/FullDeliveryReport.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>09/22/2015 13:35:57</publishTime>
     </File>
     <File Include="ReportTemplates/DeliveryReport/SprintStackReport.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>03/21/2014 17:48:19</publishTime>
     </File>
     <File Include="ReportTemplates/EmailNotifications/member_invited.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>05/13/2016 17:54:54</publishTime>
     </File>
     <File Include="ReportTemplates/EmailNotifications/project_closed.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>05/13/2016 17:54:54</publishTime>
     </File>
     <File Include="ReportTemplates/EmailNotifications/project_started.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>05/13/2016 17:54:54</publishTime>
+    </File>
+    <File Include="ReportTemplates/EmailNotifications/ticket_created.xslt">
+      <publishTime>05/13/2016 17:54:54</publishTime>
     </File>
     <File Include="ReportTemplates/include/constraintsHelpers.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>12/11/2015 12:07:47</publishTime>
     </File>
     <File Include="ReportTemplates/include/deliveryHelpers.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>04/03/2017 11:28:07</publishTime>
     </File>
     <File Include="ReportTemplates/include/emailHelpers.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>02/23/2013 22:18:51</publishTime>
     </File>
     <File Include="ReportTemplates/include/helpers.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>04/20/2016 12:06:31</publishTime>
     </File>
     <File Include="ReportTemplates/include/locale.en-us.xslt">
-      <publishTime>04/14/2015 14:12:12</publishTime>
+      <publishTime>08/19/2016 11:59:41</publishTime>
     </File>
     <File Include="ReportTemplates/include/locale.pt-br.xslt">
-      <publishTime>04/14/2015 14:12:27</publishTime>
+      <publishTime>08/19/2016 11:59:41</publishTime>
     </File>
     <File Include="ReportTemplates/include/locale.xslt">
-      <publishTime>04/14/2015 14:12:12</publishTime>
+      <publishTime>03/28/2017 13:55:03</publishTime>
     </File>
     <File Include="ReportTemplates/include/proposalHelpers.xslt">
-      <publishTime>04/14/2015 14:11:37</publishTime>
+      <publishTime>04/30/2018 15:44:04</publishTime>
     </File>
     <File Include="ReportTemplates/include/styles.xslt">
-      <publishTime>11/10/2014 17:35:33</publishTime>
+      <publishTime>05/13/2016 17:54:54</publishTime>
     </File>
     <File Include="ReportTemplates/ProposalReport/default pt-br.xslt">
       <publishTime>11/10/2014 17:35:33</publishTime>
@@ -358,13 +361,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:33</publishTime>
     </File>
     <File Include="ReportTemplates/SprintReview/default.xslt">
-      <publishTime>11/10/2014 17:35:34</publishTime>
+      <publishTime>09/11/2014 17:27:42</publishTime>
+    </File>
+    <File Include="ReportTemplates/SprintReview/default10.xslt">
+      <publishTime>08/19/2016 12:00:25</publishTime>
     </File>
     <File Include="ReportTemplates/SprintReview/guide.xslt">
-      <publishTime>11/10/2014 17:35:34</publishTime>
+      <publishTime>09/11/2014 17:27:42</publishTime>
     </File>
     <File Include="ReportTemplates/SprintReview/indicators.xslt">
-      <publishTime>11/10/2014 17:35:34</publishTime>
+      <publishTime>09/11/2014 17:27:42</publishTime>
     </File>
     <File Include="ReportTemplates/SprintReview/scope.xslt">
       <publishTime>02/13/2015 08:39:46</publishTime>
@@ -403,7 +409,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/07/2015 15:20:22</publishTime>
+      <publishTime>05/14/2018 16:17:10</publishTime>
     </File>
     <File Include="Web.Debug.config">
       <publishTime>11/10/2014 17:35:35</publishTime>
@@ -412,7 +418,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:35</publishTime>
     </File>
     <File Include="WindowsAuth/authOk.aspx">
-      <publishTime>11/10/2014 17:35:35</publishTime>
+      <publishTime>03/01/2016 16:08:53</publishTime>
     </File>
     <File Include="WindowsAuth/authOk.aspx.cs">
       <publishTime>11/10/2014 17:35:35</publishTime>
@@ -421,13 +427,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:35</publishTime>
     </File>
     <File Include="WindowsAuth/default.aspx">
-      <publishTime>11/10/2014 17:35:35</publishTime>
+      <publishTime>05/16/2016 15:16:07</publishTime>
     </File>
     <File Include="WindowsAuth/default.aspx.cs">
       <publishTime>11/10/2014 17:35:35</publishTime>
     </File>
     <File Include="WindowsAuth/default.aspx.designer.cs">
       <publishTime>11/10/2014 17:35:35</publishTime>
+    </File>
+    <File Include="WindowsAuth2/authOk.aspx">
+      <publishTime>05/14/2018 13:25:22</publishTime>
+    </File>
+    <File Include="WindowsAuth2/default.aspx">
+      <publishTime>05/14/2018 13:25:22</publishTime>
     </File>
   </ItemGroup>
 </Project>

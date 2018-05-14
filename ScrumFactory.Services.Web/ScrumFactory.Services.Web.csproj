@@ -219,9 +219,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DB_SCRIPT\DB_SCRIPT_32.sql" />
     <Content Include="App_Data\DB_SCRIPT\DB_SCRIPT_defaultItemSizes.sql" />
-    <Content Include="App_Data\DB_SCRIPT\DB_SCRIPT_30.sql" />
     <Content Include="App_Data\DB_SCRIPT\DB_SCRIPT.sql" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
