@@ -179,22 +179,31 @@ namespace ScrumFactory.Services.Logic {
 
             // add end date
             config.AddReportVar("ProjectEndDate", project.LastSprint.EndDate);
-
+            
             if (project.CurrentSprint != null) {
-                if (project.CurrentSprint.SprintNumber > 1) {
-                    config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
-                    config.ReportVars.Add("ProjectPreviousSprintNumber", (project.CurrentSprint.SprintNumber - 1).ToString());
-                }
-                else {
-                    if (project.Sprints.Count > project.CurrentSprint.SprintNumber + 1)
-                        config.ReportVars.Add("ProjectCurrentSprintNumber", (project.CurrentSprint.SprintNumber + 1).ToString());
-                    else
-                        config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
 
-                    config.ReportVars.Add("ProjectPreviousSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                if (group != "SprintReview")
+                {
+                    config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                }
+                else
+                {
+                    if (project.CurrentSprint.SprintNumber > 1)
+                    {
+                        config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                        config.ReportVars.Add("ProjectPreviousSprintNumber", (project.CurrentSprint.SprintNumber - 1).ToString());
+                    }
+                    else
+                    {
+                        if (project.Sprints.Count > project.CurrentSprint.SprintNumber + 1)
+                            config.ReportVars.Add("ProjectCurrentSprintNumber", (project.CurrentSprint.SprintNumber + 1).ToString());
+                        else
+                            config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+
+                        config.ReportVars.Add("ProjectPreviousSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                    }
                 }
             }
-
             
             return config;
 
