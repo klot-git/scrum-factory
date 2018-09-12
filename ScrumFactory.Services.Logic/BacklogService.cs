@@ -99,6 +99,15 @@ namespace ScrumFactory.Services.Logic {
             return backlogRepository.GetAllUnfinishedBacklogItems(myProjectUids);
         }
 
+        [WebGet(UriTemplate = "MyUnfinishedBacklogItemsCount/?projectFilter={projectFilter}", ResponseFormat = WebMessageFormat.Json)]
+        public int GetAllUnfinishedBacklogItemsCountForUser(string projectFilter)
+        {
+            var items = GetAllUnfinishedBacklogItems(true, projectFilter);
+            if (items == null)
+                return 0;
+            return items.Count;            
+        }
+
         public ICollection<BacklogItem> GetCurrentBacklog(string projectUId, short filterMode, DateTime fromDate = new DateTime(), DateTime untilDate = new DateTime()) {
             return GetBacklog(projectUId, "current", filterMode, fromDate, untilDate);
         }

@@ -105,11 +105,11 @@
                 var itemsWithHours = items
                     .Select(
                         i => new {
-                            BacklogItem = i,
+                            BacklogItem = i,                            
                             PlannedHours = i.PlannedHours.Where(ih => ih.PlanningNumber == i.PlannedHours.Max(h => h.PlanningNumber))
                         });
 
-                return itemsWithHours.AsEnumerable().Select(i => i.BacklogItem).OrderBy(i => i.SprintNumber).ThenBy(i => i.BusinessPriority).ThenBy(i => i.BacklogItemNumber).ToList<BacklogItem>();
+                return itemsWithHours.AsEnumerable().Select(i => i.BacklogItem).OrderByDescending(i => i.CreateDate).ToList<BacklogItem>();
 
             }
         }

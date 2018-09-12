@@ -283,9 +283,9 @@ namespace ScrumFactory.Services.Clients {
             throw new NotImplementedException();
         }
 
-
-
-
-
+        public int GetAllUnfinishedBacklogItemsCountForUser(string projectFilter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

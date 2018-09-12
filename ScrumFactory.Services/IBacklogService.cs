@@ -28,6 +28,9 @@ namespace ScrumFactory.Services
         ICollection<ScrumFactory.BacklogItem> GetAllUnfinishedBacklogItems(bool onlyMine, string projectFilter);
 
         [OperationContract()]
+        int GetAllUnfinishedBacklogItemsCountForUser(string projectFilter);
+
+        [OperationContract()]
         BacklogItem GetBacklogItem(string backlogItemUId);
 
         ICollection<BacklogItem> GetItemsBySize(string sizeUId, int depth);
