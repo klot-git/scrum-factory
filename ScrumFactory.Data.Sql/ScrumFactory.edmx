@@ -48,6 +48,7 @@
           <Property Name="IssueType" Type="smallint" Nullable="false" />
           <Property Name="CancelReason" Type="smallint" />
           <Property Name="ArtifactCount" Type="int" />
+          <Property Name="ExternalId" Type="nvarchar" MaxLength="40" />
         </EntityType>
         <EntityType Name="BacklogItemGroup">
           <Key>
@@ -786,6 +787,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="Int16" Name="CancelReason" />
           <Property Type="Int32" Name="SizeFactor" Nullable="false" />
           <Property Type="Int32" Name="ArtifactCount" Nullable="true" />
+          <Property Type="String" Name="ExternalId" Nullable="true" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1388,6 +1390,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
                 <ScalarProperty Name="BacklogItemNumber" ColumnName="BacklogItemNumber" />
                 <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
                 <ScalarProperty Name="ArtifactCount" ColumnName="ArtifactCount" />
+                <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -131,6 +131,7 @@ CREATE TABLE [factory].[BacklogItem](
 	[IssueType] [smallint] NOT NULL,
 	[CancelReason] [smallint] NULL,
 	[ArtifactCount] [int] NULL,
+	[ExternalId] [nvarchar](40) NULL,
  CONSTRAINT [PK_BacklogItem] PRIMARY KEY CLUSTERED 
 (
 	[BacklogItemUId] ASC

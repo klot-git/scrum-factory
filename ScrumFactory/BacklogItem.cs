@@ -137,6 +137,10 @@ namespace ScrumFactory {
 
         [DataMember]
         public int? ArtifactCount { get; set; }
+        
+        [DataMember]
+        public string ExternalId { get; set; }
+
 
         public bool IsFinished {
             get {
@@ -148,6 +152,7 @@ namespace ScrumFactory {
         public bool IsTheSame(BacklogItem item) {
             return
                 this.BacklogItemNumber == item.BacklogItemNumber &&
+                this.ExternalId == item.ExternalId &&
                 this.BacklogItemUId == item.BacklogItemUId &&
                 this.BusinessPriority == item.BusinessPriority &&
                 this.CreateDate == item.CreateDate &&

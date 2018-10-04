@@ -106,13 +106,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/30/2015 14:49:52</publishTime>
     </File>
     <File Include="bin/ScrumFactory.dll">
-      <publishTime>05/14/2018 16:17:05</publishTime>
+      <publishTime>09/17/2018 14:22:45</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.pdb">
+      <publishTime>09/17/2018 14:22:45</publishTime>
     </File>
     <File Include="bin/ScrumFactory.ReportHelper.dll">
-      <publishTime>05/14/2018 16:17:08</publishTime>
+      <publishTime>09/17/2018 14:22:46</publishTime>
+    </File>
+    <File Include="bin/ScrumFactory.ReportHelper.pdb">
+      <publishTime>09/17/2018 14:22:46</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.dll">
-      <publishTime>05/14/2018 16:17:08</publishTime>
+      <publishTime>09/17/2018 14:22:45</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.Logic.dll">
       <publishTime>08/07/2015 14:32:08</publishTime>
@@ -120,14 +126,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ScrumFactory.Services.Logic.dll.config">
       <publishTime>07/30/2015 14:47:29</publishTime>
     </File>
+    <File Include="bin/ScrumFactory.Services.pdb">
+      <publishTime>09/17/2018 14:22:45</publishTime>
+    </File>
     <File Include="bin/ScrumFactory.Services.Web.dll">
-      <publishTime>05/14/2018 16:17:09</publishTime>
+      <publishTime>09/17/2018 14:22:47</publishTime>
     </File>
     <File Include="bin/ScrumFactory.Services.Web.dll.config">
       <publishTime>07/30/2015 14:57:37</publishTime>
     </File>
+    <File Include="bin/ScrumFactory.Services.Web.pdb">
+      <publishTime>09/17/2018 14:22:47</publishTime>
+    </File>
     <File Include="bin/System.ComponentModel.Composition.Extensions.dll">
-      <publishTime>05/14/2018 16:17:05</publishTime>
+      <publishTime>09/17/2018 14:22:45</publishTime>
+    </File>
+    <File Include="bin/System.ComponentModel.Composition.Extensions.pdb">
+      <publishTime>09/17/2018 14:22:45</publishTime>
     </File>
     <File Include="css/style.css">
       <publishTime>05/14/2018 13:28:00</publishTime>
@@ -409,7 +424,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2014 17:35:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/14/2018 16:17:10</publishTime>
+      <publishTime>09/17/2018 14:22:49</publishTime>
     </File>
     <File Include="Web.Debug.config">
       <publishTime>11/10/2014 17:35:35</publishTime>
