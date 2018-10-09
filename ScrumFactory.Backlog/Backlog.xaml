@@ -491,6 +491,7 @@
                                                     <Image DataContext="{Binding HasArtifact}" Style="{StaticResource HasArtifactImage}"/>    
                                                     <Image DataContext="{Binding Item.IssueType}" Style="{StaticResource IssueImage}"/>
                                                     <TextBlock Text="{Binding Item.BacklogItemNumber}" Foreground="{StaticResource SubTextBrush}" FontSize="{StaticResource SmallFontSize}" Style="{StaticResource CurrentSprintTextBlock}" VerticalAlignment="Center"/>    
+                                                    <TextBlock Text="{Binding Item.ExternalId}" Foreground="{StaticResource SubTextBrush}" FontSize="{StaticResource SmallFontSize}" Style="{StaticResource CurrentSprintTextBlock}" VerticalAlignment="Center"/>
                                                 </TextBlock>
                                                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0">
 

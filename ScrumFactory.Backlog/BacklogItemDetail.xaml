@@ -275,6 +275,7 @@
                                     <Grid Grid.Column="1"  Grid.Row="1" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="150"/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBox    
@@ -285,8 +286,14 @@
                                     HorizontalAlignment="Stretch" MaxLength="150"                       
                                     Text="{Binding Item.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
+                                        <TextBox                                        
+                                            Grid.Column="1" 
+                                            ToolTip="{x:Static props:Resources.ExternalId}"
+                                             MaxLength="40" HorizontalAlignment="Stretch"
+                                            Text="{Binding Item.ExternalId, UpdateSourceTrigger=PropertyChanged}"/>
+
                                         <ComboBox         
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                 
                                 IsReadOnly="{Binding UserCannotEdit}"
                                 ItemTemplate="{StaticResource IssueDataTemplate}"

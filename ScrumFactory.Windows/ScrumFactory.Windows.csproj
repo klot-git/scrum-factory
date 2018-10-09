@@ -349,10 +349,6 @@
     <Resource Include="Images\Dialogs\equalize.png" />
     <Resource Include="Images\Dialogs\planItems.png" />
     <Resource Include="Images\add.png" />
-    <Resource Include="Images\BacklogItemStatus\ticketCanceled.png" />
-    <Resource Include="Images\BacklogItemStatus\ticketDone.png" />
-    <Resource Include="Images\BacklogItemStatus\ticketItem.png" />
-    <Resource Include="Images\BacklogItemStatus\ticketWorking.png" />
     <Content Include="_localServerRoot.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

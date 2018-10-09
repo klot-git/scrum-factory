@@ -686,4 +686,7 @@ Change this item status to done.</value>
   <data name="Calculating" xml:space="preserve">
     <value>calculating...</value>
   </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>Id</value>
+  </data>
 </root>

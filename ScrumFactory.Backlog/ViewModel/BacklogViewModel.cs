@@ -654,7 +654,10 @@ namespace ScrumFactory.Backlog.ViewModel {
             bool textSearchFilter = true;
             if (!String.IsNullOrEmpty(SearchFilterText)) {
                 string[] tags = SearchFilterText.NormalizeD().Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-                if (tags.All(t => vm.Item.Name.NormalizeD().Contains(t) || t.Equals(vm.Item.BacklogItemNumber.ToString())))
+                if (tags.All(t => 
+                    vm.Item.Name.NormalizeD().Contains(t) 
+                    || t.Equals(vm.Item.BacklogItemNumber.ToString())
+                    || (vm.Item.ExternalId != null && vm.Item.ExternalId.NormalizeD().StartsWith(t))))
                     textSearchFilter = true;
                 else
                     textSearchFilter = false;

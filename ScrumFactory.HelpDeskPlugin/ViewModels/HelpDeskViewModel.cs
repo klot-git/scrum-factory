@@ -238,6 +238,7 @@ namespace ScrumFactory.HelpDeskPlugin.ViewModels {
                 vm.Item.Project.ProjectName.NormalizeD().Contains(t) ||
                 vm.Item.Project.ClientName.NormalizeD().Contains(t) ||
                 vm.Item.Name.NormalizeD().Contains(t) ||
+                (vm.Item.ExternalId != null && vm.Item.ExternalId.NormalizeD().StartsWith(t)) ||
                 t.Equals(vm.Item.BacklogItemNumber.ToString())))
                 e.Accepted = true;
             else

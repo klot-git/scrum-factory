@@ -744,7 +744,11 @@ namespace ScrumFactory.Backlog.ViewModel {
 
         public string TrackId {
             get {
-                if (Item==null || Item.Project == null)
+                if (Item==null)
+                    return "";
+                if (!String.IsNullOrEmpty(Item.ExternalId))
+                    return Item.ExternalId;
+                if (Item.Project == null)
                     return "";
                 return Item.Project.ProjectNumber + "." + Item.BacklogItemNumber;
             }
