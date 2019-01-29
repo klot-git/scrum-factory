@@ -87,5 +87,8 @@ namespace ScrumFactory.Services {
         [OperationContract]
         IDictionary<string, decimal> GetProjectTotalEffectiveHoursByMember(string projectUId, string memberUId);
 
+        [OperationContract]
+        MemberPerformance GetMemberPerformance(string memberUId);
+
     }
 }

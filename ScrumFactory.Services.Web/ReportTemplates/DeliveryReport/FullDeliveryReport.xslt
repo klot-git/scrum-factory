@@ -10,97 +10,7 @@
     <xsl:include href="../include/styles.xslt"/>
     <xsl:include href="../include/deliveryHelpers.xslt"/>
 
-    <xsl:template name="bar">
-      <xsl:param name="isFirst"/>
-      <xsl:param name="isLast"/>
-      <xsl:param name="status"/>
-      <xsl:param name="hours"/>
-      <xsl:param name="constraint"/>
-      <xsl:variable name="radius">
-        <xsl:choose>
-          <xsl:when test="$isFirst and $isLast">
-            <xsl:value-of select="'4,4,4,4'"/>
-          </xsl:when>
-          <xsl:when test="$isFirst">
-            <xsl:value-of select="'4,0,0,4'"/>
-          </xsl:when>
-          <xsl:when test="$isLast">
-            <xsl:value-of select="'0,4,4,0'"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="'0,0,0,0'"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="thick">
-        <xsl:choose>
-          <xsl:when test="$isFirst and $isLast">
-            <xsl:value-of select="'1'"/>
-          </xsl:when>
-          <xsl:when test="$isFirst">
-            <xsl:value-of select="'1,1,0,1'"/>
-          </xsl:when>
-          <xsl:when test="$isLast">
-            <xsl:value-of select="'0,1,1,1'"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="'0,1,0,1'"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="borderColor">
-        <xsl:choose>
-          <xsl:when test="$status = 2">
-            <xsl:value-of select="'Green'"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="'Blue'"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="color">
-        <xsl:choose>          
-          <xsl:when test="$status = 2">
-            <xsl:value-of select="'DarkGreen'"/>
-          </xsl:when>          
-          <xsl:otherwise>
-            <xsl:value-of select="'DarkBlue'"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="align">
-        <xsl:choose>
-          <xsl:when test="$constraint = 0">
-            <xsl:value-of select="'Left'"/>
-          </xsl:when>
-          <xsl:when test="$constraint = 2">
-            <xsl:value-of select="'Right'"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="'Stretch'"/>            
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="textColor">
-        <xsl:choose>
-          <xsl:when test="$isLast and $status != 2">
-            <xsl:value-of select="'White'"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$color"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:if test="$hours">
-        <BlockUIContainer>
-          <Border HorizontalAlignment="{$align}" VerticalAlignment="Center" Height="12" BorderBrush="{$borderColor}" Background="{$color}" BorderThickness="{$thick}" CornerRadius="{$radius}">            
-              <TextBlock Foreground="{$textColor}" FontSize="6" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0">
-                <xsl:value-of select="$hours"/>hrs
-              </TextBlock>            
-          </Border>
-        </BlockUIContainer>
-      </xsl:if>
-    </xsl:template>
+    
   
     <xsl:template match="/ReportData">
       <FlowDocument                
@@ -119,7 +29,9 @@
         
         
 
-        <Table BorderThickness="0" BorderBrush="#000000" FontSize="8">
+        <xsl:call-template name="timeLine">
+        </xsl:call-template>
+        <!-- <Table BorderThickness="0" BorderBrush="#000000" FontSize="8">
           <Table.Resources>
             <Style TargetType="{{x:Type Paragraph}}">
               <Setter Property="FontSize" Value="8"/>
@@ -141,6 +53,16 @@
               <Setter Property="Padding" Value="0,3,0,3"/>
               <Setter Property="BorderThickness" Value="0,0,0,1"/>
               <Setter Property="BorderBrush" Value="Gray"/>
+            </Style>
+            <Style x:Key="sprintBarCell" TargetType="{{x:Type TableCell}}">
+              <Setter Property="Padding" Value="0,3,0,3"/>
+              <Setter Property="BorderThickness" Value="0,0,0,2"/>
+              <Setter Property="BorderBrush" Value="Black"/>
+            </Style>
+            <Style x:Key="sprintHeaderCell" TargetType="{{x:Type TableCell}}">
+              <Setter Property="Padding" Value="6"/>
+              <Setter Property="BorderThickness" Value="0"/>
+              <Setter Property="BorderBrush" Value="Black"/>
             </Style>
             
           </Table.Resources>
@@ -221,13 +143,35 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
+
+                <xsl:variable name="cellStyle">
+                  <xsl:choose>                    
+                    <xsl:when test="OccurrenceConstraint = 2">
+                      <xsl:value-of select="'{StaticResource sprintBarCell}'"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="'{StaticResource barCell}'"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+
+                 <xsl:if test="OccurrenceConstraint = 0">                
+                  <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell Style="{{StaticResource sprintHeaderCell}}" ColumnSpan="{count(//ReportData/Project/Sprints/Sprint) + 1}">
+                        <Paragraph><Bold>Sprint <xsl:value-of select="SprintNumber"/> </Bold></Paragraph>
+                      </TableCell>
+                  </TableRow>
+                </xsl:if>
               
+
+               
 
               <TableRow>
 
-                <TableCell Background="{$groupColor}"></TableCell>
+                <TableCell Background="{$groupColor}" Style="{$cellStyle}"></TableCell>
                 
-                <TableCell>
+                <TableCell Style="{$cellStyle}" Padding="3">
                   <Paragraph TextAlignment="Left" Foreground="{$color}">
                     <xsl:value-of select="Name"/>[<xsl:value-of select="BacklogItemNumber"/>]
                     <xsl:if test="string-length(DeliveryDate) &gt; 0">
@@ -257,7 +201,7 @@
                     </xsl:choose>
                   </xsl:variable>
                   
-                  <TableCell Background="{$cellBG}" Style="{{StaticResource barCell}}">
+                  <TableCell Background="{$cellBG}" Style="{$cellStyle}">
                    
                     <xsl:call-template name="bar">
                       <xsl:with-param name="isFirst" select="$sprintNumber = /ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/FirstSprintWorked" />
@@ -274,7 +218,7 @@
               </TableRow>
             </xsl:for-each>
           </TableRowGroup>
-        </Table>
+        </Table> -->
 
         <Paragraph Style="{{StaticResource GroupParagraph}}">
           <xsl:value-of select="$_STRUCTURES"/>

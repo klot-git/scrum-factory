@@ -11,69 +11,6 @@
     <xsl:include href="../include/ProposalHelpers.xslt"/>    
     <xsl:include href="../include/styles.xslt"/>
   
-
-    <xsl:template name="sprintDeliveries">
-      <xsl:param name="sprintNumber"/>
-      <Table>
-        <Table.Columns>
-          <TableColumn Width="40" />
-          <TableColumn />
-          <TableColumn Width="60" />
-          <TableColumn Width="100" />
-          <TableColumn Width="100" />
-        </Table.Columns>
-        <TableRowGroup>
-          <xsl:for-each select="/ReportData/Project/BacklogItems/BacklogItem[SprintNumber = $sprintNumber]">
-            <xsl:sort select="OccurrenceConstraint" data-type="number"/>
-            <xsl:sort select="BusinessPriority" data-type="number"/>
-            <xsl:variable name="itemStyle">
-              <xsl:choose>
-                <xsl:when test="OccurrenceConstraint = 2" >{StaticResource deliveryItemCell}</xsl:when>
-                <xsl:otherwise>{StaticResource normalItemCell}</xsl:otherwise>
-              </xsl:choose>
-            </xsl:variable>
-            <TableRow>
-              <TableCell Style="{$itemStyle}" TextAlignment="Right">
-                <Paragraph>
-                  <xsl:value-of select="BacklogItemNumber"/>
-                </Paragraph>
-              </TableCell>
-              <TableCell Style="{$itemStyle}">
-                <Paragraph>
-                  <xsl:value-of select="Name"/>
-                </Paragraph>
-              </TableCell>
-              <TableCell Style="{$itemStyle}" TextAlignment="Right">
-                <Paragraph>
-                  <xsl:value-of select="sum(PlannedHours/PlannedHour/Hours)"/> hrs
-                </Paragraph>
-              </TableCell>
-              <TableCell Style="{$itemStyle}" TextAlignment="Center">
-                <Paragraph>
-                  <xsl:call-template name="itemStatus" />
-                </Paragraph>
-              </TableCell>
-              <TableCell Style="{$itemStyle}" TextAlignment="Right">
-                <Paragraph FontWeight="Bold" FontSize="16">
-                  <xsl:if test="OccurrenceConstraint = 2">
-                    <xsl:call-template name="formatDate">
-                      <xsl:with-param name="dateTime" select="/ReportData/Project/Sprints/Sprint[SprintNumber = $sprintNumber]/EndDate" />
-                    </xsl:call-template>                    
-                  </xsl:if>
-                  <xsl:if test="string-length(DeliveryDate) &gt; 0">
-                    <xsl:call-template name="formatDate">
-                      <xsl:with-param name="dateTime" select="DeliveryDate" />
-                    </xsl:call-template>
-                  </xsl:if>
-                </Paragraph>
-              </TableCell>
-            </TableRow>
-          </xsl:for-each>
-        </TableRowGroup>
-      </Table>
-    </xsl:template>
-
-  
     <xsl:template match="/ReportData">
       <FlowDocument        
         PageWidth="21cm"
@@ -130,7 +67,8 @@
         <Paragraph Style="{{StaticResource GroupParagraph}}">
           5. <xsl:value-of select="$_DEADLINE"/>
         </Paragraph>
-        <xsl:call-template name="proposalSchedule"/>
+        <!--<xsl:call-template name="proposalSchedule"/>-->
+        <xsl:call-template name="timeLine"/>
 
         <Paragraph Style="{{StaticResource GroupParagraph}}">
           6. <xsl:value-of select="$_STAKEHOLDERS"/>

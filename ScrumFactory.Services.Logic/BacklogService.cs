@@ -859,6 +859,14 @@ namespace ScrumFactory.Services.Logic {
                 item.ItemSizeUId = size.ItemSizeUId;
                 item.SizeFactor = 1;
                 item.Size = size.Size * item.SizeFactor;
+
+                // tries to set the ideal hour values
+                foreach(var h in size.SizeIdealHours)
+                {
+                    var ph = item.PlannedHours.SingleOrDefault(p => p.Role.RoleShortName.ToLower() == h.RoleShortName.ToLower());
+                    if (ph != null)
+                        ph.Hours = h.Hours;
+                }
             }
 
             return item;

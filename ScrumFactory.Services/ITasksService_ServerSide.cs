@@ -15,8 +15,6 @@ namespace ScrumFactory.Services {
         PlannedHour[] GetTotalEffectiveHoursByItem(string backlogitemUId, ICollection<Role> roles);
 
         ICollection<TodayMemberPlannedHours> GetTodayMemberPlannedHours(string[] membersUIds);
-
-        MemberPerformance GetMemberPerformance(string memberUId);
-
+        
     }
 }

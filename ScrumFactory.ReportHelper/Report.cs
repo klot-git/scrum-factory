@@ -59,7 +59,7 @@ namespace ScrumFactory.ReportHelper {
             try {
                 LoadTemplate(xslt, serverUrl, config.ReportGroup, config.ReportTemplate);
             }
-            catch (System.Exception) {
+            catch (System.Exception ex) {
                 throw new ScrumFactory.Exceptions.ScrumFactoryException("Error_reading_report_template");
             }
 
