@@ -316,193 +316,217 @@
 
   <xsl:template name="timeLine">
     <Table BorderThickness="0" BorderBrush="#000000" FontSize="8">
-          <Table.Resources>
-            <Style TargetType="{{x:Type Paragraph}}">
-              <Setter Property="FontSize" Value="8"/>
-              <Setter Property="Foreground" Value="Black"/>
-              <Setter Property="FontFamily" Value="Calibri"/>
-              <Setter Property="Margin" Value="0"/>
-            </Style>
-            <Style TargetType="{{x:Type TableCell}}">
-              <Setter Property="Padding" Value="3"/>
-              <Setter Property="BorderThickness" Value="0,0,0,1"/>
-              <Setter Property="BorderBrush" Value="Gray"/>
-            </Style>
-            <Style x:Key="headerCell" TargetType="{{x:Type TableCell}}">
-              <Setter Property="Padding" Value="0,3,0,3"/>
-              <Setter Property="BorderThickness" Value="0,0,0,2"/>
-              <Setter Property="BorderBrush" Value="Black"/>
-            </Style>
-            <Style x:Key="barCell" TargetType="{{x:Type TableCell}}">
-              <Setter Property="Padding" Value="0,3,0,3"/>
-              <Setter Property="BorderThickness" Value="0,0,0,1"/>
-              <Setter Property="BorderBrush" Value="Gray"/>
-            </Style>
-            <Style x:Key="sprintBarCell" TargetType="{{x:Type TableCell}}">
-              <Setter Property="Padding" Value="0,3,0,3"/>
-              <Setter Property="BorderThickness" Value="0,0,0,2"/>
-              <Setter Property="BorderBrush" Value="Black"/>
-            </Style>
-            <Style x:Key="sprintHeaderCell" TargetType="{{x:Type TableCell}}">
-              <Setter Property="Padding" Value="6"/>
-              <Setter Property="BorderThickness" Value="0"/>
-              <Setter Property="BorderBrush" Value="Black"/>
-            </Style>
-            
-          </Table.Resources>
+      <Table.Resources>
+        <Style TargetType="{{x:Type Paragraph}}">
+          <Setter Property="FontSize" Value="8"/>
+          <Setter Property="Foreground" Value="Black"/>
+          <Setter Property="FontFamily" Value="Calibri"/>
+          <Setter Property="Margin" Value="0"/>
+          <Setter Property="LineHeight" Value="12" />
+        </Style>
+        <Style TargetType="{{x:Type TableCell}}">
+          <Setter Property="Padding" Value="3"/>
+          <Setter Property="BorderThickness" Value="0,0,0,1"/>
+          <Setter Property="BorderBrush" Value="Gray"/>
+          <Setter Property="LineHeight" Value="12" />
+        </Style>
+        <Style x:Key="headerCell" TargetType="{{x:Type TableCell}}">
+          <Setter Property="Padding" Value="0,3,0,3"/>
+          <Setter Property="BorderThickness" Value="0,0,0,2"/>
+          <Setter Property="BorderBrush" Value="Black"/>
+          <Setter Property="LineHeight" Value="12" />
+        </Style>
+        <Style x:Key="barCell" TargetType="{{x:Type TableCell}}">
+          <Setter Property="Padding" Value="0,3,0,3"/>
+          <Setter Property="BorderThickness" Value="0,0,0,1"/>
+          <Setter Property="BorderBrush" Value="Gray"/>
+          <Setter Property="LineHeight" Value="12" />
+        </Style>
+        <Style x:Key="sprintBarCell" TargetType="{{x:Type TableCell}}">
+          <Setter Property="Padding" Value="0,3,0,3"/>
+          <Setter Property="BorderThickness" Value="0,0,0,2"/>
+          <Setter Property="BorderBrush" Value="Black"/>
+          <Setter Property="LineHeight" Value="12" />
+        </Style>
+        <Style x:Key="sprintHeaderCell" TargetType="{{x:Type TableCell}}">
+          <Setter Property="Padding" Value="6"/>
+          <Setter Property="BorderThickness" Value="0"/>
+          <Setter Property="BorderBrush" Value="Black"/>
+          <Setter Property="LineHeight" Value="12" />
+        </Style>
 
-          <Table.Columns>
-            <TableColumn Width="5" />
-            <TableColumn Width="40*" />            
-            <xsl:for-each select="Project/Sprints/Sprint">
-              <TableColumn Width="40" />
-            </xsl:for-each>
-          </Table.Columns>
+      </Table.Resources>
 
-            <TableRowGroup>
+      <Table.Columns>
+        <TableColumn Width="5" />
+        <TableColumn Width="40*" />
+        <xsl:for-each select="Project/Sprints/Sprint">
+          <TableColumn Width="40" />
+        </xsl:for-each>
+      </Table.Columns>
+
+      <TableRowGroup>
 
 
-            <TableRow>
-              <TableCell Style="{{StaticResource headerCell}}"></TableCell>
-              <TableCell Style="{{StaticResource headerCell}}" >
-                <Paragraph FontWeight="Bold" >
-                  <xsl:value-of select="$_Item"/>                  
-                </Paragraph>
-              </TableCell>                            
-              <xsl:for-each select="Project/Sprints/Sprint">
-                <xsl:sort select="SprintNumber" data-type="number"/>
-                <xsl:variable name="sprintNumber" select="SprintNumber"/>
+        <TableRow>
+          <TableCell Style="{{StaticResource headerCell}}"></TableCell>
+          <TableCell Style="{{StaticResource headerCell}}" Padding="0,0,0,0" >
+            <BlockUIContainer>
+              <Border Background="Black" BorderThickness="0"  Padding="4" HorizontalAlignment="Right">
+                <TextBlock  FontWeight="Bold" FontSize="8" VerticalAlignment="Center" Foreground="White">
+                  <xsl:call-template name="formatShortDate">
+                    <xsl:with-param name="dateTime" select="Project/Sprints/Sprint[SprintNumber = 1]/StartDate"/>
+                  </xsl:call-template>
+                </TextBlock>
+              </Border>
+            </BlockUIContainer>
+          </TableCell>
+          <xsl:for-each select="Project/Sprints/Sprint">
+            <xsl:sort select="SprintNumber" data-type="number"/>
+            <xsl:variable name="sprintNumber" select="SprintNumber"/>
 
-                <xsl:variable name="cellBG">
-                  <xsl:choose>                    
-                    <xsl:when test="$sprintNumber = /ReportData/ProjectCurrentSprintNumber">
-                      <xsl:value-of select="'#F0F0F0'"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:value-of select="'White'"/>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:variable>
+            <xsl:variable name="cellBG">
+              <xsl:choose>
+                <xsl:when test="$sprintNumber = /ReportData/ProjectCurrentSprintNumber">
+                  <xsl:value-of select="'#F0F0F0'"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="'White'"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
 
-                <TableCell Style="{{StaticResource headerCell}}" Background="{$cellBG}">
-                  <BlockUIContainer>
-                    <Grid>		
-                      <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Foreground="Gray" Padding="0">
-                        <xsl:value-of select="SprintNumber"/>
-                      </TextBlock>
-		      <xsl:if test="$sprintNumber = 1">
-                      <TextBlock  FontWeight="Bold" FontSize="8" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TableCell Style="{{StaticResource headerCell}}" Background="{$cellBG}" Padding="0,0,0,0">
+              <BlockUIContainer>
+                <Grid>
+                  <!--<TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Foreground="Gray" Padding="0">
+                    <xsl:value-of select="SprintNumber"/>
+                  </TextBlock>-->
+                  <!-- <xsl:if test="$sprintNumber = 1">
+                    <Border Background="Black" BorderThickness="0"  HorizontalAlignment="Left" Padding="4">
+                      <TextBlock   FontWeight="Bold" FontSize="8" VerticalAlignment="Center" Foreground="White">
                         <xsl:call-template name="formatShortDate">
                           <xsl:with-param name="dateTime" select="StartDate"/>
                         </xsl:call-template>
                       </TextBlock>
-                      </xsl:if>
-                      <TextBlock  FontWeight="Bold" FontSize="8" VerticalAlignment="Center"  HorizontalAlignment="Right">
-                        <xsl:call-template name="formatShortDate">
-                          <xsl:with-param name="dateTime" select="EndDate"/>
-                        </xsl:call-template>
-                      </TextBlock>
-                    </Grid>
-                  </BlockUIContainer>
-                </TableCell>                
-              </xsl:for-each>
+                    </Border>
+                  </xsl:if> -->
+                  <Border Background="Black" BorderThickness="0"  HorizontalAlignment="Right" Padding="4">
+                    <TextBlock  FontWeight="Bold" FontSize="8" VerticalAlignment="Center" Foreground="White">
+                      <xsl:call-template name="formatShortDate">
+                        <xsl:with-param name="dateTime" select="EndDate"/>
+                      </xsl:call-template>
+                    </TextBlock>
+                  </Border>
+                </Grid>
+              </BlockUIContainer>
+            </TableCell>
+          </xsl:for-each>
+        </TableRow>
+
+        <xsl:for-each select="/ReportData/ArrayOfBacklogItem/BacklogItem[Status !=3]">
+          <xsl:sort select="OrderSprintWorked" data-type="number"/>
+          <xsl:sort select="OccurrenceConstraint" data-type="number"/>
+          <xsl:sort select="Status" data-type="number"  order="descending"/>
+          <xsl:variable name="itemUId" select="BacklogItemUId"/>
+          <xsl:variable name="status" select="Status"/>
+          <xsl:variable name="itemSprintNumber" select="SprintNumber"/>
+
+          <xsl:variable name="groupColor" select="Group/GroupColor"/>
+
+          <xsl:variable name="color">
+            <xsl:choose>
+              <xsl:when test="IssueType = 3">
+                <xsl:value-of select="'Red'"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="'Black'"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+
+          <xsl:variable name="cellStyle">
+            <xsl:choose>
+              <xsl:when test="OccurrenceConstraint = 2">
+                <xsl:value-of select="'{StaticResource sprintBarCell}'"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="'{StaticResource barCell}'"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+
+          <xsl:if test="OccurrenceConstraint = 0">
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell Style="{{StaticResource sprintHeaderCell}}" ColumnSpan="{count(//ReportData/Project/Sprints/Sprint) + 1}">
+                <Paragraph>
+                  <Bold>
+                    Sprint <xsl:value-of select="$itemSprintNumber"/> (até <xsl:call-template name="formatShortDate">
+                      <xsl:with-param name="dateTime" select="//ReportData/Project/Sprints/Sprint[SprintNumber=$itemSprintNumber]/EndDate"/>
+                    </xsl:call-template>)
+                  </Bold>
+                </Paragraph>
+              </TableCell>
             </TableRow>
-            
-            <xsl:for-each select="/ReportData/ArrayOfBacklogItem/BacklogItem[Status !=3]">              
-              <xsl:sort select="OrderSprintWorked" data-type="number"/>
-              <xsl:sort select="OccurrenceConstraint" data-type="number"/>
-              <xsl:sort select="Status" data-type="number"  order="descending"/>
-              <xsl:variable name="itemUId" select="BacklogItemUId"/>
-              <xsl:variable name="status" select="Status"/>
+          </xsl:if>
 
-              <xsl:variable name="groupColor" select="Group/GroupColor"/>
 
-                <xsl:variable name="color">
-                    <xsl:choose>
-                        <xsl:when test="IssueType = 3">
-                            <xsl:value-of select="'Red'"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="'Black'"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:variable>
 
-                <xsl:variable name="cellStyle">
-                  <xsl:choose>                    
-                    <xsl:when test="OccurrenceConstraint = 2">
-                      <xsl:value-of select="'{StaticResource sprintBarCell}'"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:value-of select="'{StaticResource barCell}'"/>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:variable>
 
-                 <xsl:if test="OccurrenceConstraint = 0">                
-                  <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell Style="{{StaticResource sprintHeaderCell}}" ColumnSpan="{count(//ReportData/Project/Sprints/Sprint) + 1}">
-                        <Paragraph><Bold>Sprint <xsl:value-of select="SprintNumber"/> </Bold></Paragraph>
-                      </TableCell>
-                  </TableRow>
+          <TableRow>
+
+            <TableCell Background="{$groupColor}" Style="{$cellStyle}"></TableCell>
+
+            <TableCell Style="{$cellStyle}" Padding="3">
+              <Paragraph TextAlignment="Left" Foreground="{$color}">
+                <xsl:value-of select="Name"/>[<xsl:value-of select="BacklogItemNumber"/>]
+                <xsl:if test="string-length(DeliveryDate) &gt; 0">
+                  <TextBlock Background="{$color}" Foreground="White" FontSize="8" Margin="5,0,0,0" Padding="2,0,2,0">
+                    <xsl:call-template name="formatShortDate">
+                      <xsl:with-param name="dateTime" select="DeliveryDate"/>
+                    </xsl:call-template>
+                  </TextBlock>
                 </xsl:if>
-              
+              </Paragraph>
+            </TableCell>
 
-               
+            <xsl:for-each select="/ReportData/Project/Sprints/Sprint">
+              <xsl:sort select="SprintNumber" data-type="number"/>
+              <xsl:variable name="sprintNumber" select="SprintNumber"/>
 
-              <TableRow>
+              <xsl:variable name="hours" select="sum(/ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/ValidPlannedHours/PlannedHour[SprintNumber = $sprintNumber]/Hours)"/>
 
-                <TableCell Background="{$groupColor}" Style="{$cellStyle}"></TableCell>
-                
-                <TableCell Style="{$cellStyle}" Padding="3">
-                  <Paragraph TextAlignment="Left" Foreground="{$color}">
-                    <xsl:value-of select="Name"/>[<xsl:value-of select="BacklogItemNumber"/>]
-                    <xsl:if test="string-length(DeliveryDate) &gt; 0">
-                        <TextBlock Background="{$color}" Foreground="White" FontSize="8" Margin="5,0,0,0" Padding="2,0,2,0">
-                            <xsl:call-template name="formatShortDate">
-                                <xsl:with-param name="dateTime" select="DeliveryDate"/>
-                            </xsl:call-template>
-                        </TextBlock>
-                    </xsl:if>
-                  </Paragraph>
-                </TableCell>                
-                
-                <xsl:for-each select="/ReportData/Project/Sprints/Sprint">
-                <xsl:sort select="SprintNumber" data-type="number"/>
-                  <xsl:variable name="sprintNumber" select="SprintNumber"/>
+              <xsl:variable name="cellBG">
+                <xsl:choose>
+                  <xsl:when test="$sprintNumber = /ReportData/ProjectCurrentSprintNumber">
+                    <xsl:value-of select="'#F0F0F0'"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="'White'"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
 
-                  <xsl:variable name="hours" select="sum(/ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/ValidPlannedHours/PlannedHour[SprintNumber = $sprintNumber]/Hours)"/>
+              <TableCell Background="{$cellBG}" Style="{$cellStyle}">
 
-                  <xsl:variable name="cellBG">
-                    <xsl:choose>                    
-                      <xsl:when test="$sprintNumber = /ReportData/ProjectCurrentSprintNumber">
-                        <xsl:value-of select="'#F0F0F0'"/>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:value-of select="'White'"/>
-                      </xsl:otherwise>
-                    </xsl:choose>
-                  </xsl:variable>
-                  
-                  <TableCell Background="{$cellBG}" Style="{$cellStyle}">
-                   
-                    <xsl:call-template name="bar">
-                      <xsl:with-param name="isFirst" select="$sprintNumber = /ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/FirstSprintWorked" />
-                      <xsl:with-param name="isLast" select="$sprintNumber = /ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/LastSprintWorked" />
-                      <xsl:with-param name="status" select="$status" />
-                      <xsl:with-param name="hours" select="$hours" />
-                      <xsl:with-param name="constraint" select="/ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/OccurrenceConstraint" />
-                    </xsl:call-template>                    
-                  </TableCell>
-                </xsl:for-each>
-
-                
-
-              </TableRow>
+                <xsl:call-template name="bar">
+                  <xsl:with-param name="isFirst" select="$sprintNumber = /ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/FirstSprintWorked" />
+                  <xsl:with-param name="isLast" select="$sprintNumber = /ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/LastSprintWorked" />
+                  <xsl:with-param name="status" select="$status" />
+                  <xsl:with-param name="hours" select="$hours" />
+                  <xsl:with-param name="constraint" select="/ReportData/ArrayOfBacklogItem/BacklogItem[BacklogItemUId = $itemUId]/OccurrenceConstraint" />
+                </xsl:call-template>
+              </TableCell>
             </xsl:for-each>
-          </TableRowGroup>
-        </Table>
+
+
+
+          </TableRow>
+        </xsl:for-each>
+      </TableRowGroup>
+    </Table>
   </xsl:template>
-  
+
+
 </xsl:stylesheet>

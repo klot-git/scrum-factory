@@ -210,13 +210,16 @@
                 </Paragraph>
               </TableCell>
             </TableRow>
-            <xsl:for-each select="$groupItems">
+            <xsl:for-each select="$groupItems">              
+              <xsl:sort select="Item/SprintNumber" data-type="number"/>
+              <xsl:sort select="Item/BusinessPriority" data-type="number"/>
               <xsl:variable name="itemUId" select="BacklogItemUId"/>
               <xsl:variable name="item" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId=$itemUId]"/>
+                            
               <TableRow>                
                 <TableCell BorderThickness="0,0,0,1" BorderBrush="LightGray">
                   <Paragraph Margin="20,0,0,0" LineHeight="Auto">
-                    <xsl:value-of select="$item/Name"/>
+                    <xsl:value-of select="$item/Name"/>                    
                     <Run Text=" "/>
                     <Run FontSize="10"> (<xsl:value-of select="$item/BacklogItemNumber"/>)</Run>                          
                   </Paragraph>
@@ -235,7 +238,7 @@
                   <xsl:for-each select="$proposalRoles">
                     <xsl:variable name="roleUId" select="RoleUId"/>                  
                     <TableCell BorderThickness="0,0,0,1" BorderBrush="LightGray">
-                      <Paragraph TextAlignment="Right" Foreground="LightGray"  LineHeight="Auto">
+                      <Paragraph TextAlignment="Right" Foreground="Gray"  LineHeight="Auto">
                         <xsl:variable name="hours">
                           <xsl:choose>
                             <xsl:when test="$item/CurrentPlannedHours/PlannedHour[RoleUId=$roleUId]/Hours">                            
@@ -273,7 +276,7 @@
             <xsl:for-each select="$proposalRoles">
               <xsl:variable name="roleUId" select="RoleUId"/>
               <TableCell>
-                <Paragraph TextAlignment="Right" Foreground="LightGray">
+                <Paragraph TextAlignment="Right" Foreground="Gray">
                   
                   <xsl:variable name="proposalItems" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId = //ArrayOfProposalItemWithPrice/ProposalItemWithPrice/BacklogItemUId]"/>
 
@@ -341,6 +344,8 @@
               </TableCell>
             </TableRow>
             <xsl:for-each select="$groupItems">
+              <xsl:sort select="Item/SprintNumber" data-type="number"/>
+              <xsl:sort select="Item/BusinessPriority" data-type="number"/>
               <xsl:variable name="itemUId" select="BacklogItemUId"/>
               <xsl:variable name="item" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId=$itemUId]"/>
               <TableRow>
@@ -366,7 +371,7 @@
                   <xsl:for-each select="$proposalRoles">
                     <xsl:variable name="roleUId" select="RoleUId"/>
                     <TableCell BorderThickness="0,0,0,1" BorderBrush="LightGray">
-                      <Paragraph TextAlignment="Right" Foreground="LightGray"  LineHeight="Auto">
+                      <Paragraph TextAlignment="Right" Foreground="Gray"  LineHeight="Auto">
                         <xsl:variable name="hours">
                           <xsl:choose>
                             <xsl:when test="$item/CurrentPlannedHours/PlannedHour[RoleUId=$roleUId]/Hours">
@@ -396,7 +401,7 @@
             <xsl:for-each select="$proposalRoles">
               <xsl:variable name="roleUId" select="RoleUId"/>
               <TableCell>
-                <Paragraph TextAlignment="Right" Foreground="LightGray">
+                <Paragraph TextAlignment="Right" Foreground="Gray">
 
                   <xsl:variable name="proposalItems" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId = //ArrayOfProposalItemWithPrice/ProposalItemWithPrice/BacklogItemUId]"/>
 
@@ -518,13 +523,15 @@
                 <xsl:value-of select="GroupName"/>
               </Paragraph>
             
-            <xsl:for-each select="$groupItems">              
+            <xsl:for-each select="$groupItems">       
+              <xsl:sort select="Item/SprintNumber" data-type="number"/>
+              <xsl:sort select="Item/BusinessPriority" data-type="number"/>       
               <xsl:variable name="itemUId" select="BacklogItemUId"/>
               <xsl:variable name="item" select="//ArrayOfBacklogItem/BacklogItem[BacklogItemUId=$itemUId]"/>
               
               <xsl:if test="$item/Description">
               
-                  <Paragraph Margin="30,0,0,0" FontWeight="Bold" FontSize="16">
+                  <Paragraph Margin="30,0,0,0" FontWeight="Bold" FontSize="16" LineHeight="24">
 
                     <xsl:value-of select="$item/Name"/>
                     <Run Text=" "/>
@@ -533,7 +540,7 @@
                     </Run>
                   </Paragraph>
                   
-                    <Paragraph Margin="30,0,0,15" LineHeight="Auto">
+                    <Paragraph Margin="30,0,0,15" LineHeight="22">
                       <xsl:call-template name="breakLines">
                         <xsl:with-param name="text" select="$item/Description" />
                       </xsl:call-template>
@@ -552,11 +559,10 @@
     <xsl:param name="index" select="'7'"/>
     <xsl:for-each select="//Proposal/Clauses/ProposalClause">
     <xsl:sort select="ClauseOrder" data-type="number"/>
-      <Paragraph Margin="0,0,0,10">
-        <TextBlock FontWeight="Bold">
-          <xsl:value-of select="$index"/>.<xsl:value-of select="ClauseOrder"/><xsl:text>&#x20;</xsl:text><xsl:value-of select="ClauseName"/>
-        </TextBlock>
-        <LineBreak/>
+      <Paragraph Style="{{StaticResource GroupParagraph}}">        
+          <xsl:value-of select="$index"/>.<xsl:value-of select="ClauseOrder"/><xsl:text>&#x20;</xsl:text><xsl:value-of select="ClauseName"/>        
+        </Paragraph>
+        <Paragraph>
         <xsl:call-template name="breakLines">
           <xsl:with-param name="text" select="ClauseText" />
         </xsl:call-template>        
@@ -871,10 +877,16 @@
 
         <TableRow>
           <TableCell Style="{{StaticResource headerCell}}"></TableCell>
-          <TableCell Style="{{StaticResource headerCell}}" >
-            <Paragraph FontWeight="Bold" >
-              <xsl:value-of select="$_Item"/>
-            </Paragraph>
+          <TableCell Style="{{StaticResource headerCell}}" Padding="0,0,0,0" >            
+            <BlockUIContainer>                            
+                <Border Background="Black" BorderThickness="0"  Padding="4" HorizontalAlignment="Right">
+                    <TextBlock  FontWeight="Bold" FontSize="8" VerticalAlignment="Center" Foreground="White">
+                      <xsl:call-template name="formatShortDate">
+                        <xsl:with-param name="dateTime" select="Project/Sprints/Sprint[SprintNumber = 1]/StartDate"/>
+                      </xsl:call-template>                        
+                    </TextBlock>
+                  </Border>                
+              </BlockUIContainer>            
           </TableCell>
           <xsl:for-each select="Project/Sprints/Sprint">
             <xsl:sort select="SprintNumber" data-type="number"/>
@@ -897,7 +909,7 @@
                   <!--<TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Foreground="Gray" Padding="0">
                     <xsl:value-of select="SprintNumber"/>
                   </TextBlock>-->
-                  <xsl:if test="$sprintNumber = 1">
+                  <!-- <xsl:if test="$sprintNumber = 1">
                     <Border Background="Black" BorderThickness="0"  HorizontalAlignment="Left" Padding="4">
                       <TextBlock   FontWeight="Bold" FontSize="8" VerticalAlignment="Center" Foreground="White">
                         <xsl:call-template name="formatShortDate">
@@ -905,7 +917,7 @@
                         </xsl:call-template>
                       </TextBlock>
                     </Border>
-                  </xsl:if>
+                  </xsl:if> -->
                   <Border Background="Black" BorderThickness="0"  HorizontalAlignment="Right" Padding="4">
                     <TextBlock  FontWeight="Bold" FontSize="8" VerticalAlignment="Center" Foreground="White">
                       <xsl:call-template name="formatShortDate">
@@ -925,6 +937,7 @@
           <xsl:sort select="Status" data-type="number"  order="descending"/>
           <xsl:variable name="itemUId" select="BacklogItemUId"/>
           <xsl:variable name="status" select="Status"/>
+          <xsl:variable name="itemSprintNumber" select="SprintNumber"/>
 
           <xsl:variable name="groupColor" select="Group/GroupColor"/>
 
@@ -956,7 +969,7 @@
               <TableCell Style="{{StaticResource sprintHeaderCell}}" ColumnSpan="{count(//ReportData/Project/Sprints/Sprint) + 1}">
                 <Paragraph>
                   <Bold>
-                    Sprint <xsl:value-of select="SprintNumber"/>
+                    Sprint <xsl:value-of select="$itemSprintNumber"/> (até <xsl:call-template name="formatShortDate"><xsl:with-param name="dateTime" select="//ReportData/Project/Sprints/Sprint[SprintNumber=$itemSprintNumber]/EndDate"/></xsl:call-template>)
                   </Bold>
                 </Paragraph>
               </TableCell>
@@ -1019,6 +1032,7 @@
       </TableRowGroup>
     </Table>
   </xsl:template>
+
 
 
 
