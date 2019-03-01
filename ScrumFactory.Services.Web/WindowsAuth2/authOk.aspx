@@ -9,6 +9,8 @@
 </head>
 <body>
 <span>authenticated...</span>    
-    
+<script>
+window.parent.postMessage({ 'code': '<%= Request["code"]%>', 'location': window.location.href}, "*");
+</script>    
 </body>
 </html>

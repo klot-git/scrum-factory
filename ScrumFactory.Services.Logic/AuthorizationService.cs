@@ -65,11 +65,11 @@ namespace ScrumFactory.Services.Logic {
             string[] parts = version.Replace("SFClient-", "").Split('.');
             return parts[0] + "." + parts[1];
         }
-
+        
         [WebInvoke(Method = "POST", UriTemplate = "ValidTokens/{providerName}/?memberUId={memberUId}", RequestFormat = WebMessageFormat.Json)]
         public MemberProfile SignInMember(string providerName, string token, string memberUId = null) {
 
-            VerifyTargetVersion();
+            // VerifyTargetVersion();
 
             // if the token is not authenticated yet, validate it
             AuthorizationInfo authInfo = null;

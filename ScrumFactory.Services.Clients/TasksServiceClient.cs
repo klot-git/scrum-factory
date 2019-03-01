@@ -230,5 +230,9 @@ namespace ScrumFactory.Services.Clients {
             return response.Content.ReadAs<IDictionary<string, decimal>>();
         }
 
+        public MemberPerformance GetMemberPerformance(string memberUId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

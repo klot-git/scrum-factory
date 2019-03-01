@@ -1,5 +1,6 @@
 ﻿namespace ScrumFactory.Services.Web
 {
+    using System;
     using System.ComponentModel.Composition.Extensions;
     using System.ComponentModel.Composition.Hosting;
     using System.Reflection;
@@ -59,8 +60,15 @@
 
             
         }
-      
-        
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (Request.HttpMethod == "OPTIONS")
+            {
+                Response.End();
+            }
+        }
+
 
     }
 }
