@@ -71,8 +71,9 @@
     <Compile Include="ArtifactsService.cs" />
     <Compile Include="AuthorizationService.cs" />
     <Compile Include="AuthProviders\GitHubOAuthTokenValidator.cs" />
-    <Compile Include="AuthProviders\WindowsOAuthTokenValidator.cs" />
     <Compile Include="AuthProviders\LiveOAuthTokenValidator.cs" />
+    <Compile Include="AuthProviders\WindowsOAuthTokenValidator.cs" />
+    <Compile Include="AuthProviders\AzureOAuthTokenValidator.cs" />
     <Compile Include="AuthProviders\GoogleOAuthTokenValidator.cs" />
     <Compile Include="AuthProviders\OAuthBaseTokenValidator.cs" />
     <Compile Include="AuthProviders\WindowsTokenStore.cs" />

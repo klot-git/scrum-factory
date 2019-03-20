@@ -17,7 +17,7 @@ namespace ScrumFactory.Services.Logic.AuthProviders {
 
         public  override  string ValidateUrl {
             get {
-                return "https://apis.live.net/v5.0/me";
+                return "https://apis.live.net/v5.0/me";                
             }
         }
 

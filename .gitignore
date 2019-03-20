@@ -3,3 +3,23 @@
 ################################################################################
 
 /.vs
+/bin
+/ScrumFactory/bin/Debug
+/ScrumFactory/obj/Debug
+/ScrumFactory.Composition/bin/Debug
+/ScrumFactory.Composition/obj/Debug
+/ScrumFactory.Data/bin/Debug
+/ScrumFactory.Data/obj/Debug
+/ScrumFactory.Test/bin/Debug
+/ScrumFactory.Test/obj/Debug
+/System.ComponentModel.Composition.Extensions/bin/Debug
+/System.ComponentModel.Composition.Extensions/obj/Debug
+/ScrumFactory.Services.Web/bin
+/ScrumFactory.Services.Web/obj/Debug
+/ScrumFactory.Services.Logic/obj/Debug
+/ScrumFactory.Services.Clients/obj/Debug
+/ScrumFactory.Services/bin/Debug
+/ScrumFactory.Services/obj/Debug
+/ScrumFactory.ReportHelper/bin/Debug
+/ScrumFactory.ReportHelper/obj/Debug
+/ScrumFactory.Data.Sql/obj/Debug
