@@ -34,11 +34,9 @@ em
 {
     min-height: 100%;
     height: auto !important;
-    height: 100%;
-    width: 980px;
+    height: 100%;    
     position: relative;
-    left: 50%;
-    margin-left: -490px;
+    
 }
 
 #mainBanner {

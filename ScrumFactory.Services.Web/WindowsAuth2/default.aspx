@@ -1,15 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="ScrumFactory.Services.Web.WindowsAuth2.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="ScrumFactory.Services.Web.WindowsAuth.Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head >
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=0" />
     <title>Scrum Factory - Windows Authentication</title>
     <link rel="stylesheet" href="../css/style.css" type="text/css" />    
 </head>
 <body>
         
-    <div id="content" style="width: 440px; left: 50%; margin-left: -220px;">
+    <div id="content" style="margin-left: auto; margin-right: auto; width: 300px">
         <h2>Windows Authentication</h2>
    
     <form id="form1" runat="server">
