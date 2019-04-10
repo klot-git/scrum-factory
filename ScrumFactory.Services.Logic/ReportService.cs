@@ -315,8 +315,8 @@ namespace ScrumFactory.Services.Logic {
           
             var report = new ReportHelper.Report();
 
-            document.Tag = "sf-header:yes";
-            var paginator = report.CreatePaginator(document, title);
+            // document.Tag = "sf-header:yes";
+            var paginator = report.CreatePaginator(document, title, serverUrl);
             
             try {
                 

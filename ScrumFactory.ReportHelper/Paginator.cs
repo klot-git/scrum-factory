@@ -19,8 +19,6 @@ namespace ScrumFactory.ReportHelper {
     public class Paginator : DocumentPaginator {
 
 
-        private static BitmapImage logo;
-
         public Paginator(FlowDocument document, Definition def) {
 
 
@@ -39,19 +37,7 @@ namespace ScrumFactory.ReportHelper {
             document.PageHeight = definition.ContentSize.Height;
             document.PagePadding = new Thickness(0);
 
-        }
-
-        public static void LoadLogo(string url) {
-            if (url == null)
-                return;
-            try {
-                logo = new BitmapImage();
-                logo.BeginInit();                
-                logo.UriSource = new Uri(url);
-                logo.EndInit();
-            } catch (Exception) { }
-        }
-
+        }        
 
         private DocumentPaginator paginator;
         private Definition definition;
@@ -94,7 +80,7 @@ namespace ScrumFactory.ReportHelper {
         private Visual CreateHeaderFooterVisual(DrawHeaderFooter draw, Rect bounds, int pageNumber) {
             DrawingVisual visual = new DrawingVisual();
             using (DrawingContext context = visual.RenderOpen()) {                
-                draw(context, bounds, pageNumber, PageCount, definition.Title, logo);
+                draw(context, bounds, pageNumber, PageCount, definition.Title, definition.Logo, definition.PageSize.Width, definition.HeaderBGBrush, definition.HeaderBrush);
             }
             return visual;
         }
@@ -132,6 +118,8 @@ namespace ScrumFactory.ReportHelper {
                 this.Title = "";
                 this.Header = DefaultHeader;
                 this.Footer = DefaultFooter;
+                this.HeaderBGBrush = Brushes.Transparent;
+                this.HeaderBrush = Brushes.Black;
             }
 
             #region Page sizes
@@ -174,21 +162,29 @@ namespace ScrumFactory.ReportHelper {
 
             #endregion
 
+            public BitmapImage Logo;
             public string Title;
             public DrawHeaderFooter Header, Footer;
+            public Brush HeaderBGBrush;
+            public Brush HeaderBrush;
 
-            internal static void DrawDefaultHeader(DrawingContext context, Rect bounds, int pageNr, int pageCount, string title, BitmapImage logo) {
-                FormattedText text = new FormattedText(title, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Times New Roman"), 10, Brushes.Black);
-                context.DrawText(text, new Point(bounds.Right - text.Width, bounds.Top + 3));                
+            internal static void DrawDefaultHeader(DrawingContext context, Rect bounds, int pageNr, int pageCount, string title, BitmapImage logo, double pageWidth, Brush bg, Brush color) {                
+                context.DrawRectangle(bg, null, new Rect(0,0, pageWidth, 24));
+                FormattedText text = new FormattedText(title, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Helvetica"), 10, color);
+                context.DrawText(text, new Point(bounds.Right - text.Width, bounds.Top + 6));                                
             }
 
-            internal static void DrawDefaultFooter(DrawingContext context, Rect bounds, int pageNr, int pageCount, string title, BitmapImage logo) {
-                FormattedText text = new FormattedText((pageNr + 1) + "/" + pageCount, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Times New Roman"), 12, Brushes.Black);
-                context.DrawText(text, new Point(bounds.Right - text.Width, bounds.Top + 4));                
+            internal static void DrawDefaultFooter(DrawingContext context, Rect bounds, int pageNr, int pageCount, string title, BitmapImage logo, double pageWidth, Brush bg, Brush color) {
+                context.DrawRectangle(bg, null, new Rect(0, bounds.Top, pageWidth, bounds.Height));                
+                double logoSpace = 0;
                 if (logo != null) {
-                    double width = logo.Width * (bounds.Height / logo.Height);
-                    context.DrawImage(logo, new Rect(bounds.Left, bounds.Top + 4, width, bounds.Height));
+                    double height = 32;
+                    double width = logo.Width * (height / logo.Height);
+                    context.DrawImage(logo, new Rect(bounds.Right - width, bounds.Top + 6, width, height));
+                    logoSpace = width + 10;
                 }
+                FormattedText text = new FormattedText((pageNr + 1) + "/" + pageCount, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Helvetica"), 12, color);
+                context.DrawText(text, new Point(bounds.Right - text.Width - logoSpace, bounds.Top + 12));
             }
 
             public static DrawHeaderFooter DefaultHeader = new DrawHeaderFooter(DrawDefaultHeader);
@@ -223,10 +219,7 @@ namespace ScrumFactory.ReportHelper {
 
             internal Rect FooterRect {
                 get {
-                    return new Rect(
-                        Margins.Left, ContentOrigin.Y + ContentSize.Height,
-                        ContentSize.Width, FooterHeight
-                    );
+                    return new Rect(Margins.Left, ContentOrigin.Y + ContentSize.Height, ContentSize.Width, PageSize.Height);
                 }
             }
 
@@ -242,7 +235,7 @@ namespace ScrumFactory.ReportHelper {
         /// <param name="context">This is the drawing context that should be used</param>
         /// <param name="bounds">The bounds of the header. You can ignore these at your own peril</param>
         /// <param name="pageNr">The page nr (0-based)</param>
-        public delegate void DrawHeaderFooter(DrawingContext context, Rect bounds, int pageNr, int pageCount, string title, BitmapImage logo);
+        public delegate void DrawHeaderFooter(DrawingContext context, Rect bounds, int pageNr, int pageCount, string title, BitmapImage logo, double pageWidth, Brush bg, Brush color);
 
     }
 

@@ -8,8 +8,9 @@ using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
 using System.Collections.Generic;
 using System.Windows;
-
-
+using System.Windows.Media.Imaging;
+using System;
+using System.Windows.Media;
 
 namespace ScrumFactory.ReportHelper {
 
@@ -136,20 +137,51 @@ namespace ScrumFactory.ReportHelper {
 
         }
 
+        public BitmapImage LoadLogo(string url)
+        {
+            var logo = new BitmapImage();
 
-        public ReportHelper.Paginator CreatePaginator(FlowDocument flowDocument, string title) {
+            if (url == null)
+                return null;
+            try
+            {                
+                logo.BeginInit();
+                logo.UriSource = new Uri(url);
+                logo.EndInit();                
+            }
+            catch (Exception) { }
+            return logo;
+        }
+
+
+        public ReportHelper.Paginator CreatePaginator(FlowDocument flowDocument, string title, string serverUrl = null) {
+
+            var logo = LoadLogo(serverUrl + "/images/companyLogo-small.png");
+
             ReportHelper.Paginator.Definition def = new ReportHelper.Paginator.Definition() {
                 Title = title,
                 PageSize = new Size(flowDocument.PageWidth, flowDocument.PageHeight),
-                Margins = flowDocument.PagePadding,        
+                Margins = flowDocument.PagePadding,      
+                Logo = logo
             };
 
-            if (flowDocument.Tag==null) {
+            if (flowDocument.Tag==null || flowDocument.Tag.ToString().Contains("sf-header:no")) {
                 def.Header = null;
             }
-            else if(!flowDocument.Tag.ToString().Contains("sf-header:yes")) {
-                def.Header = null;
+            else {                
+                if (flowDocument.Tag.ToString().Contains("sf-header:red"))
+                {
+                    def.HeaderBGBrush = new SolidColorBrush(Color.FromRgb(212, 39, 65));
+                    def.HeaderBrush = new SolidColorBrush(Colors.White);
+                }
+                if (flowDocument.Tag.ToString().Contains("sf-header:gray"))
+                {
+                    def.HeaderBGBrush = new SolidColorBrush(Colors.Gray);
+                    def.HeaderBrush = new SolidColorBrush(Colors.White);
+                }
             }
+
+
 
             var paginator = new ReportHelper.Paginator(flowDocument, def);
             paginator.ComputePageCount();
