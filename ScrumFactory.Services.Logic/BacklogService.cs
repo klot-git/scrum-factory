@@ -222,7 +222,9 @@ namespace ScrumFactory.Services.Logic {
             Project project = projectsService.GetProject(item.ProjectUId);
 
             VerifyPermissionForCreateEditItem(item, project);
-                        
+
+            item.CreatedBy = authorizationService.SignedMemberProfile.MemberUId;
+            
             backlogRepository.SaveBacklogItem(item);
 
             if (project.ProjectType == (short)ProjectTypes.TICKET_PROJECT && ShouldCreateTicketFolders) {

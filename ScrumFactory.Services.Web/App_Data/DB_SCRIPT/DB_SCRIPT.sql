@@ -132,6 +132,9 @@ CREATE TABLE [factory].[BacklogItem](
 	[CancelReason] [smallint] NULL,
 	[ArtifactCount] [int] NULL,
 	[ExternalId] [nvarchar](40) NULL,
+	[CreatedBy] [nvarchar](80) NULL,
+	[RequestedBy] [nvarchar](80) NULL,
+	[OwnerUId] [nvarchar](80) NULL,
  CONSTRAINT [PK_BacklogItem] PRIMARY KEY CLUSTERED 
 (
 	[BacklogItemUId] ASC

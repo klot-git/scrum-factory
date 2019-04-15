@@ -49,6 +49,9 @@
           <Property Name="CancelReason" Type="smallint" />
           <Property Name="ArtifactCount" Type="int" />
           <Property Name="ExternalId" Type="nvarchar" MaxLength="40" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="80" />
+          <Property Name="RequestedBy" Type="nvarchar" MaxLength="80" />
+          <Property Name="OwnerUId" Type="nvarchar" MaxLength="80" />
         </EntityType>
         <EntityType Name="BacklogItemGroup">
           <Key>
@@ -788,6 +791,9 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="Int32" Name="SizeFactor" Nullable="false" />
           <Property Type="Int32" Name="ArtifactCount" Nullable="true" />
           <Property Type="String" Name="ExternalId" Nullable="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="OwnerUId" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="RequestedBy" Type="String" Nullable="true" MaxLength="80" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1391,6 +1397,10 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
                 <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
                 <ScalarProperty Name="ArtifactCount" ColumnName="ArtifactCount" />
                 <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="OwnerUId" ColumnName="OwnerUId" />
+                
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

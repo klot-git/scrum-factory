@@ -141,6 +141,15 @@ namespace ScrumFactory {
         [DataMember]
         public string ExternalId { get; set; }
 
+        [DataMember]
+        public string CreatedBy { get; set; }
+
+        [DataMember]
+        public string OwnerUId { get; set; }
+
+        [DataMember]
+        public string RequestedBy { get; set; }
+
 
         public bool IsFinished {
             get {
@@ -171,6 +180,9 @@ namespace ScrumFactory {
                 this.OccurrenceConstraint == item.OccurrenceConstraint &&
                 this.ItemSizeUId == item.ItemSizeUId &&
                 this.SizeFactor == item.SizeFactor &&
+                this.RequestedBy == item.RequestedBy &&
+                this.OwnerUId == item.OwnerUId &&
+                this.CreatedBy == item.CreatedBy &&
                 this.HasTheSameHours(item);                
         }
 
