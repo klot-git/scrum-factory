@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="ArtifactsServiceClient.cs" />
     <Compile Include="AuthorizationServiceClient.cs" />
+    <Compile Include="AuthProviders\AzureAuthorizationProvider.cs" />
     <Compile Include="AuthProviders\BaseOAuthProvider.cs" />
     <Compile Include="AuthProviders\GitHubAuthorizationProvider.cs" />
     <Compile Include="AuthProviders\WindowsAuthorizationProvider.cs" />

@@ -31,6 +31,5 @@ namespace ScrumFactory.Services.AuthProviders {
         TokenGet LoginType { get; }
 
 
-
     }
 }

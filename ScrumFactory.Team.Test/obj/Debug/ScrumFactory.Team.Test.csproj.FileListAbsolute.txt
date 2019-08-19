@@ -1,0 +1,2 @@
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.Team.Test\obj\Debug\ScrumFactory.Team.Test.csprojAssemblyReference.cache
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.Team.Test\obj\Debug\ScrumFactory.Team.Test.csproj.CoreCompileInputs.cache

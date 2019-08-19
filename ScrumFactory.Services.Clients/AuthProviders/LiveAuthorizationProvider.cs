@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ScrumFactory.Services.Clients.AuthProviders {
 
-    [Export(typeof(Services.AuthProviders.IOAuthProvider))]
+    //[Export(typeof(Services.AuthProviders.IOAuthProvider))]
     public class LiveAuthorizationProvider : BaseOAuthProvider, Services.AuthProviders.IOAuthProvider {
 
         [Import]

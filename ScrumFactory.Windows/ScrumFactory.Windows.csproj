@@ -349,6 +349,7 @@
     <Resource Include="Images\Dialogs\equalize.png" />
     <Resource Include="Images\Dialogs\planItems.png" />
     <Resource Include="Images\add.png" />
+    <Resource Include="Images\AuthorizationProviders\azure.png" />
     <Content Include="_localServerRoot.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

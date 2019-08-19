@@ -273,6 +273,8 @@ namespace ScrumFactory.Login.ViewModel {
             // validates token with Scrum Factory Server
             MemberProfile myProfile = null;
             validatingTokenAtServer = true;
+
+
             try {
                 myProfile = authorizator.SignInMember(SelectedProvider.ProviderName, token, memberUId);
                 if (myProfile==null || myProfile.IsActive == false) {
@@ -295,6 +297,7 @@ namespace ScrumFactory.Login.ViewModel {
             }
             catch (Exception ex) {
                 LoginStatusMessage = Properties.Resources.Factory_signin_error + "\n" + ex.Message;
+                SelectedProvider.SignOut();
             }
 
             validatingTokenAtServer = false;
@@ -342,8 +345,7 @@ namespace ScrumFactory.Login.ViewModel {
             
             executor.StartBackgroundTask(
                 () => {
-
-
+                    
                     // validate access token at server
                     if (ValidateTokenAtServer(memberUId))
                         return false;
@@ -352,9 +354,9 @@ namespace ScrumFactory.Login.ViewModel {
                     SelectedProvider.RefreshAccesToken();
                     if (ValidateTokenAtServer(memberUId))
                         return false;
-                    
+
                     // if no error, needs to open auth window
-                    if(String.IsNullOrEmpty(LoginStatusMessage))
+                    if (String.IsNullOrEmpty(LoginStatusMessage))
                         return true;
 
                     return false;

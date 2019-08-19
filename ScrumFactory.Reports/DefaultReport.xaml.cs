@@ -69,7 +69,7 @@ namespace ScrumFactory.Reports {
             foreach (string name in config.ReportViewModels.Keys)
                 SetElementViewModel(name, config.ReportViewModels[name]);
 
-            ScrumFactory.ReportHelper.Paginator.LoadLogo(serverUrl.Url + "/images/companyLogo.png");
+            //ScrumFactory.ReportHelper.Paginator.LoadLogo(serverUrl.Url + "/images/companyLogo.png");
         }
 
         public string CleanInvalidXmlChars(string xml) {

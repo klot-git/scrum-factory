@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using ScrumFactory.Extensions;
@@ -64,7 +65,10 @@ namespace ScrumFactory.Services.Clients {
             if (memberUId == null)
                 memberUId = String.Empty;
 
-            HttpResponseMessage response = client.Post(Url("ValidTokens/" + providerName + "/?memberUId=" + SafeMemberUId(memberUId)), new ObjectContent<string>(token, JsonMediaTypeFormatter.DefaultMediaType));
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            var url = Url("ValidTokens/" + providerName + "/?memberUId=" + SafeMemberUId(memberUId));
+            HttpResponseMessage response = client.Post(url, new ObjectContent<string>(token, JsonMediaTypeFormatter.DefaultMediaType));
 
             if (response.StatusCode == System.Net.HttpStatusCode.NotImplemented)
                 throw new ScrumFactory.Exceptions.AuthorizationProviderNotSupportedException();

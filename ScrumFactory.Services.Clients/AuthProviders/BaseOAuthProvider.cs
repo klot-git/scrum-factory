@@ -146,8 +146,6 @@ namespace ScrumFactory.Services.Clients.AuthProviders {
             Properties.Settings.Default.Save();
         }
 
-        
-
         public abstract bool GetAuthorizationToken(Uri url, string title);
 
         [ImportMany(typeof(ScrumFactory.Services.AuthProviders.IOAuthScope))]
