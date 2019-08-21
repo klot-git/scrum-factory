@@ -1309,7 +1309,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
             <PropertyRef Name="MemberUId" />
           </Key>
           <Property Type="String" Name="MemberUId" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Token" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Token" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ProviderName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="IssueDate" Nullable="false" Precision="3" />
         </EntityType>

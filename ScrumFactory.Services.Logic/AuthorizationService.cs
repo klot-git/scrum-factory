@@ -275,8 +275,8 @@ namespace ScrumFactory.Services.Logic {
             authorizedTokens.TryAdd(info.Token, info);
 
             // Dont wanna save google/live tokens
-            if (info.ProviderName == "Windows Authentication")
-                authorizationRepository.SaveAuthorizationInfo(info);
+            //if (info.ProviderName == "Windows Authentication")
+            authorizationRepository.SaveAuthorizationInfo(info);
 
             return provider.MemberInfo;
         }
