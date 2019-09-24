@@ -16,5 +16,5 @@ C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.Windows\App.xaml
 30-1767769907
 AboutDialog.xaml;AlertMessage.xaml;MessageBox.xaml;Options.xaml;ProjectDetail.xaml;Resources\DataTemplates.xaml;SprintIndicator.xaml;Style\CheckBoxes.xaml;Style\ColorsAndBrushes.xaml;MainWindow.xaml;Style\ComboBoxes.xaml;Style\Buttons.xaml;Style\DatePickers.xaml;Style\Graphs.xaml;Style\Menus.xaml;Style\OtherContainers.xaml;Style\PanelLayouts.xaml;Style\ScrollViewers.xaml;Style\ToolBars.xaml;Style\TabControls.xaml;Style\TextBoxesAndLabels.xaml;Style\Images.xaml;Style\Lists.xaml;Style\Windows.xaml;WhatIsNew.xaml;WhatIsNewDocument.xaml;
 
-False
+True
 

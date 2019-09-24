@@ -101,6 +101,12 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SF2019.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Net.Http, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -329,6 +335,7 @@
     <AppDesigner Include="Properties\" />
     <None Include="Resources\NativeResource.res" />
     <None Include="ScrumFactory.Windows_TemporaryKey.pfx" />
+    <None Include="SF2019.pfx" />
     <None Include="SpellDics\en_US.aff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -356,7 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScrumFactory.Composition\ScrumFactory.Composition.csproj">
-      <Project>{B08DBAD5-F222-42F7-A277-7C83DAD4596F}</Project>
+      <Project>{b08dbad5-f222-42f7-a277-7c83dad4596f}</Project>
       <Name>ScrumFactory.Composition</Name>
     </ProjectReference>
     <ProjectReference Include="..\ScrumFactory.Services\ScrumFactory.Services.csproj">

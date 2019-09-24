@@ -3,7 +3,7 @@
   <asmv1:assemblyIdentity name="ScrumFactory.Windows.exe" version="1.0.0.7" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="ScrumFactory.Windows" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="ScrumFactory.Windows" version="1.0.0.0" publicKeyToken="D3021F16BB8DD9A4" language="neutral" processorArchitecture="x86" />
     <commandLine file="ScrumFactory.Windows.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -73,19 +73,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HyFsHrMDzgeAzIgHnLonb7ovgyU9FQTzrPtJedqcT3U=</dsig:DigestValue>
+        <dsig:DigestValue>SCMiNtO2cPXCJtX5lRjRXj4dGJRCLXERV2Nwh4qUzVI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ScrumFactory.Composition.dll" size="20992">
-      <assemblyIdentity name="ScrumFactory.Composition" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="ScrumFactory.Composition" version="1.0.0.0" publicKeyToken="D3021F16BB8DD9A4" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>41b05RgfV6XxVhe78EYFKaJgLscBjFAlmuqtnasJFpg=</dsig:DigestValue>
+        <dsig:DigestValue>t49/lVbC9ELd8jgzz11WwYKSFZqNdIqQuKc0aUHjEso=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,19 +97,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bzFDpCdw0ImG6zmBveIETo+sJrKn9lJVM5TBD5lBH6c=</dsig:DigestValue>
+        <dsig:DigestValue>MkSnRvYFj4gkuZzifKp3qVkMt7Q4Mh4Wl4tPR1LyI4g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ScrumFactory.Windows.exe" size="713216">
-      <assemblyIdentity name="ScrumFactory.Windows" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ScrumFactory.Windows.exe" size="713728">
+      <assemblyIdentity name="ScrumFactory.Windows" version="1.0.0.0" publicKeyToken="D3021F16BB8DD9A4" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Bci7H9QUYI2C201P3nJsGe1WUD6KA7+mrRzGm73gCGU=</dsig:DigestValue>
+        <dsig:DigestValue>/bz9p5mJWuPO43g0Sh7314CNGuazRUQNrEhlYsi5UDM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,7 +121,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>JZh7uTBTHoMX9u8hn9J4MNTJ0yWvbZ3i/Cpd6KbhUKw=</dsig:DigestValue>
+        <dsig:DigestValue>gc558GgrCA3dmhBb0JPcXxQlsMjrMfC8FKXY74IgmTA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -133,19 +133,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5qpD9QTox2hCvTqFIvxTYtEgNXG6UST03QHvHJASths=</dsig:DigestValue>
+        <dsig:DigestValue>glS3immy4Oqr82KYshpRHzWkuOO1zDRHEZUetAwMmkU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pt-br\ScrumFactory.Windows.resources.dll" size="24576">
-      <assemblyIdentity name="ScrumFactory.Windows.resources" version="1.0.0.0" language="pt-br" processorArchitecture="x86" />
+      <assemblyIdentity name="ScrumFactory.Windows.resources" version="1.0.0.0" publicKeyToken="D3021F16BB8DD9A4" language="pt-br" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>iGVMoTKzvedKyj22NctFODngR2t+OQIFKQ+WOkOtXTs=</dsig:DigestValue>
+        <dsig:DigestValue>WRzl8mMuW/Q6yY4QiTuWEEA0Dn8iYme6VJOO2uzHEOw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,7 +157,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>m3B6SkGcgrOrPxh7NmNp2Q7EUP/aoTi+N/IMTvu6y+M=</dsig:DigestValue>
+        <dsig:DigestValue>+006CWaF3L05oYLPQj7WsJyQ2neKpzs2TFNeyE8u/S4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
