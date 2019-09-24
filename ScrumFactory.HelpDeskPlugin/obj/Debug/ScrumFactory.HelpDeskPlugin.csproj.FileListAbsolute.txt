@@ -1,11 +1,11 @@
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin.csprojAssemblyReference.cache
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\HelpDesk.g.cs
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin_MarkupCompile.cache
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin_MarkupCompile.lref
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.HelpDeskPlugin.dll.config
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.HelpDeskPlugin.dll
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.HelpDeskPlugin.pdb
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\pt-br\ScrumFactory.HelpDeskPlugin.resources.dll
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin.csprojAssemblyReference.cache
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\HelpDesk.g.cs
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin_MarkupCompile.cache
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin_MarkupCompile.lref
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\HelpDesk.baml
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin.g.resources
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.HelpDeskPlugin\obj\Debug\ScrumFactory.HelpDeskPlugin.Properties.Resources.resources

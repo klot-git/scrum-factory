@@ -1,6 +1,7 @@
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.ProjectConstraints.dll
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.ProjectConstraints.pdb
 C:\Users\marcos.martins\source\repos\scrum-factory\bin\pt-br\ScrumFactory.ProjectConstraints.resources.dll
+C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints.csprojAssemblyReference.cache
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ConstraintList.g.cs
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints_MarkupCompile.cache
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints_MarkupCompile.lref
@@ -14,4 +15,3 @@ C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraint
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints.csproj.CopyComplete
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints.dll
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints.pdb
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.ProjectContraints\obj\Debug\ScrumFactory.ProjectConstraints.csprojAssemblyReference.cache

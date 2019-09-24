@@ -1,10 +1,10 @@
+C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.FactoryServerConfiguration.dll
+C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.FactoryServerConfiguration.pdb
+C:\Users\marcos.martins\source\repos\scrum-factory\bin\pt-br\ScrumFactory.FactoryServerConfiguration.resources.dll
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ScrumFactory.FactoryServerConfiguration.csprojAssemblyReference.cache
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ServerConfiguration.g.cs
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ScrumFactory.FactoryServerConfiguration_MarkupCompile.cache
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ScrumFactory.FactoryServerConfiguration_MarkupCompile.lref
-C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.FactoryServerConfiguration.dll
-C:\Users\marcos.martins\source\repos\scrum-factory\bin\ScrumFactory.FactoryServerConfiguration.pdb
-C:\Users\marcos.martins\source\repos\scrum-factory\bin\pt-br\ScrumFactory.FactoryServerConfiguration.resources.dll
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ServerConfiguration.baml
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ScrumFactory.FactoryServerConfiguration.g.resources
 C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.FactoryServerConfiguration\obj\Debug\ScrumFactory.FactoryServerConfiguration.Properties.Resources.resources

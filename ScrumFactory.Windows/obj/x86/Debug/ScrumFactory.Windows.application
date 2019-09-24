@@ -14,14 +14,14 @@
     <framework targetVersion="4.5.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ScrumFactory.Windows.exe.manifest" size="13108">
+    <dependentAssembly dependencyType="install" codebase="ScrumFactory.Windows.exe.manifest" size="12972">
       <assemblyIdentity name="ScrumFactory.Windows.exe" version="1.0.0.7" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IkVIXzgZJni/eDqb7pZkCIPhBYnbgFGEhrfbpgcizro=</dsig:DigestValue>
+        <dsig:DigestValue>FuTHi4qRidssgJy3bjB0bFLGNFXvKCoj4tOl4dO1enE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
