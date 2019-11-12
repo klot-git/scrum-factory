@@ -159,8 +159,12 @@
                 var item = context.BacklogItems.Include("PlannedHours").SingleOrDefault(b => b.BacklogItemUId == backlogItemUId);
 
                 if (item != null) {
-                    context.DeleteObject(item);
-                    context.SaveChanges();
+                    context.BacklogItems.DeleteObject(item);
+                    var a = context.SaveChanges();
+                    System.Diagnostics.Debug.WriteLine("** item deleteed DATA " + backlogItemUId);
+                } else
+                {
+                    System.Diagnostics.Debug.WriteLine("** item " + backlogItemUId + " not found");
                 }
             }
         }

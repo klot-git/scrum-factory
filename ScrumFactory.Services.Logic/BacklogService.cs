@@ -109,11 +109,16 @@ namespace ScrumFactory.Services.Logic {
         }
 
         public ICollection<BacklogItem> GetCurrentBacklog(string projectUId, short filterMode, DateTime fromDate = new DateTime(), DateTime untilDate = new DateTime()) {
+            
             return GetBacklog(projectUId, "current", filterMode, fromDate, untilDate);
         }
    
         [WebGet(UriTemplate = "Backlogs/{projectUId}/?planning={planning}&filterMode={filterMode}&fromDate={fromDate}&untilDate={untilDate}", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<BacklogItem> GetBacklog(string projectUId, string planning = "current", short filterMode = 3, DateTime fromDate = new DateTime(), DateTime untilDate = new DateTime()) {
+
+
+            System.Diagnostics.Debug.WriteLine("***< get backlog");
+
             authorizationService.VerifyRequestAuthorizationToken();
 
             // gets the project
@@ -308,6 +313,8 @@ namespace ScrumFactory.Services.Logic {
         [WebInvoke(Method = "DELETE", UriTemplate = "BacklogItems/{backlogItemUId}", ResponseFormat = WebMessageFormat.Json)]
         public void DeleteBacklogItem(string backlogItemUId) {
 
+            System.Diagnostics.Debug.WriteLine("***< try to delete item");
+
             BacklogItem item = GetBacklogItem(backlogItemUId);
 
             if(item==null)
@@ -327,7 +334,9 @@ namespace ScrumFactory.Services.Logic {
                 throw new WebFaultException<String>("BRE_CAN_DELETE_ITEM_AT_PROPOSAL", System.Net.HttpStatusCode.BadRequest);
 
 
-            backlogRepository.DeleteBacklogItem(backlogItemUId);           
+            backlogRepository.DeleteBacklogItem(backlogItemUId);
+            System.Diagnostics.Debug.WriteLine("***< item deleted");
+
         }
 
         [WebInvoke(Method = "DELETE", UriTemplate = "Groups/{groupUId}", ResponseFormat = WebMessageFormat.Json)]        
