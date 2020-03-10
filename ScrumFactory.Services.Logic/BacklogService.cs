@@ -253,7 +253,12 @@ namespace ScrumFactory.Services.Logic {
 
             // updates the planning number            
             foreach (PlannedHour h in item.PlannedHours)
-                h.PlanningNumber = project.CurrentPlanningNumber;
+            {
+                if (h.PlanningNumber < project.CurrentPlanningNumber)
+                {
+                    h.PlanningNumber = project.CurrentPlanningNumber;
+                }
+            }
 
             backlogRepository.SaveBacklogItem(item);
         }
