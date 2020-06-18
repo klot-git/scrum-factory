@@ -33,8 +33,8 @@
                 
                 <p style="font-family: Segoe UI">
                   Use the following link to get to know more about the project and to confirm your engage level:<br/>
-                  <a href="{$ServerUrl}">
-                    <xsl:value-of select="$ServerUrl"/>
+                  <a href="scrum-factory://{$projectNumber}/">
+                    scrum-factory://<xsl:value-of select="$projectNumber"/>/
                   </a>
                 </p>
               </td>

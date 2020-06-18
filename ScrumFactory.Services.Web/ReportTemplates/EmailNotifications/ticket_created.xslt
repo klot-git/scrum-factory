@@ -33,14 +33,8 @@
                 <p style="font-family: Segoe UI">
                   <xsl:value-of select="BacklogItem/Name"/>
                 </p>
-                
-                <p style="font-family: Segoe UI">
-                  <b>Ticket folder:</b>
-                  <br/>
-                  <a href="{$ticketFolder}">
-                    <xsl:value-of select="$ticketFolder"/>
-                  </a>
-                </p>
+
+                <xsl:if test="string-length($docFolder) &gt; 0">
                 <p style="font-family: Segoe UI">
                   <b>Project documents folder:</b>
                   <br/>
@@ -48,17 +42,22 @@
                     <xsl:value-of select="$docFolder"/>
                   </a>
                 </p>
-                <p style="font-family: Segoe UI">
-                  <b>Project code folder:</b>
-                  <br/>
-                  <a href="{$codeFolder}">
-                    <xsl:value-of select="$codeFolder"/>
-                  </a>
-                </p>
+                </xsl:if>
+                
+                <xsl:if test="string-length($codeFolder) &gt; 0">
+                  <p style="font-family: Segoe UI">
+                    <b>Project repository:</b>
+                    <br/>
+                    <a href="{$codeFolder}">
+                      <xsl:value-of select="$codeFolder"/>
+                    </a>
+                  </p>
+                </xsl:if>
+                
                 <p style="font-family: Segoe UI">
                   You can find more information about the project at:<br/>
-                  <a href="{$ServerUrl}/{$projectNumber}">
-                    <xsl:value-of select="$ServerUrl"/>SFClient2012/ScrumFactory.application?projectNumber=<xsl:value-of select="$projectNumber"/>
+                  <a href="scrum-factory://{$projectNumber}/">
+                    scrum-factory://<xsl:value-of select="$projectNumber"/>/                    
                   </a>
                 </p>
                 
