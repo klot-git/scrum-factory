@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System;
 using System.Windows.Media;
+using System.Net;
 
 namespace ScrumFactory.ReportHelper {
 
@@ -61,7 +62,7 @@ namespace ScrumFactory.ReportHelper {
                 LoadTemplate(xslt, serverUrl, config.ReportGroup, config.ReportTemplate);
             }
             catch (System.Exception ex) {
-                throw new ScrumFactory.Exceptions.ScrumFactoryException("Error_reading_report_template");
+                throw new ScrumFactory.Exceptions.ScrumFactoryException("Error_reading_report_template\n" + ex.Message);
             }
 
             // creates a buffer stream to write the report context in XML
@@ -121,6 +122,7 @@ namespace ScrumFactory.ReportHelper {
         private void LoadTemplate(System.Xml.Xsl.XslCompiledTransform xslt, string serverUrl, string reportGroup, string template) {
             if (!serverUrl.EndsWith("/"))
                 serverUrl = serverUrl + "/";
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             xslt.Load(serverUrl + "ReportTemplates/" + reportGroup + "/" + template + ".xslt");
         }
 

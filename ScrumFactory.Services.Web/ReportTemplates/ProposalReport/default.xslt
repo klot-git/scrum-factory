@@ -57,6 +57,8 @@
         <Paragraph Style="{{StaticResource GroupParagraph}}">
           4. <xsl:value-of select="$_PRICE"/>
       </Paragraph>
+        <xsl:call-template name="proposalPrice2"/>
+        
         <xsl:call-template name="proposalPrice"/>
 
         <Paragraph Style="{{StaticResource GroupParagraph}}">
