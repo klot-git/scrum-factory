@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ScrumFactoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ScrumFactoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Artifact">
           <Key>
             <PropertyRef Name="ArtifactUId" />
@@ -21,7 +21,7 @@
             <PropertyRef Name="MemberUId" />
           </Key>
           <Property Name="MemberUId" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Token" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="4000" />
           <Property Name="ProviderName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IssueDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -33,7 +33,7 @@
           <Property Name="BacklogItemNumber" Type="int" Nullable="false" />
           <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="4000" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="DeliveryDate" Type="datetime" />
@@ -49,9 +49,9 @@
           <Property Name="CancelReason" Type="smallint" />
           <Property Name="ArtifactCount" Type="int" />
           <Property Name="ExternalId" Type="nvarchar" MaxLength="40" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="80" />
-          <Property Name="RequestedBy" Type="nvarchar" MaxLength="80" />
-          <Property Name="OwnerUId" Type="nvarchar" MaxLength="80" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="80" />
+          <Property Name="RequestedBy" Type="varchar" MaxLength="80" />
+          <Property Name="OwnerUId" Type="varchar" MaxLength="80" />
         </EntityType>
         <EntityType Name="BacklogItemGroup">
           <Key>
@@ -62,7 +62,7 @@
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="GroupColor" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="DefaultGroup" Type="smallint" Nullable="false" />
-          <Property Name="GroupOrder" Type="smallint" Nullable="true" />
+          <Property Name="GroupOrder" Type="smallint" />
         </EntityType>
         <EntityType Name="CalendarDay">
           <Key>
@@ -122,6 +122,17 @@
           <Property Name="SprintNumber" Type="int" />
           <Property Name="Hours" Type="decimal" Precision="6" Scale="1" />
         </EntityType>
+        <EntityType Name="PokerCard">
+          <Key>
+            <PropertyRef Name="BacklogItemUId" />
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="MemberUId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsFaceDown" Type="bit" Nullable="false" />
+          <Property Name="VoteDate" Type="datetime" Nullable="false" />
+          <Property Name="Value" Type="smallint" />
+        </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="ProjectUId" />
@@ -142,8 +153,8 @@
           <Property Name="IsSuspended" Type="bit" Nullable="false" />
           <Property Name="AnyoneCanJoin" Type="bit" Nullable="false" />
           <Property Name="ProjectType" Type="smallint" Nullable="false" />
-          <Property Name="Baseline" Type="int" Nullable="true" />
           <Property Name="ProjectParentUId" Type="char" MaxLength="36" />
+          <Property Name="Baseline" Type="int" />
         </EntityType>
         <EntityType Name="ProjectConstraint">
           <Key>
@@ -181,7 +192,6 @@
           <Property Name="EstimatedStartDate" Type="datetime" Nullable="false" />
           <Property Name="EstimatedEndDate" Type="datetime" Nullable="false" />
           <Property Name="CurrencySymbol" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="CurrencyRate" Type="decimal" Precision="16" Scale="2" Nullable="true" />
           <Property Name="TotalValue" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="Discount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="UseCalcPrice" Type="bit" Nullable="false" />
@@ -190,6 +200,7 @@
           <Property Name="ApprovalDate" Type="datetime" />
           <Property Name="ApprovedBy" Type="varchar" MaxLength="80" />
           <Property Name="RejectReason" Type="smallint" />
+          <Property Name="CurrencyRate" Type="decimal" Precision="16" Scale="2" />
         </EntityType>
         <EntityType Name="ProposalClause">
           <Key>
@@ -322,7 +333,7 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'ScrumFactory.factory.BacklogItemEffectiveHours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'foster-factory.factory.BacklogItemEffectiveHours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BacklogItemEffectiveHours">
           <Key>
             <PropertyRef Name="ProjectUId" />
@@ -332,13 +343,14 @@ warning 6002: The table/view 'ScrumFactory.factory.BacklogItemEffectiveHours' do
           <Property Name="ProjectUId" Type="char" MaxLength="36" Nullable="false" />
           <Property Name="BacklogItemUId" Type="char" MaxLength="36" Nullable="false" />
           <Property Name="SprintNumber" Type="int" Nullable="false" />
-          <Property Name="EffectiveHours" Type="decimal" Precision="38" Scale="1" />
+          <Property Name="EffectiveHours" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'foster-factory.factory.TaskInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TaskInfo">
           <Key>
             <PropertyRef Name="TaskUId" />
+            
             
             
             
@@ -349,7 +361,7 @@ warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a pri
           <Property Name="ProjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="BacklogItemNumber" Type="int" Nullable="false" />
           <Property Name="BacklogItemName" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ClientName" Type="nvarchar" MaxLength="200" Nullable="true" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_BacklogItem_BacklogItemGroup">
           <End Role="BacklogItemGroup" Type="Self.BacklogItemGroup" Multiplicity="0..1" />
@@ -435,18 +447,9 @@ warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectMembership_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="ProjectMembership" Type="Self.ProjectMembership" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleUId" />
-            </Principal>
-            <Dependent Role="ProjectMembership">
-              <PropertyRef Name="RoleUId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_ProjectMembership_Role' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_ProjectMembership_Role" />-->
         <Association Name="FK_ProposalClause_Proposal">
           <End Role="Proposal" Type="Self.Proposal" Multiplicity="1" />
           <End Role="ProposalClause" Type="Self.ProposalClause" Multiplicity="*" />
@@ -544,32 +547,33 @@ warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a pri
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ScrumFactoryModelStoreContainer">
-          <EntitySet Name="Artifact" EntityType="Self.Artifact" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="AuthorizationInfo" EntityType="Self.AuthorizationInfo" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BacklogItem" EntityType="Self.BacklogItem" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BacklogItemGroup" EntityType="Self.BacklogItemGroup" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="CalendarDay" EntityType="Self.CalendarDay" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ItemSize" EntityType="Self.ItemSize" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="MemberAvatar" EntityType="Self.MemberAvatar" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="MemberProfile" EntityType="Self.MemberProfile" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="PlannedHours" EntityType="Self.PlannedHours" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Project" EntityType="Self.Project" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProjectConstraint" EntityType="Self.ProjectConstraint" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProjectMembership" EntityType="Self.ProjectMembership" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProposalClause" EntityType="Self.ProposalClause" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProposalDocument" EntityType="Self.ProposalDocument" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProposalFixedCost" EntityType="Self.ProposalFixedCost" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProposalItem" EntityType="Self.ProposalItem" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Risk" EntityType="Self.Risk" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="RoleHourCost" EntityType="Self.RoleHourCost" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="SizeIdealHour" EntityType="Self.SizeIdealHour" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Task" EntityType="Self.Task" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="TaskDetail" EntityType="Self.TaskDetail" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="TaskTag" EntityType="Self.TaskTag" Schema="factory" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BacklogItemEffectiveHours" EntityType="Self.BacklogItemEffectiveHours" store:Type="Views" store:Schema="factory" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+          <EntitySet Name="Artifact" EntityType="Self.Artifact" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="AuthorizationInfo" EntityType="Self.AuthorizationInfo" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="BacklogItem" EntityType="Self.BacklogItem" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="BacklogItemGroup" EntityType="Self.BacklogItemGroup" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="CalendarDay" EntityType="Self.CalendarDay" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ItemSize" EntityType="Self.ItemSize" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="MemberAvatar" EntityType="Self.MemberAvatar" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="MemberProfile" EntityType="Self.MemberProfile" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="PlannedHours" EntityType="Self.PlannedHours" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="PokerCard" EntityType="Self.PokerCard" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ProjectConstraint" EntityType="Self.ProjectConstraint" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ProjectMembership" EntityType="Self.ProjectMembership" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ProposalClause" EntityType="Self.ProposalClause" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ProposalDocument" EntityType="Self.ProposalDocument" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ProposalFixedCost" EntityType="Self.ProposalFixedCost" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="ProposalItem" EntityType="Self.ProposalItem" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="Risk" EntityType="Self.Risk" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="RoleHourCost" EntityType="Self.RoleHourCost" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="SizeIdealHour" EntityType="Self.SizeIdealHour" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="TaskDetail" EntityType="Self.TaskDetail" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="TaskTag" EntityType="Self.TaskTag" Schema="factory" store:Type="Tables" />
+          <EntitySet Name="BacklogItemEffectiveHours" EntityType="Self.BacklogItemEffectiveHours" store:Type="Views" store:Schema="factory">
             <DefiningQuery>SELECT 
 [BacklogItemEffectiveHours].[ProjectUId] AS [ProjectUId], 
 [BacklogItemEffectiveHours].[BacklogItemUId] AS [BacklogItemUId], 
@@ -577,13 +581,13 @@ warning 6002: The table/view 'ScrumFactory.factory.TaskInfo' does not have a pri
 [BacklogItemEffectiveHours].[EffectiveHours] AS [EffectiveHours]
 FROM [factory].[BacklogItemEffectiveHours] AS [BacklogItemEffectiveHours]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="TaskInfo" EntityType="Self.TaskInfo" store:Type="Views" store:Schema="factory" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+          <EntitySet Name="TaskInfo" EntityType="Self.TaskInfo" store:Type="Views" store:Schema="factory">
             <DefiningQuery>SELECT 
 [TaskInfo].[TaskUId] AS [TaskUId], 
 [TaskInfo].[ProjectNumber] AS [ProjectNumber], 
 [TaskInfo].[ProjectName] AS [ProjectName], 
 [TaskInfo].[BacklogItemNumber] AS [BacklogItemNumber], 
-[TaskInfo].[BacklogItemName] AS [BacklogItemName],
+[TaskInfo].[BacklogItemName] AS [BacklogItemName], 
 [TaskInfo].[ClientName] AS [ClientName]
 FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           </EntitySet>
@@ -614,10 +618,6 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <AssociationSet Name="FK_PlannedHours_Role" Association="Self.FK_PlannedHours_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="PlannedHours" EntitySet="PlannedHours" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectMembership_Role" Association="Self.FK_ProjectMembership_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="ProjectMembership" EntitySet="ProjectMembership" />
           </AssociationSet>
           <AssociationSet Name="FK_ProposalClause_Proposal" Association="Self.FK_ProposalClause_Proposal">
             <End Role="Proposal" EntitySet="Proposal" />
@@ -764,6 +764,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <EntitySet Name="CalendarDay" EntityType="ScrumFactoryModel.CalendarDay" />
           <EntitySet Name="TaskTags" EntityType="ScrumFactoryModel.TaskTag" />
           <EntitySet Name="ProjectConstraints" EntityType="ScrumFactoryModel.ProjectConstraint" />
+          <EntitySet Name="PokerCard" EntityType="ScrumFactoryModel.PokerCard" />
           </EntityContainer>
         <EntityType Name="BacklogItem">
           <Key>
@@ -773,7 +774,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="Int32" Name="BacklogItemNumber" Nullable="false" />
           <Property Type="String" Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Type="Int16" Name="Status" Nullable="false" />
           <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
           <NavigationProperty Name="PlannedHours" Relationship="ScrumFactoryModel.FK_PlannedHours_BacklogItem" FromRole="BacklogItem" ToRole="PlannedHour" />
@@ -790,10 +791,10 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="Int16" Name="CancelReason" />
           <Property Type="Int32" Name="SizeFactor" Nullable="false" />
           <Property Type="Int32" Name="ArtifactCount" Nullable="true" />
-          <Property Type="String" Name="ExternalId" Nullable="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="80" />
-          <Property Name="OwnerUId" Type="String" Nullable="true" MaxLength="80" />
-          <Property Name="RequestedBy" Type="String" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="ExternalId" Nullable="true" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="true" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="OwnerUId" Type="String" Nullable="true" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="RequestedBy" Type="String" Nullable="true" MaxLength="80" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1043,7 +1044,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Name="ProjectUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" Type="String" />
           <Property Name="BacklogItemUId" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" Type="String" />
           <Property Name="SprintNumber" Nullable="false" Type="Int32" />
-          <Property Name="EffectiveHours" Precision="38" Scale="1" Type="Decimal" />
+          <Property Name="EffectiveHours" Precision="38" Scale="2" Type="Decimal" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1115,7 +1116,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="BacklogItemNumber" Nullable="false" />
           <Property Type="String" Name="BacklogItemName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ClientName" Type="String" Nullable="true" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
         <Association Name="TaskInfoTask">
           <End Type="ScrumFactoryModel.TaskInfo" Role="TaskInfo" Multiplicity="1" />
@@ -1309,7 +1310,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
             <PropertyRef Name="MemberUId" />
           </Key>
           <Property Type="String" Name="MemberUId" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Token" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Token" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ProviderName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="IssueDate" Nullable="false" Precision="3" />
         </EntityType>
@@ -1367,6 +1368,17 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <Property Name="Constraint" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ConstraintGroup" Type="Int16" Nullable="false" />
           <Property Name="AdjustPointFactor" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PokerCard">
+          <Key>
+            <PropertyRef Name="BacklogItemUId" />
+            <PropertyRef Name="MemberUId" />
+          </Key>
+          <Property Name="BacklogItemUId" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Name="MemberUId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsFaceDown" Type="Boolean" Nullable="false" />
+          <Property Name="VoteDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Value" Type="Int16" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1730,6 +1742,17 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PokerCard">
+            <EntityTypeMapping TypeName="ScrumFactoryModel.PokerCard">
+              <MappingFragment StoreEntitySet="PokerCard">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="VoteDate" ColumnName="VoteDate" />
+                <ScalarProperty Name="IsFaceDown" ColumnName="IsFaceDown" />
+                <ScalarProperty Name="MemberUId" ColumnName="MemberUId" />
+                <ScalarProperty Name="BacklogItemUId" ColumnName="BacklogItemUId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1748,6 +1771,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="DefaultDatabaseSchema" Value="factory" />
         <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
@@ -1865,6 +1889,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
         <EntityTypeShape EntityType="ScrumFactoryModel.CalendarDay" Width="1.5" PointX="14.375" PointY="3.75" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="ScrumFactoryModel.TaskTag" Width="1.5" PointX="10" PointY="14.5" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="ScrumFactoryModel.ProjectConstraint" Width="1.5" PointX="12.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ScrumFactoryModel.PokerCard" Width="1.5" PointX="9.125" PointY="11.875" />
         </Diagram>
     </Diagrams>
   </Designer>

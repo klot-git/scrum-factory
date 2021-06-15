@@ -466,7 +466,47 @@
                 context.SaveChanges();
             }
         }
-      
-        
+
+        public ICollection<PokerCard> GetPokerCards(string backlogItemUId)
+        {
+            using (var context = new ScrumFactoryEntities(this.connectionString))
+            {
+                var minAgo = System.DateTime.Now.AddHours(-1);
+                return context.PokerCards.Where(c => c.BacklogItemUId == backlogItemUId && c.VoteDate > minAgo).ToArray();
+            }
+        }
+
+        public void SavePokerCard(PokerCard card)
+        {
+            using (var context = new ScrumFactoryEntities(this.connectionString))
+            {
+                PokerCard oldCard = context.PokerCards.Where(c => c.MemberUId == card.MemberUId && c.BacklogItemUId == card.BacklogItemUId).SingleOrDefault();
+                if (oldCard == null)
+                {
+                    card.VoteDate = System.DateTime.Now;
+                    context.PokerCards.AddObject(card);
+                }
+                else
+                {
+                    if (!card.Value.HasValue)
+                    {
+                        context.PokerCards.DeleteObject(oldCard);
+                        var now = System.DateTime.Now.AddHours(-2);
+                        var strNow = now.Year + "-" + now.Month + "-" + now.Day + " " + now.Hour + ":" + now.Minute + ":" + now.Second;
+                        context.ExecuteStoreCommand("DELETE FROM factory.PokerCard WHERE VoteDate < '" + strNow + "'");
+                    }
+                    else
+                    {
+                        card.VoteDate = System.DateTime.Now;
+                        context.ApplyCurrentValues<PokerCard>("PokerCard", card);
+                    }
+                }
+
+                context.SaveChanges();
+            }            
+        }
+
+
+
     }
 }

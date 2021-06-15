@@ -15,7 +15,10 @@
 
     <div id="content">
 
-            <h2><%=DefaultCompanyName%> server running...</h2>
+            <center>
+                <h2><%=DefaultCompanyName%> server running...</h2>
+            </center>
+            
            
 
     </div>

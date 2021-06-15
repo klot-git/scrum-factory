@@ -60,3 +60,15 @@
 /ScrumFactory.Windows.Helpers/obj/Release
 /ScrumFactory.Windows/obj/x86/Release
 /ScrumFactory.Windows/obj
+/ScrumFactory.Artifacts/obj/Debug/TempPE
+/ScrumFactory.Backlog/obj/Debug/TempPE
+/ScrumFactory.FactoryServerConfiguration/obj/Debug/TempPE
+/ScrumFactory.HelpDeskPlugin/obj/Debug/TempPE
+/ScrumFactory.Risks/obj/Debug/TempPE
+/ScrumFactory.Reports/obj/Debug/TempPE
+/ScrumFactory.Proposals/obj/Debug/TempPE
+/ScrumFactory.ProjectContraints/obj/Debug/TempPE
+/ScrumFactory.Login/obj/Debug/TempPE
+/ScrumFactory.Windows.Helpers/obj/Debug/TempPE
+/ScrumFactory.Team/obj/Debug/TempPE
+/ScrumFactory.Tasks/obj/Debug/TempPE

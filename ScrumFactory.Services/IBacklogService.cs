@@ -109,5 +109,11 @@ namespace ScrumFactory.Services
         [OperationContract]
         ICollection<BacklogItem> GetItemsTotalEffectiveHours(string projectUId);
 
+        [OperationContract]
+        ICollection<PokerCard> VotePokerCard(string backlogItemUId, PokerCard card);
+
+        [OperationContract]
+        ICollection<PokerCard> GetPokerCards(string backlogItemUId);
+
     }
 }

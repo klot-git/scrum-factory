@@ -72,6 +72,7 @@
     <Compile Include="FactoryServerConfiguration.cs" />
     <Compile Include="MemberProfile.cs" />
     <Compile Include="MemberPerformance.cs" />
+    <Compile Include="PokerCard.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectConstraint.cs" />
     <Compile Include="ProjectEvent.cs" />

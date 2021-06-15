@@ -52,6 +52,8 @@ namespace ScrumFactory.Data {
 
         public IObjectSet<CalendarDay> CalendarDays { get; private set; }
 
+        public IObjectSet<PokerCard> PokerCards { get; private set; }
+
         /// <summary>
         /// Initializes a new ScrumFactoryEntities object using the connection string found in the 'ScrumFactoryEntities' section of the application configuration file.
         /// </summary>
@@ -118,6 +120,8 @@ namespace ScrumFactory.Data {
             CalendarDays = CreateObjectSet<CalendarDay>();
 
             ProjectConstraints = CreateObjectSet<ProjectConstraint>();
+
+            PokerCards = CreateObjectSet<PokerCard>();
         }
 
 

@@ -952,5 +952,20 @@ namespace ScrumFactory.Services.Logic {
             }
         }
 
+        [WebInvoke(Method = "POST", UriTemplate = "PokerCards/{backlogItemUId}", RequestFormat = WebMessageFormat.Json)]
+        public ICollection<PokerCard> VotePokerCard(string backlogItemUId, PokerCard card)
+        {
+            card.MemberUId = authorizationService.SignedMemberProfile.MemberUId;            
+            card.BacklogItemUId = backlogItemUId;
+            backlogRepository.SavePokerCard(card);
+            return backlogRepository.GetPokerCards(card.BacklogItemUId);
+        }
+
+        [WebGet(UriTemplate = "PokerCards/{backlogItemUId}", ResponseFormat = WebMessageFormat.Json)]
+        public ICollection<PokerCard> GetPokerCards(string backlogItemUId)
+        {
+            return backlogRepository.GetPokerCards(backlogItemUId);
+        }
+
     }
 }

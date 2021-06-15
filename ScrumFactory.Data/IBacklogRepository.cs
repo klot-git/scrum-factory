@@ -52,5 +52,9 @@
 
         void UpdateBacklogItemArtifactCount(string backlogItemUId, int count);
 
+        ICollection<PokerCard> GetPokerCards(string backlogItemUId);
+
+        void SavePokerCard(PokerCard card);
+
     }
 }
