@@ -71,6 +71,12 @@ namespace ScrumFactory.Services.Logic {
                     new BurndownLeftHoursByDay() { Date = project.LastSprint.EndDate, TotalHours = 0, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD, IsLastSprint = true });
             }
 
+            foreach (var h in allDaysHours)
+            {
+                h.Date = h.Date.Date; // removes the time part
+            }
+
+
             return allDaysHours;
 
 
@@ -106,6 +112,12 @@ namespace ScrumFactory.Services.Logic {
             }
 
             dayCurrentHours.Add(new BurndownLeftHoursByDay() { Date = project.LastSprint.EndDate, TotalHours = 0, SprintNumber = project.LastSprint.SprintNumber, LeftHoursMetric = LeftHoursMetrics.PLANNING, IsLastSprint = true });
+
+            foreach (var h in dayCurrentHours)
+            {
+                h.Date = h.Date.Date; // removes the time part
+            }
+
 
             return dayCurrentHours.ToArray();
 
@@ -168,6 +180,11 @@ namespace ScrumFactory.Services.Logic {
                 if (dayLeftHours.SingleOrDefault(b => b.Date.Equals(DateTime.Today)) == null)
                     dayLeftHours.Add(new BurndownLeftHoursByDay() { Date = DateTime.Today, TotalHours = lastHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS });
 
+            foreach (var h in dayLeftHours)
+            {
+                h.Date = h.Date.Date; // removes the time part
+            }
+
             return dayLeftHours.ToArray();
 
         }
@@ -187,6 +204,11 @@ namespace ScrumFactory.Services.Logic {
             hoursAhead[0] = new BurndownLeftHoursByDay() { Date = lastDay, TotalHours = last.TotalHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD };
             hoursAhead[1] = new BurndownLeftHoursByDay() { Date = project.LastSprint.EndDate, TotalHours = last.TotalHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD, IsLastSprint = true };
 
+            foreach (var h in hoursAhead)
+            {
+                h.Date = h.Date.Date; // removes the time part
+            }
+
             return hoursAhead;
 
         }
@@ -194,20 +216,20 @@ namespace ScrumFactory.Services.Logic {
        
         
         private decimal GetHoursLeftForDay(int planningNumber, Sprint sprint, ICollection<BacklogItem> items, DateTime day) {
-            if (day < sprint.StartDate || day > sprint.EndDate)
+            if (day < sprint.StartDate.Date || day > sprint.EndDate.Date)
                 return 0;
             decimal hours0 = GetTotalPlannedHoursForSprint(planningNumber, sprint.SprintNumber, items);
             decimal hours1 = GetTotalPlannedHoursForSprint(planningNumber, sprint.SprintNumber + 1, items);
-            int days = sprint.EndDate.Subtract(sprint.StartDate).Days;
+            int days = sprint.EndDate.Date.Subtract(sprint.StartDate.Date).Days;
             if (days == 0)
                 return 0;
             decimal ratio = (hours0 - hours1) / days;
-            return hours0 - (ratio * day.Subtract(sprint.StartDate).Days);
+            return hours0 - (ratio * day.Subtract(sprint.StartDate.Date).Days);
         }
 
         private decimal GetProjectPlannedHoursAtPlanning(int planningNumber, DateTime planningStartDate, ICollection<BacklogItem> items) {
             decimal h = 0;
-            foreach (BacklogItem item in items.Where(i => i.FinishedAt == null || i.FinishedAt > planningStartDate))
+            foreach (BacklogItem item in items.Where(i => i.FinishedAt == null || i.FinishedAt.Value.Date > planningStartDate.Date))
                 h = h + item.GetTotalHoursAtPlanning(planningNumber);
             return h;
         }
