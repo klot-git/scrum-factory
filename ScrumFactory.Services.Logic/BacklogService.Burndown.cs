@@ -196,13 +196,12 @@ namespace ScrumFactory.Services.Logic {
 
             if(leftHours.Count==0)
                 return new BurndownLeftHoursByDay[0];
-
-            DateTime lastDay = leftHours.Max(h => h.Date);
-            BurndownLeftHoursByDay last = leftHours.Single(b => b.Date == lastDay);
+            
+            BurndownLeftHoursByDay last = leftHours.OrderBy(h => h.Date).Last();
 
             BurndownLeftHoursByDay[] hoursAhead = new BurndownLeftHoursByDay[2];
-            hoursAhead[0] = new BurndownLeftHoursByDay() { Date = lastDay, TotalHours = last.TotalHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD };
-            hoursAhead[1] = new BurndownLeftHoursByDay() { Date = project.LastSprint.EndDate, TotalHours = last.TotalHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD, IsLastSprint = true };
+            hoursAhead[0] = new BurndownLeftHoursByDay() { Date = last.Date.Date, TotalHours = last.TotalHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD };
+            hoursAhead[1] = new BurndownLeftHoursByDay() { Date = project.LastSprint.EndDate.Date, TotalHours = last.TotalHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS_AHEAD, IsLastSprint = true };
 
             foreach (var h in hoursAhead)
             {
