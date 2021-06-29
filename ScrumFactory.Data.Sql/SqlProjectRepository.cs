@@ -163,13 +163,18 @@
 
         public ScrumFactory.Project GetProject(string projectUId) {
             using (var context = new ScrumFactoryEntities(this.connectionString)) {
-                return context.Projects.Include("Roles").Include("Sprints").Include("Memberships").SingleOrDefault(p => p.ProjectUId == projectUId);                
+                context.ContextOptions.ProxyCreationEnabled = false;
+                var project = context.Projects.Include("Roles").Include("Sprints").Include("Memberships").SingleOrDefault(p => p.ProjectUId == projectUId);
+                project.FixRecursiveRelation();
+                return project;
             }
         }
 
         public Project GetProjectByNumber(int projectNumber) {
            using (var context = new ScrumFactoryEntities(this.connectionString)) {
-                return context.Projects.Include("Roles").Include("Sprints").Include("Memberships").SingleOrDefault(p => p.ProjectNumber == projectNumber);                
+                var project = context.Projects.Include("Roles").Include("Sprints").Include("Memberships").SingleOrDefault(p => p.ProjectNumber == projectNumber);
+                project.FixRecursiveRelation();
+                return project;
             }
         }
 
@@ -348,6 +353,8 @@
 
                 Project similar = projectQuery.OrderByDescending(p => p.CreateDate).FirstOrDefault();
 
+                similar.FixRecursiveRelation();
+
                 if (similar != null)
                     return similar;
 
@@ -361,6 +368,8 @@
 
                 similar = projectQuery.OrderByDescending(p => p.CreateDate).FirstOrDefault();
 
+                similar.FixRecursiveRelation();
+
                 if (similar != null)
                     return similar;
 
@@ -373,6 +382,8 @@
                     projectQuery = projectQuery.Where(p => context.RoleHourCosts.Any(o => o.ProjectUId == p.ProjectUId && o.Price > 0));
 
                 similar = projectQuery.OrderByDescending(p => p.CreateDate).FirstOrDefault();
+
+                similar.FixRecursiveRelation();
 
                 return similar;
             }

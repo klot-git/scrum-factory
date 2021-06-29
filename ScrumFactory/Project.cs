@@ -294,8 +294,24 @@ namespace ScrumFactory {
             return "<td>" + ClientName + "</td><td>" + ProjectName + " (<a href=\"" + serverUrl + "/" + ProjectNumber + "\">" + ProjectNumber + "</a>)</td><td>" + Enum.GetName(typeof(ProjectStatus), Status) + "</td><td>" + (StartDate.HasValue ? StartDate.Value.Date.ToShortDateString() : "") + "</td><td>" + (EndDate.HasValue ? EndDate.Value.Date.ToShortDateString() : "" + "</td>");
         }
 
-        
-        
+        public DateTime? EstimatedEndDate {
+            get {
+                if (LastSprint == null)
+                {
+                    return null;
+                }
+                return LastSprint.EndDate;
+            }
+        }
+
+        public void FixRecursiveRelation()
+        {
+            foreach (var m in Memberships)
+            {
+                m.Project = null;
+            }
+        }
+
 
     }
 

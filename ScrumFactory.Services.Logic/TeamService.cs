@@ -162,8 +162,8 @@ namespace ScrumFactory.Services.Logic {
         }
 
 
-        [WebGet(UriTemplate = "Members/?filter={filter}&availability={availability}&clientName={clientName}&activeOnly={activeOnly}&workingWith={workingWith}&top={top}", ResponseFormat = WebMessageFormat.Json)]
-        public ICollection<MemberProfile> GetMembers(string filter, int availability, string clientName, bool activeOnly, string workingWith, int top) {
+        [WebGet(UriTemplate = "Members/?filter={filter}&availability={availability}&clientName={clientName}&activeOnly={activeOnly}&workingWith={workingWith}&top={top}&includeProjects={includeProjects}", ResponseFormat = WebMessageFormat.Json)]
+        public ICollection<MemberProfile> GetMembers(string filter, int availability, string clientName, bool activeOnly, string workingWith, int top, bool includeProjects = false) {
             
             authorizationService.VerifyRequestAuthorizationToken();
 
@@ -175,7 +175,7 @@ namespace ScrumFactory.Services.Logic {
                     companies.Add(clientName);
             }
 
-            ICollection<MemberProfile> members = teamRepository.GetAllMembers(filter, availability, companies.ToArray(), activeOnly, workingWith, top);
+            ICollection<MemberProfile> members = teamRepository.GetAllMembers(filter, availability, companies.ToArray(), activeOnly, workingWith, top, includeProjects);
 
 
             string[] ids = members.Select(m => m.MemberUId).ToArray();
@@ -190,7 +190,7 @@ namespace ScrumFactory.Services.Logic {
         [WebGet(UriTemplate = "Members/Contacts/{clientName}", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<MemberProfile> GetContacts(string clientName) {
             authorizationService.VerifyRequestAuthorizationToken();            
-            return teamRepository.GetAllMembers(null, 0, new string[] { clientName }, true, null, 0);
+            return teamRepository.GetAllMembers(null, 0, new string[] { clientName }, true, null, 0, false);
         }
 
         [WebGet(UriTemplate = "ProjectMembers/{projectUId}", ResponseFormat = WebMessageFormat.Json)]

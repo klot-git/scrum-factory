@@ -940,6 +940,7 @@ FROM [factory].[TaskInfo] AS [TaskInfo]</DefiningQuery>
           <NavigationProperty Name="Role" Relationship="ScrumFactoryModel.ProjectMembershipRole" FromRole="ProjectMembership" ToRole="Role" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="DateTime" Name="InactiveSince" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="ScrumFactoryModel.ProjectProjectMembership" FromRole="ProjectMembership" ToRole="Project" />
         </EntityType>
         <Association Name="FK_ProjectMembership_MemberProfile">
           <End Type="ScrumFactoryModel.MemberProfile" Multiplicity="1" Role="MemberProfile" />

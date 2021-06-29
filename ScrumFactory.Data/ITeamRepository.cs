@@ -3,7 +3,7 @@
 
     public interface ITeamRepository {
 
-        ICollection<MemberProfile> GetAllMembers(string filter, int availability, string[] companies, bool activeOnly, string workingWithUId, int top);
+        ICollection<MemberProfile> GetAllMembers(string filter, int availability, string[] companies, bool activeOnly, string workingWithUId, int top, bool includeProjects);
 
         ICollection<ScrumFactory.MemberProfile> GetTeamMembers(string teamCode);
 
@@ -23,6 +23,8 @@
         ICollection<MemberProfile> GetOwnersMembers();
 
         int GetOwnersMembersCount();
+
+        ICollection<ProjectMembership> GetActiveProjectsFromUsers(string[] memberUIds);
 
     }
 }

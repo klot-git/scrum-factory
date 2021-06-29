@@ -31,7 +31,7 @@
         void UpdateMemberIsActive(string memberUId, bool isActive);
 
         [OperationContract]
-        ICollection<MemberProfile> GetMembers(string filter, int availability, string clientName, bool activeOnly, string workingWith, int top);
+        ICollection<MemberProfile> GetMembers(string filter, int availability, string clientName, bool activeOnly, string workingWith, int top, bool includeProjects);
 
         [OperationContract]
         ICollection<ScrumFactory.MemberProfile> GetTeamMembers(string teamCode, bool includeTasks, bool excludeMe, int top = 25, int topTasks = 10);

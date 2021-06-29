@@ -66,7 +66,7 @@ namespace ScrumFactory.Data {
         /// </summary>
         public ScrumFactoryEntities(string connectionString) : base(connectionString, "ScrumFactoryEntities")
         {            
-            CreateObjectSets();
+            CreateObjectSets();            
         }
     
         /// <summary>
@@ -133,8 +133,7 @@ namespace ScrumFactory.Data {
 
     public static class Extensions {
 
-        public static IQueryable<TSource> Include<TSource>
-          (this IQueryable<TSource> source, string path) {
+        public static IQueryable<TSource> Include<TSource> (this IQueryable<TSource> source, string path) {
             var objectQuery = source as ObjectQuery<TSource>;
             if (objectQuery != null) {
                 return objectQuery.Include(path);
