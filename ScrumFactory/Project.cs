@@ -306,6 +306,9 @@ namespace ScrumFactory {
 
         public void FixRecursiveRelation()
         {
+            if (Memberships==null) {
+                return;
+            }
             foreach (var m in Memberships)
             {
                 m.Project = null;

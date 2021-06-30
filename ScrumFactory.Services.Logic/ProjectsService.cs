@@ -66,6 +66,8 @@ namespace ScrumFactory.Services.Logic {
         public ICollection<Project> GetProjects(string startDate, string endDate, string filter, string memberUId, string tagFilter = null, int top = 0, int skip = 0) {
 
             //authorizationService.VerifyRequestAuthorizationToken();
+
+            ICollection<Project> projects = null;
                         
             DateTime startDateDt;
             DateTime endDateDt;
@@ -80,32 +82,35 @@ namespace ScrumFactory.Services.Logic {
                 memberUId = authorizationService.SignedMemberProfile.MemberUId;
                         
             if(string.IsNullOrEmpty(filter))
-                return this.projectsRepository.GetAllProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
+                projects = this.projectsRepository.GetAllProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
 
-            if (filter.Equals("CLOSED_PROJECTS"))
-                return this.projectsRepository.GetClosedProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
+            if (filter.Equals("CLOSED_PROJECTS")) 
+                projects = this.projectsRepository.GetClosedProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
 
             if (filter.Equals("OPEN_PROJECTS"))
-                return this.projectsRepository.GetOpenProjects(memberUId, tagFilter, top, skip);
+                projects = this.projectsRepository.GetOpenProjects(memberUId, tagFilter, top, skip);
 
             if (filter.Equals("RUNNING_PROJECTS"))
-                return this.projectsRepository.GetRunningProjects(memberUId, null);
+                projects = this.projectsRepository.GetRunningProjects(memberUId, null);
 
             if (filter.Equals("HELPDESK_PROJECTS"))
-                return this.projectsRepository.GetRunningProjects(memberUId, 30);
+                projects = this.projectsRepository.GetRunningProjects(memberUId, 30);
 
             if (filter.Equals("ENGAGED_PROJECTS"))
-                return this.projectsRepository.GetEngagedProjects(memberUId);
+                projects = this.projectsRepository.GetEngagedProjects(memberUId);
 
-            return this.projectsRepository.GetAllProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
-            
+            foreach (var p in projects) p.FixRecursiveRelation();
+            return projects;
+                        
         }
 
 
         [WebGet(UriTemplate = "PendingEngagementProjects/", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<Project> GetPendingEngagementProjects() {
             authorizationService.VerifyRequestAuthorizationToken();
-            return projectsRepository.GetPendingEngagementProjects(authorizationService.SignedMemberProfile.MemberUId);
+            var projects = projectsRepository.GetPendingEngagementProjects(authorizationService.SignedMemberProfile.MemberUId);
+            foreach (var p in projects) p.FixRecursiveRelation();
+            return projects;
         }
                 
         [WebGet(UriTemplate = "Projects/{projectUId}", ResponseFormat = WebMessageFormat.Json)]
@@ -217,7 +222,9 @@ namespace ScrumFactory.Services.Logic {
             //string serverUrl = Helper.ReportTemplate.ServerUrl;
             //System.Threading.ThreadStart sendMail = delegate { SendCloseProjectEmail(project, serverUrl); };
             //new System.Threading.Thread(sendMail).Start();
-            SendCloseProjectEmail(project, Helper.ReportTemplate.ServerUrl); 
+            SendCloseProjectEmail(project, Helper.ReportTemplate.ServerUrl);
+
+            project.FixRecursiveRelation();
                         
             return project;
 
@@ -241,6 +248,8 @@ namespace ScrumFactory.Services.Logic {
 
             // send email at other thread, so all the database query stuff does not lock this return            
             SendStartProjectEmail(project, Helper.ReportTemplate.ServerUrl);
+
+            project.FixRecursiveRelation();
 
             return project;
         }
