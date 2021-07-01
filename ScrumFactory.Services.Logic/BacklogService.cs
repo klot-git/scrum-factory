@@ -43,47 +43,47 @@ namespace ScrumFactory.Services.Logic {
             }
         }
 
-        private void CreateTicketFolder(Project project, BacklogItem item) {
+        //private void CreateTicketFolder(Project project, BacklogItem item) {
 
             
 
-            string path = "";
+        //    string path = "";
 
-            try {
+        //    try {
 
-                if (!string.IsNullOrEmpty(project.DocRepositoryPath)) {
+        //        if (!string.IsNullOrEmpty(project.DocRepositoryPath)) {
 
-                    // creates the folder                
-                    if (project.DocRepositoryPath.EndsWith("\\"))
-                        path = project.DocRepositoryPath + "Ticket " + item.BacklogItemNumber;
-                    else
-                        path = project.DocRepositoryPath + "\\Ticket " + item.BacklogItemNumber;
+        //            // creates the folder                
+        //            if (project.DocRepositoryPath.EndsWith("\\"))
+        //                path = project.DocRepositoryPath + "Ticket " + item.BacklogItemNumber;
+        //            else
+        //                path = project.DocRepositoryPath + "\\Ticket " + item.BacklogItemNumber;
 
-                    System.IO.Directory.CreateDirectory(path);
+        //            System.IO.Directory.CreateDirectory(path);
 
-                    // adds as an artifact at the item
-                    Artifact artifact = new Artifact();
-                    artifact.ArtifactPath = path;
-                    artifact.ArtifactName = "Ticket " + item.BacklogItemNumber;
-                    artifact.ArtifactUId = Guid.NewGuid().ToString();
-                    artifact.ArtifactContext = (short)ArtifactContexts.BACKLOGITEM_ARTIFACT;
-                    artifact.ContextUId = item.BacklogItemUId;
-                    artifact.ProjectUId = project.ProjectUId;
+        //            // adds as an artifact at the item
+        //            Artifact artifact = new Artifact();
+        //            artifact.ArtifactPath = path;
+        //            artifact.ArtifactName = "Ticket " + item.BacklogItemNumber;
+        //            artifact.ArtifactUId = Guid.NewGuid().ToString();
+        //            artifact.ArtifactContext = (short)ArtifactContexts.BACKLOGITEM_ARTIFACT;
+        //            artifact.ContextUId = item.BacklogItemUId;
+        //            artifact.ProjectUId = project.ProjectUId;
 
-                    artifactService.AddArtifact(artifact);
-                }
+        //            artifactService.AddArtifact(artifact);
+        //        }
 
-            } catch (Exception ex) {
-                ScrumFactory.Services.Logic.Helper.Log.LogError(ex);                
-            }
+        //    } catch (Exception ex) {
+        //        ScrumFactory.Services.Logic.Helper.Log.LogError(ex);                
+        //    }
 
-            try {
-                SendTicketEmail(item, path, project);
-            } catch (Exception ex) {
-                ScrumFactory.Services.Logic.Helper.Log.LogError(ex);
-            }
+        //    try {
+        //        SendTicketEmail(item, path, project);
+        //    } catch (Exception ex) {
+        //        ScrumFactory.Services.Logic.Helper.Log.LogError(ex);
+        //    }
 
-        }
+        //}
 
         [WebGet(UriTemplate = "UnfinishedBacklogItems/?onlyMine={onlyMine}&projectFilter={projectFilter}", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<ScrumFactory.BacklogItem> GetAllUnfinishedBacklogItems(bool onlyMine, string projectFilter) {
@@ -232,9 +232,9 @@ namespace ScrumFactory.Services.Logic {
             
             backlogRepository.SaveBacklogItem(item);
 
-            if (project.ProjectType == (short)ProjectTypes.TICKET_PROJECT && ShouldCreateTicketFolders) {
-                CreateTicketFolder(project, item);                
-            }
+            // if (project.ProjectType == (short)ProjectTypes.TICKET_PROJECT && ShouldCreateTicketFolders) {
+            //    CreateTicketFolder(project, item);                
+            // }
 
             return item.BacklogItemNumber;
         }

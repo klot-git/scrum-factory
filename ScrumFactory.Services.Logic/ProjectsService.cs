@@ -65,7 +65,7 @@ namespace ScrumFactory.Services.Logic {
         [WebGet(UriTemplate = "Projects/?startDate={startDate}&endDate={endDate}&filter={filter}&memberUId={memberUId}&top={top}&skip={skip}&tagFilter={tagFilter}", ResponseFormat = WebMessageFormat.Json)]        
         public ICollection<Project> GetProjects(string startDate, string endDate, string filter, string memberUId, string tagFilter = null, int top = 0, int skip = 0) {
 
-            //authorizationService.VerifyRequestAuthorizationToken();
+            authorizationService.VerifyRequestAuthorizationToken();
 
             ICollection<Project> projects = null;
                         
@@ -79,10 +79,7 @@ namespace ScrumFactory.Services.Logic {
                 endDateDt = DateTime.MaxValue;
 
             if (memberUId == "me")
-                memberUId = authorizationService.SignedMemberProfile.MemberUId;
-                        
-            if(string.IsNullOrEmpty(filter))
-                projects = this.projectsRepository.GetAllProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
+                memberUId = authorizationService.SignedMemberProfile.MemberUId;                                    
 
             if (filter.Equals("CLOSED_PROJECTS")) 
                 projects = this.projectsRepository.GetClosedProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
@@ -98,6 +95,9 @@ namespace ScrumFactory.Services.Logic {
 
             if (filter.Equals("ENGAGED_PROJECTS"))
                 projects = this.projectsRepository.GetEngagedProjects(memberUId);
+
+            if (projects == null)
+                projects = this.projectsRepository.GetAllProjects(memberUId, startDateDt, endDateDt, tagFilter, top, skip);
 
             foreach (var p in projects) p.FixRecursiveRelation();
             return projects;

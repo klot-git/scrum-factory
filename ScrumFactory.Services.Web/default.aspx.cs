@@ -27,7 +27,6 @@ namespace ScrumFactory.Services.Web {
                 
                 return authorizator;
             }
-
         }
 
         public bool IsPublicHub {

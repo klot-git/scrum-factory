@@ -60,6 +60,7 @@
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -167,20 +168,6 @@
     <Compile Include="MemberImage.aspx.designer.cs">
       <DependentUpon>MemberImage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="open-project.aspx.cs">
-      <DependentUpon>open-project.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="open-project.aspx.designer.cs">
-      <DependentUpon>open-project.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="open-task.aspx.cs">
-      <DependentUpon>open-task.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="open-task.aspx.designer.cs">
-      <DependentUpon>open-task.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -188,6 +175,13 @@
     </Compile>
     <Compile Include="Setup\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ticket.aspx.cs">
+      <DependentUpon>ticket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ticket.aspx.designer.cs">
+      <DependentUpon>ticket.aspx</DependentUpon>
     </Compile>
     <Compile Include="WindowsAuth2\authOk.aspx.cs">
       <DependentUpon>authOk.aspx</DependentUpon>
@@ -250,8 +244,6 @@
     <Content Include="Images\tail.png" />
     <Content Include="Images\whomember.png" />
     <Content Include="MemberImage.aspx" />
-    <Content Include="open-project.aspx" />
-    <Content Include="open-task.aspx" />
     <Content Include="READ-ME.txt" />
     <Content Include="ReportTemplates\DeliveryReport\FullDeliveryReport.xslt">
       <SubType>Designer</SubType>
@@ -336,6 +328,7 @@
     <Content Include="Templates\default-constraints.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ticket.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
