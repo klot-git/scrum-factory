@@ -353,10 +353,11 @@
 
                 Project similar = projectQuery.OrderByDescending(p => p.CreateDate).FirstOrDefault();
 
-                similar.FixRecursiveRelation();
-
                 if (similar != null)
+                {
+                    similar.FixRecursiveRelation();
                     return similar;
+                }
 
                 // id there is no project from this client before, gets the last one of any client made by me
                 projectQuery = context.Projects
@@ -368,10 +369,11 @@
 
                 similar = projectQuery.OrderByDescending(p => p.CreateDate).FirstOrDefault();
 
-                similar.FixRecursiveRelation();
-
                 if (similar != null)
+                {
+                    similar.FixRecursiveRelation();
                     return similar;
+                }
 
                 // id there is no project from this client before, gets the last one of any client
                 projectQuery = context.Projects
@@ -383,7 +385,10 @@
 
                 similar = projectQuery.OrderByDescending(p => p.CreateDate).FirstOrDefault();
 
-                similar.FixRecursiveRelation();
+                if (similar != null)
+                {
+                    similar.FixRecursiveRelation();
+                }
 
                 return similar;
             }
