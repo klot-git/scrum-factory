@@ -43,47 +43,6 @@ namespace ScrumFactory.Services.Logic {
             }
         }
 
-        //private void CreateTicketFolder(Project project, BacklogItem item) {
-
-            
-
-        //    string path = "";
-
-        //    try {
-
-        //        if (!string.IsNullOrEmpty(project.DocRepositoryPath)) {
-
-        //            // creates the folder                
-        //            if (project.DocRepositoryPath.EndsWith("\\"))
-        //                path = project.DocRepositoryPath + "Ticket " + item.BacklogItemNumber;
-        //            else
-        //                path = project.DocRepositoryPath + "\\Ticket " + item.BacklogItemNumber;
-
-        //            System.IO.Directory.CreateDirectory(path);
-
-        //            // adds as an artifact at the item
-        //            Artifact artifact = new Artifact();
-        //            artifact.ArtifactPath = path;
-        //            artifact.ArtifactName = "Ticket " + item.BacklogItemNumber;
-        //            artifact.ArtifactUId = Guid.NewGuid().ToString();
-        //            artifact.ArtifactContext = (short)ArtifactContexts.BACKLOGITEM_ARTIFACT;
-        //            artifact.ContextUId = item.BacklogItemUId;
-        //            artifact.ProjectUId = project.ProjectUId;
-
-        //            artifactService.AddArtifact(artifact);
-        //        }
-
-        //    } catch (Exception ex) {
-        //        ScrumFactory.Services.Logic.Helper.Log.LogError(ex);                
-        //    }
-
-        //    try {
-        //        SendTicketEmail(item, path, project);
-        //    } catch (Exception ex) {
-        //        ScrumFactory.Services.Logic.Helper.Log.LogError(ex);
-        //    }
-
-        //}
 
         [WebGet(UriTemplate = "UnfinishedBacklogItems/?onlyMine={onlyMine}&projectFilter={projectFilter}", ResponseFormat = WebMessageFormat.Json)]
         public ICollection<ScrumFactory.BacklogItem> GetAllUnfinishedBacklogItems(bool onlyMine, string projectFilter) {
@@ -232,9 +191,17 @@ namespace ScrumFactory.Services.Logic {
             
             backlogRepository.SaveBacklogItem(item);
 
-            // if (project.ProjectType == (short)ProjectTypes.TICKET_PROJECT && ShouldCreateTicketFolders) {
-            //    CreateTicketFolder(project, item);                
-            // }
+            if (project.ProjectType == (short)ProjectTypes.TICKET_PROJECT)
+            {                
+                try
+                {
+                    SendTicketEmail(item, project);
+                }
+                catch (Exception ex)
+                {
+                    ScrumFactory.Services.Logic.Helper.Log.LogError(ex);
+                }
+            }
 
             return item.BacklogItemNumber;
         }
@@ -925,7 +892,7 @@ namespace ScrumFactory.Services.Logic {
             
         }
 
-        private void SendTicketEmail(BacklogItem ticket, string folder, Project project) {
+        private void SendTicketEmail(BacklogItem ticket, Project project) {
 
             try {
                 // get members and attach to the project
@@ -936,12 +903,11 @@ namespace ScrumFactory.Services.Logic {
                 ReportHelper.ReportConfig reportConfig = new ReportHelper.ReportConfig("EmailNotifications", "ticket_created", Helper.ReportTemplate.ServerUrl);
                 reportConfig.ReportObjects.Add(project);
                 reportConfig.ReportObjects.Add(ticket);
-                reportConfig.ReportVars.Add("TicketFolder", folder);
-
+                
                 string body = reports.CreateReportXAML(Helper.ReportTemplate.ServerUrl, reportConfig);
 
                 // subject
-                string subject = "Ticket #" + project.ProjectNumber + "." + ticket.BacklogItemNumber;
+                string subject = "Incidente #" + project.ProjectNumber + "." + ticket.BacklogItemNumber;
 
                 // send it to all project members
                 bool send = mailer.SendEmail(project, subject, body);
