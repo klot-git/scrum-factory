@@ -179,7 +179,18 @@ namespace ScrumFactory.Services.Logic {
                 return Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["ShouldCreateTicketFolders"]);
             }
         }
-        
+
+        private string TicketEmailSubject {
+            get {
+                var str = System.Configuration.ConfigurationManager.AppSettings["TicketEmailSubject"];
+                if (String.IsNullOrEmpty(str))
+                {
+                    return "Incident #{0}";
+                }
+                return str;
+            }
+        }
+
         [WebInvoke(Method = "POST", UriTemplate = "BacklogItems", RequestFormat = WebMessageFormat.Json)]
         public int AddBacklogItem(BacklogItem item) {
 
@@ -907,7 +918,12 @@ namespace ScrumFactory.Services.Logic {
                 string body = reports.CreateReportXAML(Helper.ReportTemplate.ServerUrl, reportConfig);
 
                 // subject
-                string subject = "Incidente #" + project.ProjectNumber + "." + ticket.BacklogItemNumber;
+                string subject = String.Format(TicketEmailSubject, project.ProjectNumber + "." + ticket.BacklogItemNumber);
+
+                if(!String.IsNullOrEmpty(ticket.ExternalId))
+                {
+                    subject = String.Format(TicketEmailSubject, ticket.ExternalId);
+                }
 
                 // send it to all project members
                 bool send = mailer.SendEmail(project, subject, body);
