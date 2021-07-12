@@ -242,9 +242,21 @@
                 // if is a new item insert it
                 if (oldItem == null) {
                     int? lastNumber = context.BacklogItems.Where(b => b.ProjectUId == item.ProjectUId).Max(b => (int?)b.BacklogItemNumber);
-                    if (lastNumber == null)
-                        lastNumber = 0;
+                    if (lastNumber == null) { lastNumber = 0; }                        
                     item.BacklogItemNumber = (int)lastNumber + 1;
+
+                    if (item.BusinessPriority == 0) {
+                        int? lastPriority = context.BacklogItems.Where(b => b.ProjectUId == item.ProjectUId).Max(b => (int?)b.BusinessPriority);
+                        if (lastPriority == null)
+                        {
+                            lastPriority = 1;
+                        } else
+                        {
+                            lastPriority = lastPriority + 10;
+                        }
+                        item.BusinessPriority = lastPriority.Value;
+                    }
+
                     context.BacklogItems.AddObject(item);                    
                 }                    
                 else {
