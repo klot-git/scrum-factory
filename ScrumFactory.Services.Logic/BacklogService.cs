@@ -665,11 +665,11 @@ namespace ScrumFactory.Services.Logic {
                 // get the item tasks
                 ICollection<Task> tasks = tasksService.GetItemTasks(item.BacklogItemUId);
 
+                // adds the item size
+                totalSize = totalSize + item.Size;
+
                 if (tasks.Count > 0) {
-
-                    // adds the item size
-                    totalSize = totalSize + item.Size;
-
+                                        
                     // adds the hours to the relative role
                     foreach (Role r in projectRoles) {
                         decimal hours = tasks.Where(t => t.RoleUId == r.RoleUId).Sum(t => t.EffectiveHours);
