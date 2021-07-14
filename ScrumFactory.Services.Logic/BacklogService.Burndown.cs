@@ -157,7 +157,7 @@ namespace ScrumFactory.Services.Logic {
 
 
                 // adds sprint start date
-                dayLeftHours.Add(new BurndownLeftHoursByDay() { Date = s.StartDate, TotalHours = sprintInitialHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS });
+                dayLeftHours.Add(new BurndownLeftHoursByDay() { Date = s.StartDate.Date, TotalHours = sprintInitialHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS });
 
                 // substract the finished items
                 lastHours = sprintInitialHours;
@@ -228,7 +228,7 @@ namespace ScrumFactory.Services.Logic {
 
         private decimal GetProjectPlannedHoursAtPlanning(int planningNumber, DateTime planningStartDate, ICollection<BacklogItem> items) {
             decimal h = 0;
-            foreach (BacklogItem item in items.Where(i => i.FinishedAt == null || i.FinishedAt.Value.Date > planningStartDate.Date))
+            foreach (BacklogItem item in items.Where(i => i.FinishedAt == null || i.FinishedAt.Value.Date >= planningStartDate.Date))
                 h = h + item.GetTotalHoursAtPlanning(planningNumber);
             return h;
         }
