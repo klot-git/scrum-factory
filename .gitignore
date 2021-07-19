@@ -89,3 +89,5 @@
 /ScrumFactory.Team/obj
 /ScrumFactory.Team.Test/obj
 /ScrumFactory.Risks.Test/obj/Debug
+/packages/EntityFramework.5.0.0
+/ScrumFactory.Services.Web/Web.config

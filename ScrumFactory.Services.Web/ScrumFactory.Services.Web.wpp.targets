@@ -1,0 +1,48 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <PackagePath Condition=" '$(PackagePath)'=='' ">website</PackagePath>
+    <EnableAddReplaceToUpdatePacakgePath Condition=" '$(EnableAddReplaceToUpdatePacakgePath)'=='' ">true</EnableAddReplaceToUpdatePacakgePath>
+    <PackageDependsOn>
+      $(PackageDependsOn);
+      AddReplaceRuleForAppPath;
+    </PackageDependsOn>
+  </PropertyGroup>
+
+
+
+  <Target Name="AddReplaceRuleForAppPath" Condition=" '$(EnableAddReplaceToUpdatePacakgePath)'=='true' ">
+    <PropertyGroup>
+      <_PkgPathFull Condition=" '$(WPPAllFilesInSingleFolder)'!='' ">$([System.IO.Path]::GetFullPath($(WPPAllFilesInSingleFolder)))</_PkgPathFull>
+      <!-- $(WPPAllFilesInSingleFolder) is not available on VS2010 so fall back to $(_PackageTempDir) -->
+      <_PkgPathFull Condition=" '$(_PkgPathFull)' == '' ">$([System.IO.Path]::GetFullPath($(_PackageTempDir)))</_PkgPathFull>      
+      <_PkgPathFull_SQL>$(MSBuildProjectDirectory)</_PkgPathFull_SQL>
+    </PropertyGroup>
+
+    <!-- escape the text into a regex -->
+    <EscapeTextForRegularExpressions Text="$(_PkgPathFull)">
+      <Output TaskParameter="Result" PropertyName="_PkgPathRegex" />
+    </EscapeTextForRegularExpressions>
+
+    <EscapeTextForRegularExpressions Text="$(_PkgPathFull_SQL)">
+      <Output TaskParameter="Result" PropertyName="_PkgPathRegex_SQL" />
+    </EscapeTextForRegularExpressions>
+
+    <!-- add the replace rule to update the path -->
+    <ItemGroup>
+      <MsDeployReplaceRules Include="replaceFullPath">
+        <Match>$(_PkgPathRegex)</Match>
+        <Replace>$(PackagePath)</Replace>
+      </MsDeployReplaceRules>
+    </ItemGroup>
+
+    <ItemGroup>
+      <MsDeployReplaceRules Include="replaceFullPath_SQL">
+        <Match>$(_PkgPathRegex_SQL)</Match>
+        <Replace>$(PackagePath)</Replace>
+      </MsDeployReplaceRules>
+    </ItemGroup>
+
+  </Target>
+
+</Project>
