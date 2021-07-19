@@ -332,8 +332,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'foster-factory.factory.BacklogItemEffectiveHours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        
         <EntityType Name="BacklogItemEffectiveHours">
           <Key>
             <PropertyRef Name="ProjectUId" />
@@ -345,8 +344,7 @@ warning 6002: The table/view 'foster-factory.factory.BacklogItemEffectiveHours' 
           <Property Name="SprintNumber" Type="int" Nullable="false" />
           <Property Name="EffectiveHours" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'foster-factory.factory.TaskInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        
         <EntityType Name="TaskInfo">
           <Key>
             <PropertyRef Name="TaskUId" />
