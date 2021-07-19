@@ -1,2 +1,0 @@
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.Risks.Test\obj\Debug\ScrumFactory.Risks.Test.csprojAssemblyReference.cache
-C:\Users\marcos.martins\source\repos\scrum-factory\ScrumFactory.Risks.Test\obj\Debug\ScrumFactory.Risks.Test.csproj.CoreCompileInputs.cache
