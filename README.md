@@ -1,4 +1,4 @@
-Scrum-factory
+Scrum Factory
 =============
 
 Scrum Factory is a client-server application to manage Scrum projects.
@@ -6,7 +6,7 @@ This repository contains the .Net server-side source-code.
 
 **Server Installation**<br>
 You can download and install the server binaries using this link:<br>
-https://github.com/klot-git/scrum-factory/releases/tag/Server
+https://github.com/klot-git/scrum-factory/releases
 
 Follow the instructions to install the server:
 
