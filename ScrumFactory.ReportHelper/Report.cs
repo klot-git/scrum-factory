@@ -51,7 +51,7 @@ namespace ScrumFactory.ReportHelper {
         /// <summary>
         /// Creates the report.
         /// </summary>
-        public string CreateReportXAML(string serverUrl, ReportConfig config) {
+        public string CreateReportXAML(string serverUrl, ReportConfig config, bool toUseAsHtml = false) {
 
             if (config.StaticXAMLReport != null)
                 return config.StaticXAMLReport;
@@ -102,7 +102,18 @@ namespace ScrumFactory.ReportHelper {
             xslt.Transform(xmlReader, xamlWriter);
 
             // sets the flow document at the view
-            return xamlBuffer.ToString();
+            var xaml = xamlBuffer.ToString();
+
+            if (toUseAsHtml)
+            {
+                xaml = MDParser.ConvertToHTML(xaml);
+            }
+            else
+            {
+                xaml = MDParser.ConvertToXAML(xaml);
+            }
+
+            return xaml;
 
 
         }
@@ -221,9 +232,6 @@ namespace ScrumFactory.ReportHelper {
             XpsDocument doc = new XpsDocument(package);
 
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
-
-            XpsPackagingPolicy packagePolicy = new XpsPackagingPolicy(doc);
-            XpsSerializationManager serializationMgr = new XpsSerializationManager(packagePolicy, false);
 
             writer.Write(paginator);
             doc.Close();

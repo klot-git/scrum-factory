@@ -921,11 +921,22 @@ namespace ScrumFactory.Services.Logic {
                 var template = "ticket_created";
                 if (PONotification) template = "ticket_createdPO";
 
-                ReportHelper.ReportConfig reportConfig = new ReportHelper.ReportConfig("EmailNotifications", template, Helper.ReportTemplate.ServerUrl);
+                // get project scrum masters
+                string scrumMasterStr = "";
+                if (project.Roles != null && project.Memberships != null)
+                {
+                    var scrumMasterRoles = project.Roles.Where(r => r.PermissionSet == (short)PermissionSets.SCRUM_MASTER).Select(r => r.RoleUId).ToArray();
+                    var scrumMasters = project.Memberships.Where(m => m.IsActive && scrumMasterRoles.Contains(m.RoleUId)).Select(m => m.MemberUId).ToArray();
+                    scrumMasterStr = string.Join(", ", scrumMasters);
+                }
+
+                ReportHelper.ReportConfig reportConfig = new ReportHelper.ReportConfig("EmailNotifications", template, Helper.ReportTemplate.ServerUrl);                
                 reportConfig.ReportObjects.Add(project);
                 reportConfig.ReportObjects.Add(ticket);
-                
-                string body = reports.CreateReportXAML(Helper.ReportTemplate.ServerUrl, reportConfig);
+                reportConfig.ReportVars.Add("ProjectScrumMasters", scrumMasterStr);
+
+
+                string body = reports.CreateReportXAML(Helper.ReportTemplate.ServerUrl, reportConfig, true);
 
                 // subject
                 string subject = String.Format(TicketEmailSubject, project.ProjectNumber + "." + ticket.BacklogItemNumber);

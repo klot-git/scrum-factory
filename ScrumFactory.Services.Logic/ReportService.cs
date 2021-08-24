@@ -85,7 +85,7 @@ namespace ScrumFactory.Services.Logic {
             if(templateGroup=="SprintReview" && template=="default10") {
                 BurndownConfig(config, project);
             }
-            
+
             Thread thread = new Thread(_GetReport);
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
@@ -156,16 +156,25 @@ namespace ScrumFactory.Services.Logic {
             foreach (BacklogItem item in items) {
                 item.ValidPlannedHours = item.GetValidPlannedHours();
 
-                int? firstSprint = item.ValidPlannedHours.Min(h => h.SprintNumber);
-                item.FirstSprintWorked = firstSprint.HasValue ? firstSprint.Value : project.LastSprint.SprintNumber;
-
-                int? lastSprint = item.ValidPlannedHours.Max(h => h.SprintNumber);
-                item.LastSprintWorked = lastSprint.HasValue ? lastSprint.Value : project.LastSprint.SprintNumber;
-
-                if (item.FirstSprintWorked < project.CurrentValidSprint.SprintNumber)
-                    item.OrderSprintWorked = item.LastSprintWorked;
+                if (item.ValidPlannedHours == null)
+                {
+                    item.FirstSprintWorked = 1;
+                    item.LastSprintWorked = 1;
+                    item.OrderSprintWorked = 1;
+                }
                 else
-                    item.OrderSprintWorked = item.FirstSprintWorked;
+                {
+                    int? firstSprint = item.ValidPlannedHours.Min(h => h.SprintNumber);
+                    item.FirstSprintWorked = firstSprint.HasValue ? firstSprint.Value : project.LastSprint.SprintNumber;
+
+                    int? lastSprint = item.ValidPlannedHours.Max(h => h.SprintNumber);
+                    item.LastSprintWorked = lastSprint.HasValue ? lastSprint.Value : project.LastSprint.SprintNumber;
+
+                    if (item.FirstSprintWorked < project.CurrentValidSprint.SprintNumber)
+                        item.OrderSprintWorked = item.LastSprintWorked;
+                    else
+                        item.OrderSprintWorked = item.FirstSprintWorked;
+                }
 
                 item.Group = groups.SingleOrDefault(g => g.GroupUId == item.GroupUId);
             }
@@ -179,6 +188,7 @@ namespace ScrumFactory.Services.Logic {
 
             // add end date
             config.AddReportVar("ProjectEndDate", project.LastSprint.EndDate);
+
             
             if (project.CurrentSprint != null) {
 
@@ -188,25 +198,55 @@ namespace ScrumFactory.Services.Logic {
                 }
                 else
                 {
-                    if (project.CurrentSprint.SprintNumber > 1)
-                    {
-                        config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
-                        config.ReportVars.Add("ProjectPreviousSprintNumber", (project.CurrentSprint.SprintNumber - 1).ToString());
-                    }
-                    else
-                    {
-                        if (project.Sprints.Count > project.CurrentSprint.SprintNumber + 1)
-                            config.ReportVars.Add("ProjectCurrentSprintNumber", (project.CurrentSprint.SprintNumber + 1).ToString());
-                        else
-                            config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                    // sets the current sprint
+                    // if its at the end of the sprint, consider the next sprint as current
+                    var currentSprint = project.CurrentSprint.SprintNumber;
+                    if (project.CurrentSprint.DaysLeft <= 4) currentSprint++;                    
+                    if (currentSprint > project.LastSprint.SprintNumber) currentSprint = project.LastSprint.SprintNumber;
 
-                        config.ReportVars.Add("ProjectPreviousSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                    // sets the previous sprint
+                    var previousSprint = currentSprint - 1;
+                    if (previousSprint < 1) {
+                        previousSprint = 1;
                     }
+                    config.ReportVars.Add("ProjectCurrentSprintNumber", currentSprint.ToString());
+                    config.ReportVars.Add("ProjectPreviousSprintNumber", previousSprint.ToString());
+
+                    //if (project.CurrentSprint.SprintNumber > 1)
+                    //{
+                    //    config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                    //    config.ReportVars.Add("ProjectPreviousSprintNumber", (project.CurrentSprint.SprintNumber - 1).ToString());
+                    //}
+                    //else
+                    //{
+                    //    if (project.Sprints.Count > project.CurrentSprint.SprintNumber + 1)
+                    //        config.ReportVars.Add("ProjectCurrentSprintNumber", (project.CurrentSprint.SprintNumber + 1).ToString());
+                    //    else
+                    //        config.ReportVars.Add("ProjectCurrentSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+
+                    //    config.ReportVars.Add("ProjectPreviousSprintNumber", project.CurrentSprint.SprintNumber.ToString());
+                    //}
                 }
             }
             
             return config;
 
+        }
+
+        private int MonthDiff(DateTime date1, DateTime date2)
+        {
+            if(date1==null || date2==null)
+            {
+                return 0;
+            }
+            if (date1.Month < date2.Month)
+            {
+                return (date2.Year - date1.Year) * 12 + date2.Month - date1.Month;
+            }
+            else
+            {
+                return (date2.Year - date1.Year - 1) * 12 + date2.Month - date1.Month + 12;
+            }
         }
 
         private void BurndownConfig(ReportHelper.ReportConfig config, ScrumFactory.Project project) {
@@ -263,6 +303,11 @@ namespace ScrumFactory.Services.Logic {
             config.ReportObjects.Add(itemsWithValue);
 
 
+            // proposal length
+            config.ReportVars.Add("ProposalMonthLength", MonthDiff(proposal.EstimatedStartDate, proposal.EstimatedEndDate).ToString());
+
+
+
         }
 
 
@@ -297,12 +342,14 @@ namespace ScrumFactory.Services.Logic {
                 //window.Left = Int32.MaxValue;
                 //window.ShowInTaskbar = false;
                 window.Show();
+
                 // Ensure that dispatcher has done the layout and render passes
-                Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Loaded, new Action(() => {
+                Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Loaded, new Action(() =>
+                {
                     viewer.Document = null;
                     window.Close();
                 }));
-                
+
             }
         }
 
@@ -319,7 +366,7 @@ namespace ScrumFactory.Services.Logic {
             var paginator = report.CreatePaginator(document, title, serverUrl);
             
             try {
-                
+
                 if (format == "pdf")
                     report.FlowDocumentToPDF(paginator, fileName, "report", true);
                 else

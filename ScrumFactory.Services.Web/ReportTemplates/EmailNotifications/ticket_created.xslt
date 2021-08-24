@@ -34,6 +34,10 @@
                   <xsl:value-of select="BacklogItem/Name"/>
                 </p>
 
+                <p style="font-family: Segoe UI">
+                  <xsl:value-of select="BacklogItem/Description"/>
+                </p>
+
                 <xsl:if test="string-length($docFolder) &gt; 0">
                 <p style="font-family: Segoe UI">
                   <b>Project documents folder:</b>

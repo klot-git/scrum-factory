@@ -113,7 +113,7 @@
           </TableCell>
           <TableCell >
             <BlockUIContainer>
-              <Image HorizontalAlignment="Right" VerticalAlignment="Bottom" Source="{$ServerUrl}/Images/Companylogo.png" Width="105" Margin="0,5,5,0"/>
+              <Image HorizontalAlignment="Right" VerticalAlignment="Bottom" Source="{$ServerUrl}/Images/Companylogo.png" Width="100" Height="93" Margin="0,5,5,0"/>
             </BlockUIContainer>
           </TableCell>
         </TableRow>

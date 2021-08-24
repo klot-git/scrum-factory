@@ -26,7 +26,7 @@
               </td>
               <td>
                 <p style="font-family: Segoe UI">
-                  POOOOOO The ticket <b>#<xsl:value-of select="BacklogItem/BacklogItemNumber"/></b> was created for the project <b>
+                  The ticket <b>#<xsl:value-of select="BacklogItem/BacklogItemNumber"/></b> was created for the project <b>
                     <xsl:value-of select="Project/ClientName"/> - <xsl:value-of select="Project/ProjectName"/> (<xsl:value-of select="$projectNumber"/>) </b>.                             
                 </p>
                 

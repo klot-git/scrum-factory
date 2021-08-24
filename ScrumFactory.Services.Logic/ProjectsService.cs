@@ -259,7 +259,7 @@ namespace ScrumFactory.Services.Logic {
                 reportConfig.ReportObjects.Add(project);
                 reportConfig.ReportVars.Add("LastSprintUId", project.LastSprint.SprintUId);
 
-                string body = reports.CreateReportXAML(serverUrl, reportConfig);
+                string body = reports.CreateReportXAML(serverUrl, reportConfig, true);
 
                 // subject
                 string subject = project.ProjectName + " STARTED !!";
@@ -293,7 +293,7 @@ namespace ScrumFactory.Services.Logic {
                 reportConfig.ReportVars.Add("BudgetIndicator", budgetIndicator.ToString("#0"));
                 reportConfig.ReportVars.Add("QualityIndicator", qualityIndicator.ToString("#0"));
 
-                string body = reports.CreateReportXAML(serverUrl, reportConfig);
+                string body = reports.CreateReportXAML(serverUrl, reportConfig, true);
 
                 // subject
                 string subject = project.ProjectName + " CLOSED !!";
@@ -329,7 +329,7 @@ namespace ScrumFactory.Services.Logic {
                 reportConfig.ReportObjects.Add(project);
                 reportConfig.ReportVars.Add("RoleName", membership.Role.RoleName);
 
-                string body = reports.CreateReportXAML(serverUrl, reportConfig);
+                string body = reports.CreateReportXAML(serverUrl, reportConfig, true);
 
                 // subject
                 string subject = "Join project invitation";
