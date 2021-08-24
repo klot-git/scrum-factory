@@ -91,3 +91,5 @@
 /ScrumFactory.Risks.Test/obj/Debug
 /packages/EntityFramework.5.0.0
 /ScrumFactory.Services.Web/Web.config
+/ScrumFactory.Data.Sql/App.Config
+/ScrumFactory/SF2019.pfx
