@@ -93,3 +93,6 @@
 /ScrumFactory.Services.Web/Web.config
 /ScrumFactory.Data.Sql/App.Config
 /ScrumFactory/SF2019.pfx
+/Deploy
+/ScrumFactory.Services.Web/Properties/PublishProfiles
+/ScrumFactory.Services.Web/*.user
