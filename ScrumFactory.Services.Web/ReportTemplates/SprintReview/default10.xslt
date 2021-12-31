@@ -434,6 +434,11 @@
           </TableRowGroup>
         </Table>
 
+        <xsl:call-template name="timeLine">
+          <xsl:with-param name="landscape" select="0" />
+          <xsl:with-param name="autoFit" select="1" />
+        </xsl:call-template>
+
       </FlowDocument>
     </xsl:template>
   

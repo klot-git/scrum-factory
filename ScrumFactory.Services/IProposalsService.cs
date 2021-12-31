@@ -19,7 +19,7 @@ namespace ScrumFactory.Services {
         Proposal AddProposal(string projectUId, Proposal newProposal);
 
         [OperationContract]
-        void UpdateProposal(string projectUId, Proposal proposal);
+        void UpdateProposal(string projectUId, Proposal proposal, bool revert = false);
 
         [OperationContract]
         RoleHourCost[] GetHourCosts(string projectUId);

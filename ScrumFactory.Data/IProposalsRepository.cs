@@ -6,7 +6,7 @@
         ICollection<Proposal> GetProjectProposals(string projectUId);
         Proposal GetProjectProposal(string projectUId, string proposalUId);
         ProposalDocument GetProposalDocument(string proposalUId);
-        void SaveProposal(Proposal proposal);
+        void SaveProposal(Proposal proposal, bool removeDocument = false);
 
         void CreateHourCosts(Project project, Project similarProject);
         RoleHourCost[] GetHourCosts(string projectUId);

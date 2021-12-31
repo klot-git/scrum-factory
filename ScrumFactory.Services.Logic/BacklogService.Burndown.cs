@@ -161,7 +161,7 @@ namespace ScrumFactory.Services.Logic {
 
                 // substract the finished items
                 lastHours = sprintInitialHours;
-                var sprintItems = items.Where(i => i.FinishedAt != null && i.FinishedAt >= s.StartDate && i.FinishedAt <= s.EndDate).OrderBy(i => i.FinishedAt);
+                var sprintItems = items.Where(i => i.FinishedAt.HasValue && i.FinishedAt.Value.Date >= s.StartDate.Date && i.FinishedAt.Value.Date <= s.EndDate.Date).OrderBy(i => i.FinishedAt);
                 foreach (BacklogItem item in sprintItems) {
                     lastDay = (DateTime)item.FinishedAt.Value.Date;
                     lastHours = lastHours - item.CurrentTotalHours;
@@ -176,7 +176,7 @@ namespace ScrumFactory.Services.Logic {
             }
 
             // adds today
-            if (DateTime.Today >= project.FirstSprint.StartDate && DateTime.Today <= project.LastSprint.EndDate)
+            if (DateTime.Today >= project.FirstSprint.StartDate.Date && DateTime.Today <= project.LastSprint.EndDate.Date)
                 if (dayLeftHours.SingleOrDefault(b => b.Date.Equals(DateTime.Today)) == null)
                     dayLeftHours.Add(new BurndownLeftHoursByDay() { Date = DateTime.Today, TotalHours = lastHours, LeftHoursMetric = LeftHoursMetrics.LEFT_HOURS });
 

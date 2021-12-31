@@ -184,4 +184,10 @@
   <xsl:variable name="_GRAPH_hrs_ahead" select="'hr(s) adiantado'" />
   <xsl:variable name="_GRAPH_hrs_late" select="'hr(s) atrasado'" />
 
+  <xsl:variable name="_The_project_will_be_divided_in" select="'O projeto será dividido em '" />
+  <xsl:variable name="_sprints" select="' sprints conforme ilustrado abaixo.'" />
+  <xsl:variable name="_The_project_will_start_at" select="' Deve iniciar em '" />
+  <xsl:variable name="_The_project_should_be_done_by" select="' e deve ser concluído em '" />
+
+
 </xsl:stylesheet>

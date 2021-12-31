@@ -190,7 +190,11 @@
   <xsl:variable name="_GRAPH_walked" select="'% walked'" />
   <xsl:variable name="_GRAPH_hrs_ahead" select="'hr(s) ahead'" />
   <xsl:variable name="_GRAPH_hrs_late" select="'hr(s) late'" />
-  
+
+  <xsl:variable name="_The_project_will_be_divided_in" select="'The project will be divided in '" />
+  <xsl:variable name="_sprints" select="' sprints as follow.'" />
+  <xsl:variable name="_The_project_will_start_at" select="' It starts at '" />
+  <xsl:variable name="_The_project_should_be_done_by" select="' and should be done by '" />
 
 
 </xsl:stylesheet>

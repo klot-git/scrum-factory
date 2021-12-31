@@ -35,7 +35,7 @@
             }
         }
 
-        public void SaveProposal(Proposal proposal) {
+        public void SaveProposal(Proposal proposal, bool removeDocument = false) {
             using (var context = new ScrumFactoryEntities(this.connectionString)) {
 
                 Proposal oldProposal = GetProjectProposal(proposal.ProjectUId, proposal.ProposalUId);
@@ -68,6 +68,12 @@
                         // if is approving a proposal, adds its XAML document
                         if (proposal.ProposalDocument != null)
                             context.ProposalDocuments.AddObject(proposal.ProposalDocument);
+                        else if(removeDocument)
+                        {
+                            var doc = context.ProposalDocuments.SingleOrDefault(d => d.ProposalUId == proposal.ProposalUId);
+                            if (doc !=null)
+                                context.ProposalDocuments.DeleteObject(doc);
+                        }
 
                         if (oldProposal.Items == null)
                             oldProposal.Items = new List<ProposalItem>();

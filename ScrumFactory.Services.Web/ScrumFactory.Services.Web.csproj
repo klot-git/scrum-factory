@@ -144,11 +144,17 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\packages\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="default.aspx.cs">
@@ -219,7 +225,6 @@
   <ItemGroup>
     <Content Include="App_Data\DB_SCRIPT\DB_SCRIPT.sql" />
     <Content Include="default.aspx" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\alert.png" />
     <Content Include="Images\chrome_logo.png" />
@@ -229,6 +234,7 @@
     <Content Include="Images\factorylogo.png" />
     <Content Include="Images\factoryLogoFooter.png" />
     <Content Include="Images\factorylogo_medium.png" />
+    <Content Include="Images\CompanyLogo-small.png" />
     <Content Include="Images\factorylogo_small.png" />
     <Content Include="Images\ff_logo.png" />
     <Content Include="Images\login_help.png" />

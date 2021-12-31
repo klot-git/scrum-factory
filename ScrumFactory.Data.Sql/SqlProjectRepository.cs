@@ -446,27 +446,53 @@
                 
                 foreach (Project p in projects) {
                     ProjectEvent e = new ProjectEvent() { ProjectUId = p.ProjectUId, ProjectName = p.ProjectName, ProjectNumber = p.ProjectNumber, EventType = (short)ProjectEventTypes.SPRINT_END };
-                    Sprint sprintThatWillStart = p.Sprints.OrderBy(s => s.SprintNumber).FirstOrDefault(s => s.StartDate < limitDate && s.StartDate >= System.DateTime.Today);
-                    Sprint sprintThatWillEnd = p.Sprints.OrderBy(s => s.SprintNumber).FirstOrDefault(s => s.EndDate < limitDate && s.EndDate >= System.DateTime.Today);
-                    
-                    if (sprintThatWillEnd != null) {
-                        if(sprintThatWillEnd==p.LastSprint)
+                    Sprint sprintThatWillStart = p.Sprints.OrderBy(s => s.SprintNumber).FirstOrDefault(s => s.StartDate.Date < limitDate && s.StartDate.Date >= System.DateTime.Today);
+                    Sprint sprintThatWillEnd = p.Sprints.OrderBy(s => s.SprintNumber).FirstOrDefault(s => s.EndDate.Date < limitDate && s.EndDate.Date >= System.DateTime.Today);
+
+                    if (sprintThatWillEnd != null)
+                    {
+                        if (sprintThatWillEnd == p.LastSprint)
                             e.EventType = (short)ProjectEventTypes.PROJECT_END;
                         e.When = sprintThatWillEnd.EndDate;
                         e.SprintNumber = sprintThatWillEnd.SprintNumber;
                     }
-
-                    if(sprintThatWillStart!=null) {
-                        e.When = sprintThatWillStart.StartDate;
-                        e.SprintNumber = sprintThatWillStart.SprintNumber;
-                        if(e.SprintNumber==1)
-                            e.EventType = (short)ProjectEventTypes.PROJECT_START;
+                    else
+                    {
+                        if (sprintThatWillStart != null)
+                        {
+                            e.When = sprintThatWillStart.StartDate;
+                            e.SprintNumber = sprintThatWillStart.SprintNumber;
+                            if (e.SprintNumber == 1)
+                                e.EventType = (short)ProjectEventTypes.PROJECT_START;
+                            else
+                                e.EventType = (short)ProjectEventTypes.SPRINT_START;
+                        }
                     }
 
                     events.Add(e);
-                   
                 }
-                
+
+                // late projects
+                try
+                {
+                    var today = System.DateTime.Today;
+                    ICollection<Project> lateProjects = context.Projects.Include("Sprints").Where(p =>
+                      (p.Status == (short)ProjectStatus.PROJECT_STARTED || p.Status == (short)ProjectStatus.PROPOSAL_APPROVED)
+                      && p.ProjectType != (short)ProjectTypes.SUPPORT_PROJECT
+                      && p.IsSuspended == false
+                      && p.Memberships.Any(ms => ms.MemberUId == memberUId && ms.IsActive == true && ms.Role.PermissionSet == (short)PermissionSets.SCRUM_MASTER)
+                      && p.Sprints.Max(s => s.EndDate) < today).ToList();
+
+                    foreach (var p in lateProjects)
+                    {
+                        var e2 = new ProjectEvent() { ProjectUId = p.ProjectUId, ProjectName = p.ProjectName, ProjectNumber = p.ProjectNumber, EventType = (short)ProjectEventTypes.PROJECT_LATE };
+                        e2.When = p.LastSprint.EndDate.Date;
+                        events.Add(e2);
+                    }
+                }
+                catch (System.Exception) { }
+
+
             }
 
             return events;

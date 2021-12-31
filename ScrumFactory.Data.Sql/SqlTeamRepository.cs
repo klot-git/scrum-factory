@@ -17,7 +17,7 @@
             this.connectionString = connectionString;
         }
 
-        public ICollection<ScrumFactory.MemberProfile> GetAllMembers(string filter, int availability, string[] companies, bool activeOnly, string workingWithUId, int top, bool includeProjects) {
+        public ICollection<ScrumFactory.MemberProfile> GetAllMembers(string filter, int availability, string[] companies, bool activeOnly, string workingWithUId, int top, bool includeProjects, bool includeProposals, bool includeSupport) {
             using (var context = new ScrumFactoryEntities(this.connectionString)) {
 
                 // members and membeeships with allocation
@@ -57,7 +57,7 @@
 
                 if (includeProjects) {
                     var ids = filteredMembersArray.Select(m => m.MemberUId).ToArray();
-                    var projects = GetActiveProjectsFromUsers(ids);
+                    var projects = GetActiveProjectsFromUsers(ids, includeProposals, includeSupport);
                     foreach(var m in filteredMembersArray)
                     {
                         m.Memberships = projects.Where(pm => pm.MemberUId == m.MemberUId).GroupBy(pm => pm.ProjectUId).Select(g => g.First()).ToList();
@@ -183,16 +183,30 @@
             }
         }
 
-        public ICollection<ProjectMembership> GetActiveProjectsFromUsers(string[] memberUIds)
+        public ICollection<ProjectMembership> GetActiveProjectsFromUsers(string[] memberUIds, bool includeProposals, bool includeSupport)
         {
             using (var context = new ScrumFactoryEntities(this.connectionString))
             {
-                var memberships = context.ProjectMemberships.Include("Project.Sprints").Where(m =>
-                    memberUIds.Contains(m.MemberUId) &&
-                    m.IsActive == true &&
-                    m.Project.Status == (int) ProjectStatus.PROJECT_STARTED &&
-                    m.Project.IsSuspended == false &&
-                    m.Project.ProjectType == (int) ProjectTypes.NORMAL_PROJECT).ToArray();
+                var membershipsQuery = context.ProjectMemberships.Include("Project.Sprints").Where(m =>
+                    memberUIds.Contains(m.MemberUId) && m.IsActive == true && m.Project.IsSuspended == false);
+
+                if (includeProposals)
+                {
+                    membershipsQuery = membershipsQuery.Where(m => m.Project.Status == (int)ProjectStatus.PROJECT_STARTED || m.Project.Status == (int)ProjectStatus.PROPOSAL_APPROVED || m.Project.Status == (int)ProjectStatus.PROJECT_SUPPORT || m.Project.Status == (int)ProjectStatus.PROPOSAL_CREATION);
+                } else
+                {
+                    membershipsQuery = membershipsQuery.Where(m => m.Project.Status == (int)ProjectStatus.PROJECT_STARTED || m.Project.Status == (int)ProjectStatus.PROPOSAL_APPROVED || m.Project.Status == (int)ProjectStatus.PROJECT_SUPPORT);
+                }
+
+                if (includeSupport)
+                {
+                    membershipsQuery = membershipsQuery.Where(m => m.Project.ProjectType == (int)ProjectTypes.NORMAL_PROJECT || m.Project.ProjectType == (int)ProjectTypes.TICKET_PROJECT);
+                } else
+                {
+                    membershipsQuery = membershipsQuery.Where(m => m.Project.ProjectType == (int)ProjectTypes.NORMAL_PROJECT);
+                }
+                    
+                var memberships = membershipsQuery.ToArray();
 
                 // avoid recurisve XML
                 foreach(var m in memberships)

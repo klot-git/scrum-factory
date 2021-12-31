@@ -109,15 +109,43 @@ namespace ScrumFactory.Services.Logic {
             proposalsRepository.CreateHourCosts(project, similar);
         }
 
-        [WebInvoke(Method = "PUT", UriTemplate = "ProjectProposals/{projectUId}/", ResponseFormat = WebMessageFormat.Json)]
-        public void UpdateProposal(string projectUId, Proposal proposal) {
+        [WebInvoke(Method = "PUT", UriTemplate = "ProjectProposals/{projectUId}/?revert={revert}", ResponseFormat = WebMessageFormat.Json)]
+        public void UpdateProposal(string projectUId, Proposal proposal, bool revert = false) {
 
             // verifies permission
             authorizationService.VerifyPermissionAtProject(projectUId, PermissionSets.SCRUM_MASTER);
             authorizationService.VerifyCanSeeProposalValues();
 
+            if(revert)
+            {
+                RevertProposal(projectUId, proposal.ProposalUId);
+                return;
+            }
+
             proposalsRepository.SaveProposal(proposal);
 
+        }
+
+        private void RevertProposal(string projectUId, string proposalUId)
+        {
+            // update proposal status
+            Proposal proposal = GetProjectProposal(projectUId, proposalUId);
+            proposal.ApprovalDate = null;
+            proposal.RejectReason = null;
+            proposal.ProposalStatus = (short)ProposalStatus.PROPOSAL_WAITING;
+            proposal.ApprovedBy = null;
+
+            proposal.ProposalDocument = null;
+
+            proposalsRepository.SaveProposal(proposal, true);
+
+            // update project status
+            Project project = projectsService.GetProject(projectUId);
+            ICollection<Proposal> projectProposals = GetProjectProposals(projectUId);
+            if (projectProposals.Any(pp => pp.ProposalStatus == (short)ProposalStatus.PROPOSAL_APPROVED))
+                projectsService.ChangeProjectStatus(projectUId, "", (short)ProjectStatus.PROPOSAL_APPROVED);
+            else
+                projectsService.ChangeProjectStatus(projectUId, "", (short)ProjectStatus.PROPOSAL_CREATION);
         }
 
         [WebGet(UriTemplate = "ProjectRoleHoursCosts/{projectUId}/", ResponseFormat = WebMessageFormat.Json)]

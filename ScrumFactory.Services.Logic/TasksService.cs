@@ -130,6 +130,26 @@ namespace ScrumFactory.Services.Logic {
             return tasksRepository.GetTodayMemberPlannedHoursByUIds(membersUIds);
         }
 
+        /// <summary>
+        /// Temporay fix random cases of tasks being saved without RoleUId
+        /// </summary>
+        /// <param name="task"></param>
+        private void FixTaskRoleNullIssue(Task task)
+        {
+            // if has roleuId or if has no effective time, get out
+            if(task.RoleUId != null || task.EffectiveHours == 0 || task.TaskAssigneeUId == null)
+            {
+                return;
+            }
+            var project = projectsService.GetProject(task.ProjectUId);
+            if (project == null) return;
+
+            var membership = project.Memberships.FirstOrDefault(m => m.MemberUId == task.TaskAssigneeUId);
+            if (membership == null) return;
+
+            task.RoleUId = membership.RoleUId;
+        }
+
         [WebInvoke(Method="POST", UriTemplate = "Tasks/", ResponseFormat = WebMessageFormat.Json)]        
         public int CreateTask(Task task) {
 
@@ -139,12 +159,22 @@ namespace ScrumFactory.Services.Logic {
             if (!authorizationService.IsProjectScrumMaster(task.ProjectUId) && task.TaskAssigneeUId != authorizationService.SignedMemberProfile.MemberUId)
                 throw new WebFaultException(System.Net.HttpStatusCode.Forbidden);
 
+
             Project project = projectsService.GetProject(task.ProjectUId);
             BacklogItem item = backlogService.GetBacklogItem(task.BacklogItemUId);
             
             //task.Status = (short)TaskStatus.REQUIRED_TASK; // no with paste, we can create task with other status
             task.CreatedAt = System.DateTime.Now;
             task.TaskOwnerUId = authorizationService.SignedMemberProfile.MemberUId;
+
+            if (task.RoleUId == null)
+                SetRoleAccordingAssignee(task, project, false);
+
+
+            if (task.TaskAssigneeUId != null && task.RoleUId == null)
+            {
+                throw new WebFaultException(System.Net.HttpStatusCode.Forbidden);
+            }
 
             tasksRepository.SaveTask(task);
             
@@ -217,6 +247,9 @@ namespace ScrumFactory.Services.Logic {
 
             task.AdjustDateWithStatus(now);
             task.EffectiveHours = task.EffectiveHours + addingHours;
+
+            FixTaskRoleNullIssue(task);
+
             tasksRepository.SaveTask(task);
 
             // now changes the item status to working
@@ -230,7 +263,9 @@ namespace ScrumFactory.Services.Logic {
 
             Task task = GetTask(taskUId);
             VerifyIfCanEditTask(task);
-            
+
+            FixTaskRoleNullIssue(task);
+
             task.TaskType = type;
             tasksRepository.SaveTask(task);            
         }
@@ -250,12 +285,13 @@ namespace ScrumFactory.Services.Logic {
             task.TaskAssigneeUId = taskAssigneeUId;
             SetRoleAccordingAssignee(task, project, replanItem);
 
-
             tasksRepository.SaveTask(task);
         }
 
         private void SetRoleAccordingAssignee(Task task, Project project, bool replanItem) {
-            
+
+            if (task.TaskAssigneeUId == null) return;
+
             ProjectMembership membership = project.Memberships.Where(ms => ms.MemberUId == task.TaskAssigneeUId && ms.IsActive==true).FirstOrDefault();
             if (membership == null)
                 return;
@@ -272,6 +308,8 @@ namespace ScrumFactory.Services.Logic {
             Task task = GetTask(taskUId);
             VerifyIfCanEditTask(task);
 
+            FixTaskRoleNullIssue(task);
+
             task.TaskName = taskName;
             tasksRepository.SaveTask(task);
         }
@@ -281,6 +319,8 @@ namespace ScrumFactory.Services.Logic {
 
             Task task = GetTask(taskUId);
             VerifyIfCanEditTask(task);
+
+            FixTaskRoleNullIssue(task);
 
             task.BacklogItemUId = backlogItemUId;
             tasksRepository.SaveTask(task);
@@ -294,6 +334,8 @@ namespace ScrumFactory.Services.Logic {
             VerifyIfCanEditTask(task);
 
             decimal oldHours = task.PlannedHours;
+
+            FixTaskRoleNullIssue(task);
 
             task.PlannedHours = plannedHours;
             tasksRepository.SaveTask(task);
@@ -318,6 +360,8 @@ namespace ScrumFactory.Services.Logic {
                 task.Status = (short)TaskStatus.WORKING_ON_TASK;
                 task.AdjustDateWithStatus(System.DateTime.Now);
             }
+
+            FixTaskRoleNullIssue(task);
 
             tasksRepository.SaveTask(task);
 

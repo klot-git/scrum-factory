@@ -133,8 +133,9 @@ namespace ScrumFactory.Services.Logic {
         private ReportHelper.ReportConfig CreateReportConfig(ScrumFactory.Project project, string group, string template, string name) {
 
             var config = new ReportHelper.ReportConfig(group, template, name);
-            
+
             // add project
+            project.Sprints = project.Sprints.OrderBy(s => s.SprintNumber).ToList();
             config.ReportObjects.Add(project);
 
             // get project members

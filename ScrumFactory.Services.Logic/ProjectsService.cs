@@ -147,7 +147,7 @@ namespace ScrumFactory.Services.Logic {
             if (status == (short)ProjectStatus.PROJECT_DONE)
                 project = CloseProject(projectUId, option.Equals("CLOSE_ITEMS"));
 
-            if (status == (short)ProjectStatus.PROPOSAL_APPROVED || status == (short)ProjectStatus.PROPOSAL_REJECTED) {
+            if (status == (short)ProjectStatus.PROPOSAL_APPROVED || status == (short)ProjectStatus.PROPOSAL_REJECTED || status == (short) ProjectStatus.PROPOSAL_CREATION) {
                 project = GetProject(projectUId);
                 project.Status = status;
                 UpdateProject(project.ProjectUId, project);

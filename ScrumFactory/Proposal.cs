@@ -103,6 +103,8 @@ namespace ScrumFactory {
             if (item == null)
                 return 0;
             decimal? price = 0;
+            if (item.PlannedHours == null)
+                return 0;
             foreach (PlannedHour h in item.PlannedHours) {
                 RoleHourCost roleCost = roleHourCosts.SingleOrDefault(r => r.RoleUId == h.RoleUId);
                 if (roleCost != null)

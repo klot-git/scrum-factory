@@ -5,10 +5,15 @@ using System.Linq;
 
 namespace ScrumFactory {
 
-    public enum ProjectEventTypes : short {
+    public enum ProjectEventTypes : short
+    {
         PROJECT_START,
         SPRINT_END,
-        PROJECT_END
+        PROJECT_END,
+        SPRINT_START,
+        PROJECT_LATE,
+        PROJECT_WITHOUT_PROPOSAL,
+        NEW_TASKS
     }
 
     [DataContract]
